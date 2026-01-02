@@ -1,8 +1,7 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
+import { z } from "https://deno.land/x/zod@v3.22.4/mod.ts";
 
 const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
-
-
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -10,20 +9,25 @@ const corsHeaders = {
     "authorization, x-client-info, apikey, content-type",
 };
 
-interface InquiryEmailRequest {
-  imePriimek: string;
-  podjetje: string;
-  email: string;
-  telefon: string;
-  kajPotrebujes: string;
-  podstrani: string;
-  vsebina: string;
-  funkcionalnosti: string[];
-  rok: string;
-  dodatno: string;
-  cenaMin: number;
-  cenaMax: number;
-}
+// Server-side validation schema
+const InquirySchema = z.object({
+  imePriimek: z.string().min(2, "Name must be at least 2 characters").max(100, "Name must be less than 100 characters").trim(),
+  podjetje: z.string().max(100, "Company name must be less than 100 characters").trim().optional().nullable(),
+  email: z.string().email("Invalid email address").max(255, "Email must be less than 255 characters").trim(),
+  telefon: z.string().max(20, "Phone must be less than 20 characters").trim().optional().nullable(),
+  kajPotrebujes: z.enum(["landing", "spletna", "trgovina", "mvp"], { errorMap: () => ({ message: "Invalid project type" }) }),
+  podstrani: z.enum(["1", "2-5", "6-10", "10+"], { errorMap: () => ({ message: "Invalid subpages selection" }) }),
+  vsebina: z.enum(["da", "delno", "ne"], { errorMap: () => ({ message: "Invalid content selection" }) }),
+  funkcionalnosti: z.array(z.enum(["kontakt", "rezervacije", "blog", "jeziki", "newsletter", "placila", "login"])).default([]),
+  rok: z.enum(["2-4", "7-10", "asap"], { errorMap: () => ({ message: "Invalid deadline selection" }) }),
+  dodatno: z.string().max(2000, "Additional info must be less than 2000 characters").trim().optional().nullable(),
+  cenaMin: z.number().int().min(0, "Price must be positive").max(100000, "Price exceeds maximum"),
+  cenaMax: z.number().int().min(0, "Price must be positive").max(100000, "Price exceeds maximum"),
+}).refine((data) => data.cenaMax >= data.cenaMin, {
+  message: "Maximum price must be greater than or equal to minimum price",
+});
+
+type InquiryEmailRequest = z.infer<typeof InquirySchema>;
 
 const projectTypeLabels: Record<string, string> = {
   landing: "Landing stran",
@@ -68,7 +72,27 @@ const handler = async (req: Request): Promise<Response> => {
   }
 
   try {
-    const data: InquiryEmailRequest = await req.json();
+    const rawData = await req.json();
+    console.log("Received raw inquiry data");
+
+    // Server-side validation
+    const parseResult = InquirySchema.safeParse(rawData);
+    
+    if (!parseResult.success) {
+      console.error("Validation failed:", parseResult.error.errors);
+      return new Response(
+        JSON.stringify({ 
+          error: "Invalid input data", 
+          details: parseResult.error.errors.map(e => e.message) 
+        }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json", ...corsHeaders },
+        }
+      );
+    }
+
+    const data: InquiryEmailRequest = parseResult.data;
     console.log("Received inquiry data:", data);
 
     const now = new Date();
