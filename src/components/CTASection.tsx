@@ -4,13 +4,13 @@ import { ArrowRight } from "lucide-react";
 
 const CTASection = () => {
   return (
-    <section className="py-20 md:py-28 bg-muted">
+    <section className="py-24 md:py-32 bg-background">
       <div className="container">
         <div className="max-w-2xl mx-auto text-center">
-          <h2 className="font-heading text-3xl md:text-4xl font-semibold text-foreground mb-6">
+          <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-semibold text-foreground mb-6">
             Pripravljen/a na naslednji korak?
           </h2>
-          <p className="text-muted-foreground text-lg mb-10">
+          <p className="text-muted-foreground text-lg mb-12">
             Izpolni kratek vprašalnik in takoj vidiš oceno investicije.
           </p>
           <Button variant="hero" size="xl" asChild>

@@ -3,9 +3,9 @@ import { Mail, MapPin } from "lucide-react";
 
 const Footer = () => {
   return (
-    <footer className="bg-muted border-t border-border">
-      <div className="container py-12 md:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <footer className="bg-muted/30 border-t border-border/50">
+      <div className="container py-16 md:py-20">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           {/* Brand */}
           <div>
             <Link
@@ -14,24 +14,24 @@ const Footer = () => {
             >
               ZAN LABS
             </Link>
-            <p className="mt-3 text-muted-foreground text-sm max-w-xs">
+            <p className="mt-4 text-muted-foreground text-sm max-w-xs leading-relaxed">
               Spletne strani, ki prinašajo povpraševanja. Od ideje do online v nekaj dneh.
             </p>
           </div>
 
           {/* Contact */}
           <div>
-            <h4 className="font-heading font-semibold text-foreground mb-4">Kontakt</h4>
-            <div className="space-y-3">
+            <h4 className="font-heading font-semibold text-foreground mb-5">Kontakt</h4>
+            <div className="space-y-4">
               <a
                 href="mailto:zan@email.com"
-                className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors text-sm"
+                className="flex items-center gap-3 text-muted-foreground hover:text-foreground transition-colors duration-300 text-sm"
               >
-                <Mail size={16} />
+                <Mail size={16} className="text-foreground/50" />
                 zan@email.com
               </a>
-              <div className="flex items-center gap-2 text-muted-foreground text-sm">
-                <MapPin size={16} />
+              <div className="flex items-center gap-3 text-muted-foreground text-sm">
+                <MapPin size={16} className="text-foreground/50" />
                 Slovenija
               </div>
             </div>
@@ -39,23 +39,23 @@ const Footer = () => {
 
           {/* Social */}
           <div>
-            <h4 className="font-heading font-semibold text-foreground mb-4">Družbena omrežja</h4>
-            <div className="flex gap-4">
+            <h4 className="font-heading font-semibold text-foreground mb-5">Družbena omrežja</h4>
+            <div className="flex gap-6">
               <a
                 href="#"
-                className="text-muted-foreground hover:text-foreground transition-colors text-sm"
+                className="text-muted-foreground hover:text-foreground transition-colors duration-300 text-sm"
               >
                 LinkedIn
               </a>
               <a
                 href="#"
-                className="text-muted-foreground hover:text-foreground transition-colors text-sm"
+                className="text-muted-foreground hover:text-foreground transition-colors duration-300 text-sm"
               >
                 Instagram
               </a>
               <a
                 href="#"
-                className="text-muted-foreground hover:text-foreground transition-colors text-sm"
+                className="text-muted-foreground hover:text-foreground transition-colors duration-300 text-sm"
               >
                 Twitter
               </a>
@@ -63,7 +63,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-border">
+        <div className="mt-16 pt-8 border-t border-border/50">
           <p className="text-muted-foreground text-sm text-center">
             © {new Date().getFullYear()} ZAN LABS. Vse pravice pridržane.
           </p>

@@ -27,9 +27,9 @@ const Header = () => {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         isScrolled
-          ? "bg-background/95 backdrop-blur-md border-b border-border shadow-subtle"
+          ? "bg-background/90 backdrop-blur-xl border-b border-border/50"
           : "bg-transparent"
       }`}
     >
@@ -37,7 +37,7 @@ const Header = () => {
         <div className="flex items-center justify-between h-16 md:h-20">
           <Link
             to="/"
-            className="font-heading text-xl md:text-2xl font-semibold tracking-tight text-foreground hover:opacity-80 transition-opacity"
+            className="font-heading text-xl md:text-2xl font-semibold tracking-tight text-foreground hover:opacity-70 transition-opacity duration-300"
           >
             ZAN LABS
           </Link>
@@ -49,7 +49,7 @@ const Header = () => {
                 <a
                   key={link.href}
                   href={link.href}
-                  className="text-muted-foreground hover:text-foreground transition-colors text-sm font-medium"
+                  className="text-muted-foreground hover:text-foreground transition-colors duration-300 text-sm font-medium"
                 >
                   {link.label}
                 </a>
@@ -61,7 +61,7 @@ const Header = () => {
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden p-2 text-foreground"
+            className="md:hidden p-2 text-foreground hover:opacity-70 transition-opacity"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Toggle menu"
           >
@@ -72,14 +72,14 @@ const Header = () => {
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden bg-background border-b border-border animate-fade-in">
+        <div className="md:hidden bg-background/95 backdrop-blur-xl border-b border-border/50 animate-fade-in">
           <nav className="container py-6 flex flex-col gap-4">
             {isHome &&
               navLinks.map((link) => (
                 <a
                   key={link.href}
                   href={link.href}
-                  className="text-muted-foreground hover:text-foreground transition-colors text-base font-medium py-2"
+                  className="text-muted-foreground hover:text-foreground transition-colors duration-300 text-base font-medium py-2"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {link.label}

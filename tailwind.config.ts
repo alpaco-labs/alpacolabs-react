@@ -47,11 +47,7 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        cream: "hsl(var(--cream))",
-        warm: "hsl(var(--warm))",
-        dark: "hsl(var(--dark))",
-        "gray-light": "hsl(var(--gray-light))",
-        "gray-medium": "hsl(var(--gray-medium))",
+        "surface-elevated": "hsl(var(--surface-elevated))",
       },
       fontFamily: {
         heading: ['Outfit', 'sans-serif'],
