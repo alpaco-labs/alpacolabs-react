@@ -48,23 +48,23 @@ const projects: Project[] = [
 
 const PortfolioSection = () => {
   return (
-    <section id="portfolio" className="py-20 md:py-28 bg-muted">
+    <section id="portfolio" className="py-24 md:py-32 bg-background">
       <div className="container">
-        <div className="text-center mb-12 md:mb-16">
-          <h2 className="font-heading text-3xl md:text-4xl font-semibold text-foreground">
+        <div className="text-center mb-16 md:mb-20">
+          <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-semibold text-foreground">
             Izbrani projekti
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {projects.map((project, index) => (
             <div
               key={project.id}
-              className="group bg-card border border-border rounded-lg overflow-hidden hover-lift animate-slide-up"
-              style={{ animationDelay: `${index * 0.1}s` }}
+              className="group bg-card border border-border rounded-xl overflow-hidden hover-lift border-glow animate-slide-up"
+              style={{ animationDelay: `${index * 0.08}s` }}
             >
-              <div className="aspect-video bg-secondary relative overflow-hidden">
-                <div className="absolute inset-0 bg-foreground/5 group-hover:bg-foreground/10 transition-colors" />
+              <div className="aspect-video bg-secondary/50 relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-muted/30 to-transparent" />
                 <div className="absolute inset-0 flex items-center justify-center">
                   <span className="text-muted-foreground text-sm">Vizualizacija</span>
                 </div>
@@ -81,7 +81,7 @@ const PortfolioSection = () => {
                     <Badge
                       key={tag}
                       variant="secondary"
-                      className="text-xs font-medium"
+                      className="text-xs font-medium bg-secondary/70 text-secondary-foreground border-0"
                     >
                       {tag}
                     </Badge>
@@ -92,7 +92,7 @@ const PortfolioSection = () => {
           ))}
         </div>
 
-        <p className="text-center text-muted-foreground text-sm mt-10">
+        <p className="text-center text-muted-foreground text-sm mt-12">
           Primeri so demonstracijski (demo projekti).
         </p>
       </div>

@@ -23,31 +23,31 @@ const steps = [
 
 const ProcessSection = () => {
   return (
-    <section id="proces" className="py-20 md:py-28 bg-muted">
+    <section id="proces" className="py-24 md:py-32 bg-background">
       <div className="container">
-        <div className="text-center mb-12 md:mb-16">
-          <h2 className="font-heading text-3xl md:text-4xl font-semibold text-foreground">
+        <div className="text-center mb-16 md:mb-20">
+          <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-semibold text-foreground">
             Kako poteka sodelovanje
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 max-w-4xl mx-auto">
           {steps.map((step, index) => (
             <div
               key={step.id}
               className="text-center animate-slide-up"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
-              <div className="w-16 h-16 bg-secondary rounded-full flex items-center justify-center mx-auto mb-6">
-                <step.icon size={28} className="text-foreground" />
+              <div className="w-16 h-16 bg-secondary/50 border border-border rounded-2xl flex items-center justify-center mx-auto mb-6">
+                <step.icon size={26} className="text-foreground/80" />
               </div>
-              <div className="text-sm font-medium text-muted-foreground mb-2">
+              <div className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-3">
                 Korak {step.id}
               </div>
               <h3 className="font-heading text-lg font-semibold text-foreground mb-3">
                 {step.title}
               </h3>
-              <p className="text-muted-foreground text-sm leading-relaxed">
+              <p className="text-muted-foreground text-sm leading-relaxed max-w-xs mx-auto">
                 {step.description}
               </p>
             </div>

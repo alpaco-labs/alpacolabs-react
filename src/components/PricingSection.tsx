@@ -61,10 +61,10 @@ const packages: Package[] = [
 
 const PricingSection = () => {
   return (
-    <section id="storitve" className="py-20 md:py-28">
+    <section id="storitve" className="py-24 md:py-32 bg-muted/30">
       <div className="container">
-        <div className="text-center mb-12 md:mb-16">
-          <h2 className="font-heading text-3xl md:text-4xl font-semibold text-foreground">
+        <div className="text-center mb-16 md:mb-20">
+          <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-semibold text-foreground">
             Paketi
           </h2>
         </div>
@@ -73,8 +73,8 @@ const PricingSection = () => {
           {packages.map((pkg, index) => (
             <div
               key={pkg.id}
-              className="bg-card border border-border rounded-lg p-6 hover-lift animate-slide-up"
-              style={{ animationDelay: `${index * 0.1}s` }}
+              className="bg-card border border-border rounded-xl p-6 hover-lift border-glow animate-slide-up"
+              style={{ animationDelay: `${index * 0.08}s` }}
             >
               <h3 className="font-heading text-lg font-semibold text-foreground mb-2">
                 {pkg.name}
@@ -84,8 +84,8 @@ const PricingSection = () => {
               </p>
               <ul className="space-y-3 mb-6">
                 {pkg.features.map((feature) => (
-                  <li key={feature} className="flex items-start gap-2 text-sm text-muted-foreground">
-                    <Check size={16} className="text-foreground mt-0.5 flex-shrink-0" />
+                  <li key={feature} className="flex items-start gap-3 text-sm text-muted-foreground">
+                    <Check size={16} className="text-foreground/70 mt-0.5 flex-shrink-0" />
                     {feature}
                   </li>
                 ))}
@@ -97,7 +97,7 @@ const PricingSection = () => {
           ))}
         </div>
 
-        <p className="text-center text-muted-foreground text-sm mt-10">
+        <p className="text-center text-muted-foreground text-sm mt-12">
           Končna cena je odvisna od obsega in funkcionalnosti.
         </p>
       </div>
