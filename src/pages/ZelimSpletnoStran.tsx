@@ -8,6 +8,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ArrowLeft, ArrowRight, Check, Calculator } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
@@ -210,21 +211,59 @@ const ZelimSpletnoStran = () => {
 
     setIsSubmitting(true);
 
-    // Simulate submission - in production, this would call an edge function
     try {
-      // For now, just log the data
-      console.log("Form submitted:", {
-        ...formData,
-        cenaMin: price.min,
-        cenaMax: price.max,
-        submittedAt: new Date().toISOString(),
-      });
+      // 1. Save to database
+      const { error: dbError } = await supabase
+        .from("povprasevanja")
+        .insert({
+          ime_priimek: formData.imePriimek,
+          podjetje: formData.podjetje || null,
+          email: formData.email,
+          telefon: formData.telefon || null,
+          kaj_potrebuje: formData.kajPotrebujes,
+          podstrani: formData.podstrani,
+          vsebina: formData.vsebina,
+          funkcionalnosti: formData.funkcionalnosti,
+          rok: formData.rok,
+          dodatno: formData.dodatno || null,
+          cena_min: price.min,
+          cena_max: price.max,
+        });
 
-      // Simulate API delay
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      if (dbError) {
+        console.error("Database error:", dbError);
+        throw new Error("Napaka pri shranjevanju.");
+      }
+
+      // 2. Send email notification
+      const { error: emailError } = await supabase.functions.invoke(
+        "send-inquiry-email",
+        {
+          body: {
+            imePriimek: formData.imePriimek,
+            podjetje: formData.podjetje,
+            email: formData.email,
+            telefon: formData.telefon,
+            kajPotrebujes: formData.kajPotrebujes,
+            podstrani: formData.podstrani,
+            vsebina: formData.vsebina,
+            funkcionalnosti: formData.funkcionalnosti,
+            rok: formData.rok,
+            dodatno: formData.dodatno,
+            cenaMin: price.min,
+            cenaMax: price.max,
+          },
+        }
+      );
+
+      if (emailError) {
+        console.error("Email error:", emailError);
+        // Don't throw - submission was saved, email is secondary
+      }
 
       setIsSubmitted(true);
     } catch (error) {
+      console.error("Submission error:", error);
       toast({
         title: "Napaka",
         description: "Prišlo je do napake. Prosim poskusi ponovno.",
@@ -604,10 +643,6 @@ const ZelimSpletnoStran = () => {
             </div>
           </div>
 
-          {/* Admin Note */}
-          <p className="text-center text-muted-foreground text-xs mt-8">
-            Admin: Nastavi Email/Supabase integracijo v Lovable Integrations, da se povpraševanja pošiljajo na mail in shranjujejo v evidenco.
-          </p>
         </div>
       </main>
       <Footer />
