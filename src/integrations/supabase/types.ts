@@ -14,7 +14,57 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      povprasevanja: {
+        Row: {
+          cena_max: number
+          cena_min: number
+          created_at: string
+          dodatno: string | null
+          email: string
+          funkcionalnosti: string[] | null
+          id: string
+          ime_priimek: string
+          kaj_potrebuje: string
+          podjetje: string | null
+          podstrani: string
+          rok: string
+          telefon: string | null
+          vsebina: string
+        }
+        Insert: {
+          cena_max: number
+          cena_min: number
+          created_at?: string
+          dodatno?: string | null
+          email: string
+          funkcionalnosti?: string[] | null
+          id?: string
+          ime_priimek: string
+          kaj_potrebuje: string
+          podjetje?: string | null
+          podstrani: string
+          rok: string
+          telefon?: string | null
+          vsebina: string
+        }
+        Update: {
+          cena_max?: number
+          cena_min?: number
+          created_at?: string
+          dodatno?: string | null
+          email?: string
+          funkcionalnosti?: string[] | null
+          id?: string
+          ime_priimek?: string
+          kaj_potrebuje?: string
+          podjetje?: string | null
+          podstrani?: string
+          rok?: string
+          telefon?: string | null
+          vsebina?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
