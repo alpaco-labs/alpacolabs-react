@@ -178,7 +178,7 @@ const handler = async (req: Request): Promise<Response> => {
       },
       body: JSON.stringify({
         from: "ZAN LABS <onboarding@resend.dev>",
-        to: ["zan@email.com"], // Replace with actual email
+        to: ["zan.pustotnik7@gmail.com"],
         subject: `Novo povpraševanje – ${data.imePriimek}`,
         html: emailHtml,
       }),
