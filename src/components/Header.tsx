@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
+import ThemeToggle from "@/components/ThemeToggle";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -54,6 +55,7 @@ const Header = () => {
                   {link.label}
                 </a>
               ))}
+            <ThemeToggle />
             <Button variant="hero" size="lg" asChild>
               <Link to="/zelim-spletno-stran">Želim spletno stran</Link>
             </Button>
@@ -85,6 +87,10 @@ const Header = () => {
                   {link.label}
                 </a>
               ))}
+            <div className="flex items-center justify-between py-2">
+              <span className="text-muted-foreground text-base font-medium">Tema</span>
+              <ThemeToggle />
+            </div>
             <Button variant="hero" size="lg" className="mt-2" asChild>
               <Link to="/zelim-spletno-stran" onClick={() => setIsMobileMenuOpen(false)}>
                 Želim spletno stran
