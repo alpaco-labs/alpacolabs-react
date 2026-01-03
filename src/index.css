@@ -44,11 +44,11 @@
     --text-secondary: 0 0% 65%;
     --text-muted: 0 0% 45%;
 
-    /* Hero gradient colors */
-    --gradient-start: 240 50% 8%;
-    --gradient-mid-1: 250 60% 15%;
-    --gradient-mid-2: 280 50% 20%;
-    --gradient-end: 340 40% 25%;
+    /* Hero gradient colors - electric blue wave */
+    --gradient-dark: 220 20% 4%;
+    --gradient-mid: 210 30% 8%;
+    --glow-cyan: 195 100% 50%;
+    --glow-blue: 210 100% 55%;
 
     --font-heading: 'Outfit', sans-serif;
     --font-body: 'Inter', sans-serif;
@@ -80,23 +80,22 @@
 }
 
 @layer components {
-  /* Hero gradient background */
+  /* Hero gradient background - dark navy base */
   .hero-gradient {
     background: linear-gradient(
       180deg,
-      hsl(240, 50%, 6%) 0%,
-      hsl(245, 55%, 10%) 20%,
-      hsl(260, 50%, 15%) 40%,
-      hsl(280, 45%, 18%) 60%,
-      hsl(320, 40%, 20%) 80%,
-      hsl(340, 35%, 22%) 100%
+      hsl(220, 20%, 4%) 0%,
+      hsl(220, 25%, 6%) 50%,
+      hsl(210, 30%, 8%) 100%
     );
   }
   
-  /* Subtle glow effect */
-  .glow-effect {
-    box-shadow: 0 0 80px -20px rgba(139, 92, 246, 0.15),
-                0 0 60px -30px rgba(236, 72, 153, 0.1);
+  /* Wave glow effect - use as overlay */
+  .wave-glow {
+    background: 
+      radial-gradient(ellipse 120% 50% at 50% 105%, hsla(195, 100%, 50%, 0.35) 0%, hsla(200, 100%, 45%, 0.2) 30%, transparent 70%),
+      radial-gradient(ellipse 80% 35% at 40% 100%, hsla(210, 100%, 55%, 0.25) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 25% at 60% 100%, hsla(185, 100%, 60%, 0.2) 0%, transparent 50%);
   }
 }
 
@@ -174,9 +173,9 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Selection color - subtle */
+/* Selection color - cyan accent */
 ::selection {
-  background: hsl(280 50% 30%);
+  background: hsl(200 80% 40%);
   color: hsl(0 0% 100%);
 }
 
