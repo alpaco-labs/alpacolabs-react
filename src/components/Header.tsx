@@ -77,32 +77,60 @@ const Header = () => {
       </div>
 
       {/* Mobile Menu */}
-      {isMobileMenuOpen && (
-        <div className="md:hidden bg-background/95 backdrop-blur-xl border-b border-border/50 animate-fade-in">
+      <div
+        className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
+          isMobileMenuOpen
+            ? "max-h-96 opacity-100"
+            : "max-h-0 opacity-0"
+        }`}
+      >
+        <div className="bg-background/95 backdrop-blur-xl border-b border-border/50">
           <nav className="container py-6 flex flex-col gap-4">
             {isHome &&
-              navLinks.map((link) => (
+              navLinks.map((link, index) => (
                 <a
                   key={link.href}
                   href={link.href}
-                  className="relative text-muted-foreground hover:text-foreground transition-colors duration-300 text-base font-medium py-2 after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left"
+                  className={`relative text-muted-foreground hover:text-foreground transition-all duration-300 text-base font-medium py-2 after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left ${
+                    isMobileMenuOpen
+                      ? "translate-x-0 opacity-100"
+                      : "-translate-x-4 opacity-0"
+                  }`}
+                  style={{ transitionDelay: `${index * 50}ms` }}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {link.label}
                 </a>
               ))}
-            <div className="flex items-center justify-between py-2">
+            <div
+              className={`flex items-center justify-between py-2 transition-all duration-300 ${
+                isMobileMenuOpen
+                  ? "translate-x-0 opacity-100"
+                  : "-translate-x-4 opacity-0"
+              }`}
+              style={{ transitionDelay: `${navLinks.length * 50}ms` }}
+            >
               <span className="text-muted-foreground text-base font-medium">Tema</span>
               <ThemeToggle />
             </div>
-            <Button variant="hero" size="lg" className="mt-2" asChild>
+            <Button
+              variant="hero"
+              size="lg"
+              className={`mt-2 transition-all duration-300 ${
+                isMobileMenuOpen
+                  ? "translate-y-0 opacity-100"
+                  : "translate-y-4 opacity-0"
+              }`}
+              style={{ transitionDelay: `${(navLinks.length + 1) * 50}ms` }}
+              asChild
+            >
               <Link to="/zelim-spletno-stran" onClick={() => setIsMobileMenuOpen(false)}>
                 Želim spletno stran
               </Link>
             </Button>
           </nav>
         </div>
-      )}
+      </div>
     </header>
   );
 };
