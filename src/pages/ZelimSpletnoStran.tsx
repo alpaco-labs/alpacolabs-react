@@ -11,18 +11,16 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface FormData {
-  // Step 1
   imePriimek: string;
   podjetje: string;
   email: string;
   telefon: string;
-  // Step 2
   kajPotrebujes: string;
   podstrani: string;
   vsebina: string;
-  // Step 3
   funkcionalnosti: string[];
   rok: string;
   dodatno: string;
@@ -41,7 +39,6 @@ const initialFormData: FormData = {
   dodatno: "",
 };
 
-// Pricing configuration
 const basePrices: Record<string, number> = {
   landing: 300,
   spletna: 650,
@@ -84,40 +81,26 @@ const ZelimSpletnoStran = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
+  const { t } = useLanguage();
 
-  // Calculate price
   const calculatePrice = () => {
     let total = 0;
-
-    // Base price
     if (formData.kajPotrebujes) {
       total += basePrices[formData.kajPotrebujes] || 0;
     }
-
-    // Podstrani
     if (formData.podstrani) {
       total += podstraniPrices[formData.podstrani] || 0;
     }
-
-    // Vsebina
     if (formData.vsebina) {
       total += vsebinaPrices[formData.vsebina] || 0;
     }
-
-    // Funkcionalnosti
     formData.funkcionalnosti.forEach((f) => {
       total += funkcionalnostiPrices[f] || 0;
     });
-
-    // Rok
     if (formData.rok) {
       total += rokPrices[formData.rok] || 0;
     }
-
-    return {
-      min: total,
-      max: total + 200,
-    };
+    return { min: total, max: total + 200 };
   };
 
   const price = calculatePrice();
@@ -138,19 +121,11 @@ const ZelimSpletnoStran = () => {
 
   const validateStep1 = () => {
     if (!formData.imePriimek.trim()) {
-      toast({
-        title: "Napaka",
-        description: "Prosim vnesi ime in priimek.",
-        variant: "destructive",
-      });
+      toast({ title: t("form.error"), description: t("form.errorName"), variant: "destructive" });
       return false;
     }
     if (!formData.email.trim() || !formData.email.includes("@")) {
-      toast({
-        title: "Napaka",
-        description: "Prosim vnesi veljaven email naslov.",
-        variant: "destructive",
-      });
+      toast({ title: t("form.error"), description: t("form.errorEmail"), variant: "destructive" });
       return false;
     }
     return true;
@@ -158,27 +133,15 @@ const ZelimSpletnoStran = () => {
 
   const validateStep2 = () => {
     if (!formData.kajPotrebujes) {
-      toast({
-        title: "Napaka",
-        description: "Prosim izberi kaj potrebuješ.",
-        variant: "destructive",
-      });
+      toast({ title: t("form.error"), description: t("form.errorWhat"), variant: "destructive" });
       return false;
     }
     if (!formData.podstrani) {
-      toast({
-        title: "Napaka",
-        description: "Prosim izberi število podstrani.",
-        variant: "destructive",
-      });
+      toast({ title: t("form.error"), description: t("form.errorSubpages"), variant: "destructive" });
       return false;
     }
     if (!formData.vsebina) {
-      toast({
-        title: "Napaka",
-        description: "Prosim izberi ali imaš pripravljeno vsebino.",
-        variant: "destructive",
-      });
+      toast({ title: t("form.error"), description: t("form.errorContent"), variant: "destructive" });
       return false;
     }
     return true;
@@ -186,11 +149,7 @@ const ZelimSpletnoStran = () => {
 
   const validateStep3 = () => {
     if (!formData.rok) {
-      toast({
-        title: "Napaka",
-        description: "Prosim izberi želeni rok.",
-        variant: "destructive",
-      });
+      toast({ title: t("form.error"), description: t("form.errorDeadline"), variant: "destructive" });
       return false;
     }
     return true;
@@ -208,71 +167,82 @@ const ZelimSpletnoStran = () => {
 
   const handleSubmit = async () => {
     if (!validateStep3()) return;
-
     setIsSubmitting(true);
-
     try {
-      // 1. Save to database
-      const { error: dbError } = await supabase
-        .from("povprasevanja")
-        .insert({
-          ime_priimek: formData.imePriimek,
-          podjetje: formData.podjetje || null,
+      const { error: dbError } = await supabase.from("povprasevanja").insert({
+        ime_priimek: formData.imePriimek,
+        podjetje: formData.podjetje || null,
+        email: formData.email,
+        telefon: formData.telefon || null,
+        kaj_potrebuje: formData.kajPotrebujes,
+        podstrani: formData.podstrani,
+        vsebina: formData.vsebina,
+        funkcionalnosti: formData.funkcionalnosti,
+        rok: formData.rok,
+        dodatno: formData.dodatno || null,
+        cena_min: price.min,
+        cena_max: price.max,
+      });
+      if (dbError) {
+        console.error("Database error:", dbError);
+        throw new Error("Database error");
+      }
+      const { error: emailError } = await supabase.functions.invoke("send-inquiry-email", {
+        body: {
+          imePriimek: formData.imePriimek,
+          podjetje: formData.podjetje,
           email: formData.email,
-          telefon: formData.telefon || null,
-          kaj_potrebuje: formData.kajPotrebujes,
+          telefon: formData.telefon,
+          kajPotrebujes: formData.kajPotrebujes,
           podstrani: formData.podstrani,
           vsebina: formData.vsebina,
           funkcionalnosti: formData.funkcionalnosti,
           rok: formData.rok,
-          dodatno: formData.dodatno || null,
-          cena_min: price.min,
-          cena_max: price.max,
-        });
-
-      if (dbError) {
-        console.error("Database error:", dbError);
-        throw new Error("Napaka pri shranjevanju.");
-      }
-
-      // 2. Send email notification
-      const { error: emailError } = await supabase.functions.invoke(
-        "send-inquiry-email",
-        {
-          body: {
-            imePriimek: formData.imePriimek,
-            podjetje: formData.podjetje,
-            email: formData.email,
-            telefon: formData.telefon,
-            kajPotrebujes: formData.kajPotrebujes,
-            podstrani: formData.podstrani,
-            vsebina: formData.vsebina,
-            funkcionalnosti: formData.funkcionalnosti,
-            rok: formData.rok,
-            dodatno: formData.dodatno,
-            cenaMin: price.min,
-            cenaMax: price.max,
-          },
-        }
-      );
-
+          dodatno: formData.dodatno,
+          cenaMin: price.min,
+          cenaMax: price.max,
+        },
+      });
       if (emailError) {
         console.error("Email error:", emailError);
-        // Don't throw - submission was saved, email is secondary
       }
-
       setIsSubmitted(true);
     } catch (error) {
       console.error("Submission error:", error);
-      toast({
-        title: "Napaka",
-        description: "Prišlo je do napake. Prosim poskusi ponovno.",
-        variant: "destructive",
-      });
+      toast({ title: t("form.error"), description: t("form.errorGeneric"), variant: "destructive" });
     } finally {
       setIsSubmitting(false);
     }
   };
+
+  const projectOptions = [
+    { value: "landing", labelKey: "form.landing", priceKey: "form.landingPrice" },
+    { value: "spletna", labelKey: "form.website", priceKey: "form.websitePrice" },
+    { value: "trgovina", labelKey: "form.store", priceKey: "form.storePrice" },
+    { value: "mvp", labelKey: "form.mvp", priceKey: "form.mvpPrice" },
+  ];
+
+  const contentOptions = [
+    { value: "da", labelKey: "form.contentYes" },
+    { value: "delno", labelKey: "form.contentPartly" },
+    { value: "ne", labelKey: "form.contentNo" },
+  ];
+
+  const featureOptions = [
+    { value: "kontakt", labelKey: "form.featureContact" },
+    { value: "rezervacije", labelKey: "form.featureBooking" },
+    { value: "blog", labelKey: "form.featureBlog" },
+    { value: "jeziki", labelKey: "form.featureLanguages" },
+    { value: "newsletter", labelKey: "form.featureNewsletter" },
+    { value: "placila", labelKey: "form.featurePayments" },
+    { value: "login", labelKey: "form.featureLogin" },
+  ];
+
+  const deadlineOptions = [
+    { value: "2-4", labelKey: "form.deadline2_4" },
+    { value: "7-10", labelKey: "form.deadline7_10" },
+    { value: "asap", labelKey: "form.deadlineAsap" },
+  ];
 
   if (isSubmitted) {
     return (
@@ -285,15 +255,15 @@ const ZelimSpletnoStran = () => {
                 <Check size={40} className="text-foreground" />
               </div>
               <h1 className="font-heading text-3xl font-semibold text-foreground mb-4">
-                Hvala! Povpraševanje je poslano.
+                {t("form.successTitle")}
               </h1>
               <p className="text-muted-foreground text-lg mb-8">
-                Odgovorim v 24 urah.
+                {t("form.successDescription")}
               </p>
               <Button variant="outline" asChild>
                 <Link to="/">
                   <ArrowLeft size={16} />
-                  Nazaj na domačo stran
+                  {t("form.backHome")}
                 </Link>
               </Button>
             </div>
@@ -309,17 +279,15 @@ const ZelimSpletnoStran = () => {
       <Header />
       <main className="pt-24 pb-20">
         <div className="container max-w-2xl">
-          {/* Page Intro */}
           <div className="text-center mb-10">
             <h1 className="font-heading text-3xl md:text-4xl font-semibold text-foreground mb-4">
-              Želim spletno stran
+              {t("form.pageTitle")}
             </h1>
             <p className="text-muted-foreground text-lg">
-              Odgovori na nekaj vprašanj (2–3 minute). Na koncu vidiš oceno investicije.
+              {t("form.pageDescription")}
             </p>
           </div>
 
-          {/* Progress Indicator */}
           <div className="flex items-center justify-center gap-2 mb-10">
             {[1, 2, 3].map((s) => (
               <div key={s} className="flex items-center gap-2">
@@ -335,68 +303,58 @@ const ZelimSpletnoStran = () => {
                   {s < step ? <Check size={16} /> : s}
                 </div>
                 {s < 3 && (
-                  <div
-                    className={`w-12 h-0.5 ${
-                      s < step ? "bg-primary" : "bg-border"
-                    }`}
-                  />
+                  <div className={`w-12 h-0.5 ${s < step ? "bg-primary" : "bg-border"}`} />
                 )}
               </div>
             ))}
           </div>
 
-          {/* Form Card */}
           <div className="bg-card border border-border rounded-xl p-6 md:p-8">
-            {/* Step 1: Osnovno */}
             {step === 1 && (
               <div className="space-y-6 animate-fade-in">
                 <h2 className="font-heading text-xl font-semibold text-foreground mb-6">
-                  Korak 1/3 — Osnovno
+                  {t("form.step1Title")}
                 </h2>
-
                 <div className="space-y-4">
                   <div>
-                    <Label htmlFor="imePriimek">Ime in priimek *</Label>
+                    <Label htmlFor="imePriimek">{t("form.nameLabel")}</Label>
                     <Input
                       id="imePriimek"
                       value={formData.imePriimek}
                       onChange={(e) => updateField("imePriimek", e.target.value)}
-                      placeholder="Janez Novak"
+                      placeholder={t("form.namePlaceholder")}
                       className="mt-2"
                     />
                   </div>
-
                   <div>
-                    <Label htmlFor="podjetje">Podjetje</Label>
+                    <Label htmlFor="podjetje">{t("form.companyLabel")}</Label>
                     <Input
                       id="podjetje"
                       value={formData.podjetje}
                       onChange={(e) => updateField("podjetje", e.target.value)}
-                      placeholder="Ime podjetja (opcijsko)"
+                      placeholder={t("form.companyPlaceholder")}
                       className="mt-2"
                     />
                   </div>
-
                   <div>
-                    <Label htmlFor="email">Email *</Label>
+                    <Label htmlFor="email">{t("form.emailLabel")}</Label>
                     <Input
                       id="email"
                       type="email"
                       value={formData.email}
                       onChange={(e) => updateField("email", e.target.value)}
-                      placeholder="janez@email.com"
+                      placeholder={t("form.emailPlaceholder")}
                       className="mt-2"
                     />
                   </div>
-
                   <div>
-                    <Label htmlFor="telefon">Telefon</Label>
+                    <Label htmlFor="telefon">{t("form.phoneLabel")}</Label>
                     <Input
                       id="telefon"
                       type="tel"
                       value={formData.telefon}
                       onChange={(e) => updateField("telefon", e.target.value)}
-                      placeholder="+386 40 123 456 (opcijsko)"
+                      placeholder={t("form.phonePlaceholder")}
                       className="mt-2"
                     />
                   </div>
@@ -404,26 +362,19 @@ const ZelimSpletnoStran = () => {
               </div>
             )}
 
-            {/* Step 2: Projekt */}
             {step === 2 && (
               <div className="space-y-8 animate-fade-in">
                 <h2 className="font-heading text-xl font-semibold text-foreground mb-6">
-                  Korak 2/3 — Projekt
+                  {t("form.step2Title")}
                 </h2>
-
                 <div>
-                  <Label className="text-base">Kaj potrebuješ? *</Label>
+                  <Label className="text-base">{t("form.whatNeedLabel")}</Label>
                   <RadioGroup
                     value={formData.kajPotrebujes}
                     onValueChange={(value) => updateField("kajPotrebujes", value)}
                     className="mt-4 space-y-3"
                   >
-                    {[
-                      { value: "landing", label: "Landing stran", price: "od 300 €" },
-                      { value: "spletna", label: "Spletna stran (več podstrani)", price: "od 650 €" },
-                      { value: "trgovina", label: "Spletna trgovina", price: "od 1.200 €" },
-                      { value: "mvp", label: "Web / Mobile MVP", price: "od 1.800 €" },
-                    ].map((option) => (
+                    {projectOptions.map((option) => (
                       <div
                         key={option.value}
                         className={`flex items-center justify-between p-4 border rounded-lg cursor-pointer transition-colors ${
@@ -436,17 +387,17 @@ const ZelimSpletnoStran = () => {
                         <div className="flex items-center gap-3">
                           <RadioGroupItem value={option.value} id={option.value} />
                           <Label htmlFor={option.value} className="cursor-pointer font-normal">
-                            {option.label}
+                            {t(option.labelKey)}
                           </Label>
                         </div>
-                        <span className="text-sm text-muted-foreground">{option.price}</span>
+                        <span className="text-sm text-muted-foreground">{t(option.priceKey)}</span>
                       </div>
                     ))}
                   </RadioGroup>
                 </div>
 
                 <div>
-                  <Label className="text-base">Koliko podstrani približno? *</Label>
+                  <Label className="text-base">{t("form.subpagesLabel")}</Label>
                   <RadioGroup
                     value={formData.podstrani}
                     onValueChange={(value) => updateField("podstrani", value)}
@@ -479,17 +430,13 @@ const ZelimSpletnoStran = () => {
                 </div>
 
                 <div>
-                  <Label className="text-base">Ali imaš pripravljena besedila in slike? *</Label>
+                  <Label className="text-base">{t("form.contentLabel")}</Label>
                   <RadioGroup
                     value={formData.vsebina}
                     onValueChange={(value) => updateField("vsebina", value)}
                     className="mt-4 space-y-3"
                   >
-                    {[
-                      { value: "da", label: "Da" },
-                      { value: "delno", label: "Delno" },
-                      { value: "ne", label: "Ne" },
-                    ].map((option) => (
+                    {contentOptions.map((option) => (
                       <div
                         key={option.value}
                         className={`flex items-center p-4 border rounded-lg cursor-pointer transition-colors ${
@@ -502,7 +449,7 @@ const ZelimSpletnoStran = () => {
                         <div className="flex items-center gap-3">
                           <RadioGroupItem value={option.value} id={`vsebina-${option.value}`} />
                           <Label htmlFor={`vsebina-${option.value}`} className="cursor-pointer font-normal">
-                            {option.label}
+                            {t(option.labelKey)}
                           </Label>
                         </div>
                       </div>
@@ -512,25 +459,15 @@ const ZelimSpletnoStran = () => {
               </div>
             )}
 
-            {/* Step 3: Funkcionalnosti + rok */}
             {step === 3 && (
               <div className="space-y-8 animate-fade-in">
                 <h2 className="font-heading text-xl font-semibold text-foreground mb-6">
-                  Korak 3/3 — Funkcionalnosti + rok
+                  {t("form.step3Title")}
                 </h2>
-
                 <div>
-                  <Label className="text-base">Kaj mora stran imeti?</Label>
+                  <Label className="text-base">{t("form.featuresLabel")}</Label>
                   <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-3">
-                    {[
-                      { value: "kontakt", label: "Kontaktni obrazec" },
-                      { value: "rezervacije", label: "Rezervacije / booking" },
-                      { value: "blog", label: "Blog" },
-                      { value: "jeziki", label: "Več jezikov" },
-                      { value: "newsletter", label: "Newsletter" },
-                      { value: "placila", label: "Plačila (trgovina)" },
-                      { value: "login", label: "Login / uporabniški računi" },
-                    ].map((option) => (
+                    {featureOptions.map((option) => (
                       <div
                         key={option.value}
                         className={`flex items-center p-4 border rounded-lg cursor-pointer transition-colors ${
@@ -545,7 +482,7 @@ const ZelimSpletnoStran = () => {
                             checked={formData.funkcionalnosti.includes(option.value)}
                             onCheckedChange={() => toggleFunkcionalnost(option.value)}
                           />
-                          <Label className="cursor-pointer font-normal">{option.label}</Label>
+                          <Label className="cursor-pointer font-normal">{t(option.labelKey)}</Label>
                         </div>
                       </div>
                     ))}
@@ -553,17 +490,13 @@ const ZelimSpletnoStran = () => {
                 </div>
 
                 <div>
-                  <Label className="text-base">Kdaj želiš stran online? *</Label>
+                  <Label className="text-base">{t("form.deadlineLabel")}</Label>
                   <RadioGroup
                     value={formData.rok}
                     onValueChange={(value) => updateField("rok", value)}
                     className="mt-4 space-y-3"
                   >
-                    {[
-                      { value: "2-4", label: "2–4 tedne" },
-                      { value: "7-10", label: "7–10 dni" },
-                      { value: "asap", label: "ASAP (3–5 dni)" },
-                    ].map((option) => (
+                    {deadlineOptions.map((option) => (
                       <div
                         key={option.value}
                         className={`flex items-center p-4 border rounded-lg cursor-pointer transition-colors ${
@@ -576,7 +509,7 @@ const ZelimSpletnoStran = () => {
                         <div className="flex items-center gap-3">
                           <RadioGroupItem value={option.value} id={`rok-${option.value}`} />
                           <Label htmlFor={`rok-${option.value}`} className="cursor-pointer font-normal">
-                            {option.label}
+                            {t(option.labelKey)}
                           </Label>
                         </div>
                       </div>
@@ -585,42 +518,40 @@ const ZelimSpletnoStran = () => {
                 </div>
 
                 <div>
-                  <Label htmlFor="dodatno">Dodatno</Label>
+                  <Label htmlFor="dodatno">{t("form.additionalLabel")}</Label>
                   <Textarea
                     id="dodatno"
                     value={formData.dodatno}
                     onChange={(e) => updateField("dodatno", e.target.value)}
-                    placeholder="Povej mi še kaj o projektu / linki primerov"
+                    placeholder={t("form.additionalPlaceholder")}
                     className="mt-2 min-h-[120px]"
                   />
                 </div>
               </div>
             )}
 
-            {/* Price Display */}
             {hasBaseSelection && (
               <div className="mt-8 p-6 bg-secondary rounded-xl border border-border animate-scale-in">
                 <div className="flex items-center gap-3 mb-2">
                   <Calculator size={20} className="text-foreground" />
                   <span className="font-heading font-semibold text-foreground">
-                    Ocena investicije
+                    {t("form.priceEstimate")}
                   </span>
                 </div>
                 <p className="text-2xl font-heading font-semibold text-foreground">
-                  Približna cena: €{price.min} – €{price.max}
+                  {t("form.priceApprox")} €{price.min} – €{price.max}
                 </p>
                 <p className="text-sm text-muted-foreground mt-2">
-                  Končna cena se potrdi po kratkem klicu.
+                  {t("form.priceNote")}
                 </p>
               </div>
             )}
 
-            {/* Navigation Buttons */}
             <div className="flex justify-between mt-8 pt-6 border-t border-border">
               {step > 1 ? (
                 <Button variant="outline" onClick={handleBack}>
                   <ArrowLeft size={16} />
-                  Nazaj
+                  {t("form.back")}
                 </Button>
               ) : (
                 <div />
@@ -628,21 +559,16 @@ const ZelimSpletnoStran = () => {
 
               {step < 3 ? (
                 <Button variant="hero" onClick={handleNext}>
-                  Naprej
+                  {t("form.next")}
                   <ArrowRight size={16} />
                 </Button>
               ) : (
-                <Button
-                  variant="hero"
-                  onClick={handleSubmit}
-                  disabled={isSubmitting}
-                >
-                  {isSubmitting ? "Pošiljam..." : "Pošlji povpraševanje"}
+                <Button variant="hero" onClick={handleSubmit} disabled={isSubmitting}>
+                  {isSubmitting ? t("form.submitting") : t("form.submit")}
                 </Button>
               )}
             </div>
           </div>
-
         </div>
       </main>
       <Footer />
