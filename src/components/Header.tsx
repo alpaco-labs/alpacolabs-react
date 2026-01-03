@@ -50,7 +50,7 @@ const Header = () => {
                 <a
                   key={link.href}
                   href={link.href}
-                  className="text-muted-foreground hover:text-foreground transition-colors duration-300 text-sm font-medium"
+                  className="relative text-muted-foreground hover:text-foreground transition-colors duration-300 text-sm font-medium after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left"
                 >
                   {link.label}
                 </a>
@@ -85,7 +85,7 @@ const Header = () => {
                 <a
                   key={link.href}
                   href={link.href}
-                  className="text-muted-foreground hover:text-foreground transition-colors duration-300 text-base font-medium py-2"
+                  className="relative text-muted-foreground hover:text-foreground transition-colors duration-300 text-base font-medium py-2 after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {link.label}
