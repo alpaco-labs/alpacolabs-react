@@ -18,12 +18,13 @@ const Footer = () => {
           <div>
             <h4 className="font-heading font-semibold text-foreground mb-5">Kontakt</h4>
             <div className="space-y-4">
-              <a className="flex items-center gap-3 text-muted-foreground hover:text-foreground transition-colors duration-300 text-sm" href="mailto:zan.pustotnik7@gmail.com">zan.pustotnik7@gmail.com<Mail size={16} className="text-foreground/50" />
-                zan@email.com
+              <a className="flex items-center gap-3 text-muted-foreground hover:text-foreground transition-colors duration-300 text-sm" href="mailto:zan.pustotnik7@gmail.com">
+                <Mail size={16} className="text-foreground/50" />
+                zan.pustotnik7@gmail.com
               </a>
               <div className="flex items-center gap-3 text-muted-foreground text-sm">
                 <MapPin size={16} className="text-foreground/50" />
-                Slovenija
+                Blagovica, Slovenija
               </div>
             </div>
           </div>
