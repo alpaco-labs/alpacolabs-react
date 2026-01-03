@@ -3,11 +3,13 @@ import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import ThemeToggle from "@/components/ThemeToggle";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const { t } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -18,10 +20,10 @@ const Header = () => {
   }, []);
 
   const navLinks = [
-    { href: "#portfolio", label: "Portfolio" },
-    { href: "#storitve", label: "Storitve" },
-    { href: "#proces", label: "Proces" },
-    { href: "#faq", label: "FAQ" },
+    { href: "#portfolio", labelKey: "nav.portfolio" },
+    { href: "#storitve", labelKey: "nav.services" },
+    { href: "#proces", labelKey: "nav.process" },
+    { href: "#faq", labelKey: "nav.faq" },
   ];
 
   const isHome = location.pathname === "/";
@@ -52,7 +54,7 @@ const Header = () => {
                   href={link.href}
                   className="relative text-muted-foreground hover:text-foreground transition-colors duration-300 text-sm font-medium after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left"
                 >
-                  {link.label}
+                  {t(link.labelKey)}
                 </a>
               ))}
             <ThemeToggle />
@@ -61,7 +63,7 @@ const Header = () => {
           {/* CTA Button - Right */}
           <div className="hidden md:block">
             <Button variant="hero" size="lg" asChild>
-              <Link to="/zelim-spletno-stran">Želim spletno stran</Link>
+              <Link to="/zelim-spletno-stran">{t("nav.cta")}</Link>
             </Button>
           </div>
 
@@ -99,7 +101,7 @@ const Header = () => {
                   style={{ transitionDelay: `${index * 50}ms` }}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  {link.label}
+                  {t(link.labelKey)}
                 </a>
               ))}
             <div
@@ -110,7 +112,7 @@ const Header = () => {
               }`}
               style={{ transitionDelay: `${navLinks.length * 50}ms` }}
             >
-              <span className="text-muted-foreground text-base font-medium">Tema</span>
+              <span className="text-muted-foreground text-base font-medium">{t("nav.theme")}</span>
               <ThemeToggle />
             </div>
             <Button
@@ -125,7 +127,7 @@ const Header = () => {
               asChild
             >
               <Link to="/zelim-spletno-stran" onClick={() => setIsMobileMenuOpen(false)}>
-                Želim spletno stran
+                {t("nav.cta")}
               </Link>
             </Button>
           </nav>
