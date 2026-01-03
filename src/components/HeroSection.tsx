@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const HeroSection = () => {
+  const { t } = useLanguage();
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Dark mode: dark base layer */}
@@ -81,14 +84,14 @@ const HeroSection = () => {
       <div className="relative z-10 container">
         <div className="max-w-4xl mx-auto text-center px-4">
           <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold leading-[1.1] tracking-tight animate-slide-up text-foreground">
-            Spletne strani, ki<br className="hidden sm:block" /> prinašajo povpraševanja.
+            {t("hero.title1")}<br className="hidden sm:block" /> {t("hero.title2")}
           </h1>
           
           <p 
             className="mt-6 md:mt-8 text-lg md:text-xl max-w-2xl mx-auto animate-slide-up text-muted-foreground" 
             style={{ animationDelay: "0.1s" }}
           >
-            Od ideje do online v nekaj dneh. Jasen dizajn, hitra stran in jasen poziv k dejanju.
+            {t("hero.description")}
           </p>
 
           <div 
@@ -97,7 +100,7 @@ const HeroSection = () => {
           >
             <Button variant="hero" size="xl" asChild>
               <Link to="/zelim-spletno-stran">
-                Želim spletno stran
+                {t("hero.cta")}
                 <ArrowRight size={18} />
               </Link>
             </Button>
@@ -110,15 +113,15 @@ const HeroSection = () => {
           >
             <div className="flex items-center gap-2 text-muted-foreground">
               <div className="w-1.5 h-1.5 rounded-full bg-primary/60" />
-              <span className="text-sm font-medium">Hitro</span>
+              <span className="text-sm font-medium">{t("hero.fast")}</span>
             </div>
             <div className="flex items-center gap-2 text-muted-foreground">
               <div className="w-1.5 h-1.5 rounded-full bg-primary/60" />
-              <span className="text-sm font-medium">Mobile-first</span>
+              <span className="text-sm font-medium">{t("hero.mobile")}</span>
             </div>
             <div className="flex items-center gap-2 text-muted-foreground">
               <div className="w-1.5 h-1.5 rounded-full bg-primary/60" />
-              <span className="text-sm font-medium">SEO osnove</span>
+              <span className="text-sm font-medium">{t("hero.seo")}</span>
             </div>
           </div>
         </div>
