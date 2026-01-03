@@ -43,8 +43,8 @@ const Header = () => {
             ZAN LABS
           </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8">
+          {/* Desktop Navigation - Centered */}
+          <nav className="hidden md:flex items-center justify-center gap-8 absolute left-1/2 -translate-x-1/2">
             {isHome &&
               navLinks.map((link) => (
                 <a
@@ -56,10 +56,14 @@ const Header = () => {
                 </a>
               ))}
             <ThemeToggle />
+          </nav>
+
+          {/* CTA Button - Right */}
+          <div className="hidden md:block">
             <Button variant="hero" size="lg" asChild>
               <Link to="/zelim-spletno-stran">Želim spletno stran</Link>
             </Button>
-          </nav>
+          </div>
 
           {/* Mobile Menu Button */}
           <button
