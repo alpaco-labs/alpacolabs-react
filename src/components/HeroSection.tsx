@@ -5,14 +5,43 @@ import { ArrowRight } from "lucide-react";
 const HeroSection = () => {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Cinematic gradient background */}
-      <div className="absolute inset-0 hero-gradient" />
-      
-      {/* Subtle radial glow overlay */}
+      {/* Dark base layer */}
       <div 
-        className="absolute inset-0 opacity-40"
+        className="absolute inset-0"
         style={{
-          background: 'radial-gradient(ellipse 80% 50% at 50% 80%, rgba(139, 92, 246, 0.15), transparent)',
+          background: 'linear-gradient(180deg, hsl(220, 20%, 4%) 0%, hsl(220, 25%, 6%) 40%, hsl(210, 30%, 8%) 70%, hsl(200, 35%, 10%) 100%)',
+        }}
+      />
+      
+      {/* Wave glow - main cyan/blue glow */}
+      <div 
+        className="absolute inset-0"
+        style={{
+          background: 'radial-gradient(ellipse 120% 50% at 50% 105%, hsla(195, 100%, 50%, 0.35) 0%, hsla(200, 100%, 45%, 0.2) 30%, transparent 70%)',
+        }}
+      />
+      
+      {/* Wave glow - electric blue accent */}
+      <div 
+        className="absolute inset-0"
+        style={{
+          background: 'radial-gradient(ellipse 80% 35% at 40% 100%, hsla(210, 100%, 55%, 0.25) 0%, transparent 60%)',
+        }}
+      />
+      
+      {/* Wave glow - light cyan highlight */}
+      <div 
+        className="absolute inset-0"
+        style={{
+          background: 'radial-gradient(ellipse 60% 25% at 60% 100%, hsla(185, 100%, 60%, 0.2) 0%, transparent 50%)',
+        }}
+      />
+      
+      {/* Subtle center glow for depth */}
+      <div 
+        className="absolute inset-0"
+        style={{
+          background: 'radial-gradient(ellipse 100% 60% at 50% 95%, hsla(200, 80%, 50%, 0.08) 0%, transparent 60%)',
         }}
       />
       
@@ -67,9 +96,9 @@ const HeroSection = () => {
 
       {/* Bottom fade to content */}
       <div 
-        className="absolute bottom-0 left-0 right-0 h-32"
+        className="absolute bottom-0 left-0 right-0 h-24"
         style={{
-          background: 'linear-gradient(to top, hsl(240, 10%, 4%), transparent)',
+          background: 'linear-gradient(to top, hsl(220, 20%, 4%), transparent)',
         }}
       />
     </section>
