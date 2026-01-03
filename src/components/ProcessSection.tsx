@@ -1,33 +1,36 @@
 import { MessageSquare, Pencil, Rocket } from "lucide-react";
-
-const steps = [
-  {
-    id: 1,
-    icon: MessageSquare,
-    title: "Kratek vprašalnik + cilj",
-    description: "Izpolniš obrazec, da razumem tvoje potrebe in cilje projekta.",
-  },
-  {
-    id: 2,
-    icon: Pencil,
-    title: "Osnutek v 48–72 urah",
-    description: "Pripravim prvi osnutek dizajna, ki ga skupaj pregledava.",
-  },
-  {
-    id: 3,
-    icon: Rocket,
-    title: "Popravki + objava + optimizacija",
-    description: "Implementiram popravke, objavim stran in poskrbim za optimizacijo.",
-  },
-];
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const ProcessSection = () => {
+  const { t } = useLanguage();
+
+  const steps = [
+    {
+      id: 1,
+      icon: MessageSquare,
+      titleKey: "process.step1.title",
+      descriptionKey: "process.step1.description",
+    },
+    {
+      id: 2,
+      icon: Pencil,
+      titleKey: "process.step2.title",
+      descriptionKey: "process.step2.description",
+    },
+    {
+      id: 3,
+      icon: Rocket,
+      titleKey: "process.step3.title",
+      descriptionKey: "process.step3.description",
+    },
+  ];
+
   return (
     <section id="proces" className="py-24 md:py-32 bg-background">
       <div className="container">
         <div className="text-center mb-16 md:mb-20">
           <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-semibold text-foreground">
-            Kako poteka sodelovanje
+            {t("process.title")}
           </h2>
         </div>
 
@@ -42,13 +45,13 @@ const ProcessSection = () => {
                 <step.icon size={26} className="text-foreground/80" />
               </div>
               <div className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-3">
-                Korak {step.id}
+                {t("process.step")} {step.id}
               </div>
               <h3 className="font-heading text-lg font-semibold text-foreground mb-3">
-                {step.title}
+                {t(step.titleKey)}
               </h3>
               <p className="text-muted-foreground text-sm leading-relaxed max-w-xs mx-auto">
-                {step.description}
+                {t(step.descriptionKey)}
               </p>
             </div>
           ))}
