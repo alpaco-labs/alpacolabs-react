@@ -183,22 +183,23 @@
   }
 
   .hover-lift {
-    transition: var(--transition-smooth);
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
   }
 
   .hover-lift:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-hover);
+    transform: translateY(-10px) scale(1.03);
+    box-shadow: 0 25px 50px -15px hsl(var(--primary) / 0.2), 0 15px 30px -10px hsl(var(--foreground) / 0.1);
   }
 
   /* Subtle border glow on hover */
   .border-glow {
-    transition: var(--transition-smooth);
+    transition: border-color 0.4s ease, box-shadow 0.4s ease, background-color 0.4s ease;
   }
 
   .border-glow:hover {
-    border-color: hsl(0 0% 25%);
-    box-shadow: 0 0 20px -10px rgba(255, 255, 255, 0.1);
+    border-color: hsl(var(--primary) / 0.5);
+    box-shadow: 0 0 30px -10px hsl(var(--primary) / 0.3), inset 0 1px 0 0 hsl(var(--primary) / 0.1);
+    background-color: hsl(var(--primary) / 0.02);
   }
 }
 
