@@ -44,6 +44,15 @@ const translations: Record<Language, Record<string, string>> = {
 
     // Pricing / Services
     "pricing.title": "Paketi",
+    "pricing.subtitle": "Jasne rešitve. Prilagodljiv način plačila.",
+    "pricing.toggleLabel": "Choose your payment option",
+    "pricing.monthly": "Monthly",
+    "pricing.onetime": "One-time",
+    "pricing.recommended": "Most recommended",
+    "pricing.monthlyNote": "Domena in hosting vključena · začetni strošek 20 €.",
+    "pricing.onetimeNote": "Enkratna investicija · popolno lastništvo · brez naročnine.",
+    "pricing.onetimeFooter": "Domena in hosting vključena.",
+    "pricing.button.monthly": "Začni z mesečnim paketom",
     "pricing.from": "Od",
     "pricing.calculate": "Izračunaj ceno",
     "pricing.note": "Končna cena je odvisna od obsega in funkcionalnosti.",
@@ -57,7 +66,15 @@ const translations: Record<Language, Record<string, string>> = {
     "pricing.feature.fast": "Hitro nalaganje",
     "pricing.feature.subpages": "Več podstrani",
     "pricing.feature.fullstore": "Celotna trgovina",
-    "pricing.feature.custom": "Po meri razvoj",
+    "pricing.feature.custom": "Razvoj po meri",
+    "pricing.tooltip.landing.monthly": "Hitro postavljena in vizualno čista landing stran z jasnim ciljem – usmeriti obiskovalca k oddaji povpraševanja.",
+    "pricing.tooltip.website.monthly": "Profesionalna spletna stran z jasno strukturo, prilagojena tvoji ponudbi in ciljni publiki.",
+    "pricing.tooltip.store.monthly": "Pregledna in zanesljiva spletna trgovina, pripravljena na prodajo in nadaljnjo rast.",
+    "pricing.tooltip.mvp.monthly": "MVP rešitev za testiranje ideje v praksi in zbiranje prvih odzivov uporabnikov.",
+    "pricing.tooltip.landing.onetime": "Hitro postavljena in učinkovita landing stran z jasnim ciljem – pridobivanje povpraševanj.",
+    "pricing.tooltip.website.onetime": "Profesionalna spletna stran po meri z jasno strukturo in premišljenim uporabniškim tokom.",
+    "pricing.tooltip.store.onetime": "Celovita spletna trgovina, pripravljena na prodajo in nadaljnjo rast.",
+    "pricing.tooltip.mvp.onetime": "MVP rešitev po meri za resno validacijo ideje in nadaljnji razvoj produkta.",
 
     // Process
     "process.title": "Kako poteka sodelovanje",
@@ -192,6 +209,15 @@ const translations: Record<Language, Record<string, string>> = {
 
     // Pricing / Services
     "pricing.title": "Packages",
+    "pricing.subtitle": "Clear solutions. Flexible payment options.",
+    "pricing.toggleLabel": "Choose your payment option",
+    "pricing.monthly": "Monthly",
+    "pricing.onetime": "One-time",
+    "pricing.recommended": "Most recommended",
+    "pricing.monthlyNote": "Domain and hosting included · setup fee €20.",
+    "pricing.onetimeNote": "One-time investment · full ownership · no subscription.",
+    "pricing.onetimeFooter": "Domain and hosting included.",
+    "pricing.button.monthly": "Start with monthly plan",
     "pricing.from": "From",
     "pricing.calculate": "Calculate price",
     "pricing.note": "Final price depends on scope and functionality.",
@@ -206,6 +232,14 @@ const translations: Record<Language, Record<string, string>> = {
     "pricing.feature.subpages": "Multiple subpages",
     "pricing.feature.fullstore": "Full store",
     "pricing.feature.custom": "Custom development",
+    "pricing.tooltip.landing.monthly": "Quickly built and visually clean landing page with a clear goal – directing visitors to submit an inquiry.",
+    "pricing.tooltip.website.monthly": "Professional website with clear structure, tailored to your offer and target audience.",
+    "pricing.tooltip.store.monthly": "Clear and reliable e-commerce store, ready for sales and further growth.",
+    "pricing.tooltip.mvp.monthly": "MVP solution for testing your idea in practice and collecting initial user feedback.",
+    "pricing.tooltip.landing.onetime": "Quickly built and effective landing page with a clear goal – generating inquiries.",
+    "pricing.tooltip.website.onetime": "Custom professional website with clear structure and thoughtful user flow.",
+    "pricing.tooltip.store.onetime": "Complete e-commerce store, ready for sales and further growth.",
+    "pricing.tooltip.mvp.onetime": "Custom MVP solution for serious idea validation and further product development.",
 
     // Process
     "process.title": "How collaboration works",
