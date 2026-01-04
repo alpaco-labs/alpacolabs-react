@@ -13,6 +13,7 @@ import {
 const PricingSection = () => {
   const { t } = useLanguage();
   const [isMonthly, setIsMonthly] = useState(true);
+  const [activeTooltip, setActiveTooltip] = useState<number | null>(null);
 
   const monthlyPackages = [
     {
@@ -198,11 +199,16 @@ const PricingSection = () => {
             {packages.map((pkg, index) => (
               <div
                 key={pkg.id}
-                className="relative bg-card border border-border rounded-xl p-6 hover-lift border-glow animate-slide-up"
+                className={`relative border border-border rounded-xl p-6 hover-lift border-glow animate-slide-up transition-colors duration-150 ease-out ${
+                  activeTooltip === pkg.id ? 'bg-foreground/[0.03]' : 'bg-card'
+                }`}
                 style={{ animationDelay: `${index * 0.08}s` }}
               >
                 {/* Tooltip icon */}
-                <Tooltip delayDuration={0}>
+                <Tooltip 
+                  delayDuration={0}
+                  onOpenChange={(open) => setActiveTooltip(open ? pkg.id : null)}
+                >
                   <TooltipTrigger asChild>
                     <button className="absolute top-4 right-4 text-muted-foreground hover:text-foreground transition-colors z-10">
                       <Info size={16} />
