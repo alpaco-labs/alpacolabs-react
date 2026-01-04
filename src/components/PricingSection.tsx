@@ -202,13 +202,18 @@ const PricingSection = () => {
                 style={{ animationDelay: `${index * 0.08}s` }}
               >
                 {/* Tooltip icon */}
-                <Tooltip>
+                <Tooltip delayDuration={0}>
                   <TooltipTrigger asChild>
-                    <button className="absolute top-4 right-4 text-muted-foreground hover:text-foreground transition-colors">
+                    <button className="absolute top-4 right-4 text-muted-foreground hover:text-foreground transition-colors z-10">
                       <Info size={16} />
                     </button>
                   </TooltipTrigger>
-                  <TooltipContent side="top" className="max-w-[250px] text-sm">
+                  <TooltipContent 
+                    side="bottom" 
+                    align="end"
+                    sideOffset={10}
+                    className="max-w-[250px] text-sm z-50 animate-fade-in"
+                  >
                     {t(pkg.tooltipKey)}
                   </TooltipContent>
                 </Tooltip>
