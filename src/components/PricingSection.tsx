@@ -84,10 +84,20 @@ const PricingSection = () => {
   return <TooltipProvider>
       <section id="storitve" className="py-24 md:py-32 bg-muted/30">
         <div className="container">
-          <div className="text-center mb-10 md:mb-12">
+          {/* Section Header */}
+          <div className="text-center mb-8">
             <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-semibold text-foreground">
               {t("pricing.title")}
             </h2>
+            
+            {/* Recommended badge - only for One-time */}
+            {!isMonthly && (
+              <div className="mt-4">
+                <span className="inline-block bg-primary/10 text-primary text-xs font-medium px-3 py-1 rounded-full">
+                  Recommended
+                </span>
+              </div>
+            )}
           </div>
 
           {/* Toggle */}
@@ -100,16 +110,11 @@ const PricingSection = () => {
                 <button onClick={() => setIsMonthly(true)} className={`px-5 py-2 rounded-full text-sm font-medium transition-all ${isMonthly ? "bg-background text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}>
                   {t("pricing.monthly")}
                 </button>
-                <button onClick={() => setIsMonthly(false)} className={`relative px-5 py-2 rounded-full text-sm font-medium transition-all ${!isMonthly ? "bg-background text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}>
-                  {!isMonthly && (
-                    <span className="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] font-medium text-primary whitespace-nowrap">
-                      Recommended
-                    </span>
-                  )}
+                <button onClick={() => setIsMonthly(false)} className={`px-5 py-2 rounded-full text-sm font-medium transition-all ${!isMonthly ? "bg-background text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}>
                   {t("pricing.onetime")}
                 </button>
               </div>
-              <span className="absolute right-0 top-1/2 -translate-y-1/2 text-xs font-medium text-emerald-600 dark:text-emerald-400 md:right-[calc(50%-140px)]">
+              <span className="absolute left-[calc(50%+90px)] top-1/2 -translate-y-1/2 text-xs font-medium text-emerald-600 dark:text-emerald-400">
                 17% off
               </span>
             </div>
