@@ -1,12 +1,64 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { z } from "https://deno.land/x/zod@v3.22.4/mod.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.39.3";
 
 const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
+const SUPABASE_URL = Deno.env.get("SUPABASE_URL");
+const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers":
     "authorization, x-client-info, apikey, content-type",
+};
+
+// Create Supabase admin client for rate limiting
+const supabaseAdmin = createClient(
+  SUPABASE_URL ?? "",
+  SUPABASE_SERVICE_ROLE_KEY ?? ""
+);
+
+// Rate limiting configuration
+const RATE_LIMIT_MAX_REQUESTS = 5;
+const RATE_LIMIT_WINDOW_MS = 3600000; // 1 hour in milliseconds
+
+// Check rate limit for an identifier (IP address)
+const checkRateLimit = async (identifier: string): Promise<boolean> => {
+  const oneHourAgo = new Date(Date.now() - RATE_LIMIT_WINDOW_MS).toISOString();
+  
+  try {
+    const { count, error: countError } = await supabaseAdmin
+      .from('inquiry_rate_limits')
+      .select('*', { count: 'exact', head: true })
+      .eq('identifier', identifier)
+      .gte('created_at', oneHourAgo);
+    
+    if (countError) {
+      console.error("Rate limit check error:", countError);
+      // On error, allow the request but log the issue
+      return true;
+    }
+    
+    if (count !== null && count >= RATE_LIMIT_MAX_REQUESTS) {
+      console.log(`Rate limit exceeded for identifier: ${identifier}, count: ${count}`);
+      return false;
+    }
+    
+    // Record this request
+    const { error: insertError } = await supabaseAdmin
+      .from('inquiry_rate_limits')
+      .insert({ identifier });
+    
+    if (insertError) {
+      console.error("Rate limit insert error:", insertError);
+    }
+    
+    return true;
+  } catch (error) {
+    console.error("Rate limit error:", error);
+    // On error, allow the request but log the issue
+    return true;
+  }
 };
 
 // Server-side validation schema
@@ -23,6 +75,8 @@ const InquirySchema = z.object({
   dodatno: z.string().max(2000, "Additional info must be less than 2000 characters").trim().optional().nullable(),
   cenaMin: z.number().int().min(0, "Price must be positive").max(100000, "Price exceeds maximum"),
   cenaMax: z.number().int().min(0, "Price must be positive").max(100000, "Price exceeds maximum"),
+  // Honeypot field - should always be empty for real users
+  honeypot: z.string().optional().nullable(),
 }).refine((data) => data.cenaMax >= data.cenaMin, {
   message: "Maximum price must be greater than or equal to minimum price",
 });
@@ -72,6 +126,26 @@ const handler = async (req: Request): Promise<Response> => {
   }
 
   try {
+    // Get client IP for rate limiting
+    const clientIP = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 
+                     req.headers.get('x-real-ip') || 
+                     'unknown';
+    
+    console.log(`Received inquiry request from IP: ${clientIP}`);
+
+    // Check rate limit
+    const isAllowed = await checkRateLimit(clientIP);
+    if (!isAllowed) {
+      console.log(`Rate limit exceeded for IP: ${clientIP}`);
+      return new Response(
+        JSON.stringify({ error: "Too many requests. Please try again later." }),
+        {
+          status: 429,
+          headers: { "Content-Type": "application/json", ...corsHeaders },
+        }
+      );
+    }
+
     const rawData = await req.json();
     console.log("Received raw inquiry data");
 
@@ -93,7 +167,21 @@ const handler = async (req: Request): Promise<Response> => {
     }
 
     const data: InquiryEmailRequest = parseResult.data;
-    console.log("Received inquiry data:", data);
+
+    // Honeypot check - if filled, it's likely a bot
+    if (data.honeypot) {
+      console.log("Honeypot triggered - likely bot submission");
+      // Return fake success to not alert the bot
+      return new Response(
+        JSON.stringify({ success: true }),
+        {
+          status: 200,
+          headers: { "Content-Type": "application/json", ...corsHeaders },
+        }
+      );
+    }
+
+    console.log("Received valid inquiry data");
 
     const now = new Date();
     const dateStr = now.toLocaleDateString("sl-SI", {
