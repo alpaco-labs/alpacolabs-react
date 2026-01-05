@@ -48,6 +48,7 @@ const PricingSection = () => {
     nameKey: "pricing.landing",
     price: "Od 300 €",
     period: "",
+    savings: 51,
     featureKeys: ["pricing.feature.responsive", "pricing.feature.seo", "pricing.feature.gdpr", "pricing.feature.fast"],
     tooltipKey: "pricing.tooltip.landing.onetime",
     buttonKey: "pricing.calculate"
@@ -56,6 +57,7 @@ const PricingSection = () => {
     nameKey: "pricing.website",
     price: "Od 650 €",
     period: "",
+    savings: 110,
     featureKeys: ["pricing.feature.subpages", "pricing.feature.responsive", "pricing.feature.seo", "pricing.feature.gdpr", "pricing.feature.fast"],
     tooltipKey: "pricing.tooltip.website.onetime",
     buttonKey: "pricing.calculate"
@@ -64,6 +66,7 @@ const PricingSection = () => {
     nameKey: "pricing.store",
     price: "Od 1.200 €",
     period: "",
+    savings: 204,
     featureKeys: ["pricing.feature.fullstore", "pricing.feature.responsive", "pricing.feature.seo", "pricing.feature.gdpr", "pricing.feature.fast"],
     tooltipKey: "pricing.tooltip.store.onetime",
     buttonKey: "pricing.calculate"
@@ -72,6 +75,7 @@ const PricingSection = () => {
     nameKey: "pricing.mvp",
     price: "Od 1.800 €",
     period: "",
+    savings: 306,
     featureKeys: ["pricing.feature.custom", "pricing.feature.responsive", "pricing.feature.seo", "pricing.feature.gdpr", "pricing.feature.fast"],
     tooltipKey: "pricing.tooltip.mvp.onetime",
     buttonKey: "pricing.calculate"
@@ -84,9 +88,6 @@ const PricingSection = () => {
             <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-semibold text-foreground">
               {t("pricing.title")}
             </h2>
-            <p className="text-muted-foreground mt-3 text-sm md:text-base">
-              {t("pricing.subtitle")}
-            </p>
           </div>
 
           {/* Toggle */}
@@ -98,8 +99,9 @@ const PricingSection = () => {
               <button onClick={() => setIsMonthly(true)} className={`px-5 py-2 rounded-full text-sm font-medium transition-all ${isMonthly ? "bg-background text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}>
                 {t("pricing.monthly")}
               </button>
-              <button onClick={() => setIsMonthly(false)} className={`px-5 py-2 rounded-full text-sm font-medium transition-all ${!isMonthly ? "bg-background text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}>
+              <button onClick={() => setIsMonthly(false)} className={`px-5 py-2 rounded-full text-sm font-medium transition-all flex items-center gap-2 ${!isMonthly ? "bg-background text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}>
                 {t("pricing.onetime")}
+                <span className="text-xs font-medium text-emerald-600 dark:text-emerald-400">17% off</span>
               </button>
             </div>
           </div>
@@ -115,7 +117,7 @@ const PricingSection = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {packages.map((pkg, index) => <div key={pkg.id} className={`relative border border-border rounded-xl p-6 hover-lift border-glow animate-slide-up transition-colors duration-150 ease-out ${activeTooltip === pkg.id ? 'bg-foreground/[0.03]' : 'bg-card'}`} style={{
+            {packages.map((pkg, index) => <div key={pkg.id} className={`relative border border-border rounded-xl p-6 hover-lift border-glow animate-slide-up transition-colors duration-150 ease-out flex flex-col ${activeTooltip === pkg.id ? 'bg-foreground/[0.03]' : 'bg-card'}`} style={{
             animationDelay: `${index * 0.08}s`
           }}>
                 {/* Tooltip icon */}
@@ -133,20 +135,27 @@ const PricingSection = () => {
                 <h3 className="font-heading text-lg font-semibold text-foreground mb-2 pr-6">
                   {t(pkg.nameKey)}
                 </h3>
-                <p className="text-2xl font-heading font-semibold text-foreground mb-6">
-                  {pkg.price}
-                  {isMonthly && <span className="text-base font-normal text-muted-foreground">
-                      {" "}
-                      {pkg.period}
-                    </span>}
-                </p>
-                <ul className="space-y-3 mb-6">
+                <div className="mb-6">
+                  <p className="text-2xl font-heading font-semibold text-foreground">
+                    {pkg.price}
+                    {isMonthly && <span className="text-base font-normal text-muted-foreground">
+                        {" "}
+                        {pkg.period}
+                      </span>}
+                  </p>
+                  {!isMonthly && 'savings' in pkg && (
+                    <p className="text-sm text-muted-foreground mt-1">
+                      (prihraniš {(pkg as typeof onetimePackages[0]).savings} €)
+                    </p>
+                  )}
+                </div>
+                <ul className="space-y-3 mb-6 flex-grow">
                   {pkg.featureKeys.map(featureKey => <li key={featureKey} className="flex items-start gap-3 text-sm text-muted-foreground">
                       <Check size={16} className="text-foreground/70 mt-0.5 flex-shrink-0" />
                       {t(featureKey)}
                     </li>)}
                 </ul>
-                <Button variant="outline" className="w-full" asChild>
+                <Button variant="outline" className="w-full mt-auto" asChild>
                   <Link to="/zelim-spletno-stran">{t(pkg.buttonKey)}</Link>
                 </Button>
               </div>)}
