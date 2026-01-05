@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -12,6 +12,9 @@ import { supabase } from "@/integrations/supabase/client";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useLanguage } from "@/contexts/LanguageContext";
+
+// Cloudflare Turnstile site key (public)
+const TURNSTILE_SITE_KEY = "0x4AAAAAABfhsM5GBvmD1Kso";
 
 interface FormData {
   imePriimek: string;
@@ -82,8 +85,52 @@ const ZelimSpletnoStran = () => {
   const [formData, setFormData] = useState<FormData>(initialFormData);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+  const turnstileRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
   const { t } = useLanguage();
+
+  // Load Turnstile script and render widget
+  useEffect(() => {
+    // Only load when on step 3
+    if (step !== 3) return;
+
+    const scriptId = "turnstile-script";
+    let script = document.getElementById(scriptId) as HTMLScriptElement | null;
+
+    const renderWidget = () => {
+      if (turnstileRef.current && (window as any).turnstile) {
+        // Clear any existing widget
+        turnstileRef.current.innerHTML = "";
+        (window as any).turnstile.render(turnstileRef.current, {
+          sitekey: TURNSTILE_SITE_KEY,
+          callback: (token: string) => setTurnstileToken(token),
+          "expired-callback": () => setTurnstileToken(null),
+          "error-callback": () => setTurnstileToken(null),
+          theme: "auto",
+        });
+      }
+    };
+
+    if (!script) {
+      script = document.createElement("script");
+      script.id = scriptId;
+      script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
+      script.async = true;
+      script.onload = renderWidget;
+      document.head.appendChild(script);
+    } else {
+      // Script already loaded, just render
+      renderWidget();
+    }
+
+    return () => {
+      // Reset token when leaving step 3
+      if (step === 3) {
+        setTurnstileToken(null);
+      }
+    };
+  }, [step]);
 
   const calculatePrice = () => {
     let total = 0;
@@ -170,9 +217,17 @@ const ZelimSpletnoStran = () => {
   const handleSubmit = async () => {
     if (!validateStep3()) return;
     
+    // Verify Turnstile token
+    if (!turnstileToken) {
+      toast({ title: t("form.error"), description: t("form.errorCaptcha"), variant: "destructive" });
+      return;
+    }
+    
     // Check honeypot - if filled, silently "succeed" without actually submitting
     if (formData.honeypot) {
-      console.log("Honeypot triggered - likely bot");
+      if (import.meta.env.DEV) {
+        console.log("Honeypot triggered - likely bot");
+      }
       setIsSubmitted(true);
       return;
     }
@@ -214,6 +269,7 @@ const ZelimSpletnoStran = () => {
           cenaMin: price.min,
           cenaMax: price.max,
           honeypot: formData.honeypot,
+          turnstileToken: turnstileToken,
         },
       });
       if (emailError && import.meta.env.DEV) {
@@ -560,6 +616,16 @@ const ZelimSpletnoStran = () => {
                     className="mt-2 min-h-[120px]"
                   />
                 </div>
+
+                {/* Cloudflare Turnstile CAPTCHA */}
+                <div className="mt-6">
+                  <div ref={turnstileRef} className="flex justify-center" />
+                  {!turnstileToken && (
+                    <p className="text-sm text-muted-foreground text-center mt-2">
+                      {t("form.captchaRequired")}
+                    </p>
+                  )}
+                </div>
               </div>
             )}
 
@@ -596,7 +662,11 @@ const ZelimSpletnoStran = () => {
                   <ArrowRight size={16} />
                 </Button>
               ) : (
-                <Button variant="hero" onClick={handleSubmit} disabled={isSubmitting}>
+                <Button 
+                  variant="hero" 
+                  onClick={handleSubmit} 
+                  disabled={isSubmitting || !turnstileToken}
+                >
                   {isSubmitting ? t("form.submitting") : t("form.submit")}
                 </Button>
               )}

@@ -172,6 +172,8 @@ const translations: Record<Language, Record<string, string>> = {
     "form.errorContent": "Prosim izberi ali imaš pripravljeno vsebino.",
     "form.errorDeadline": "Prosim izberi želeni rok.",
     "form.errorGeneric": "Prišlo je do napake. Prosim poskusi ponovno.",
+    "form.errorCaptcha": "Prosim potrdi, da nisi robot.",
+    "form.captchaRequired": "Prosim potrdi, da nisi robot.",
     "form.error": "Napaka",
   },
   en: {
@@ -337,6 +339,8 @@ const translations: Record<Language, Record<string, string>> = {
     "form.errorContent": "Please select if you have content ready.",
     "form.errorDeadline": "Please select your desired timeline.",
     "form.errorGeneric": "An error occurred. Please try again.",
+    "form.errorCaptcha": "Please verify that you are not a robot.",
+    "form.captchaRequired": "Please verify that you are not a robot.",
     "form.error": "Error",
   },
 };

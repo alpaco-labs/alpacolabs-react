@@ -5,6 +5,7 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2.39.3";
 const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
 const SUPABASE_URL = Deno.env.get("SUPABASE_URL");
 const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
+const TURNSTILE_SECRET_KEY = Deno.env.get("TURNSTILE_SECRET_KEY");
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -61,6 +62,30 @@ const checkRateLimit = async (identifier: string): Promise<boolean> => {
   }
 };
 
+// Verify Cloudflare Turnstile token
+const verifyTurnstileToken = async (token: string, clientIP: string): Promise<boolean> => {
+  try {
+    const response = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: new URLSearchParams({
+        secret: TURNSTILE_SECRET_KEY ?? "",
+        response: token,
+        remoteip: clientIP,
+      }),
+    });
+
+    const result = await response.json();
+    console.log("Turnstile verification result:", result.success);
+    return result.success === true;
+  } catch (error) {
+    console.error("Turnstile verification error:", error);
+    return false;
+  }
+};
+
 // Server-side validation schema
 const InquirySchema = z.object({
   imePriimek: z.string().min(2, "Name must be at least 2 characters").max(100, "Name must be less than 100 characters").trim(),
@@ -77,6 +102,8 @@ const InquirySchema = z.object({
   cenaMax: z.number().int().min(0, "Price must be positive").max(100000, "Price exceeds maximum"),
   // Honeypot field - should always be empty for real users
   honeypot: z.string().optional().nullable(),
+  // Turnstile token for CAPTCHA verification
+  turnstileToken: z.string().min(1, "CAPTCHA verification required"),
 }).refine((data) => data.cenaMax >= data.cenaMin, {
   message: "Maximum price must be greater than or equal to minimum price",
 });
@@ -181,7 +208,20 @@ const handler = async (req: Request): Promise<Response> => {
       );
     }
 
-    console.log("Received valid inquiry data");
+    // Verify Turnstile CAPTCHA token
+    const isTurnstileValid = await verifyTurnstileToken(data.turnstileToken, clientIP);
+    if (!isTurnstileValid) {
+      console.log("Turnstile verification failed");
+      return new Response(
+        JSON.stringify({ error: "CAPTCHA verification failed. Please try again." }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json", ...corsHeaders },
+        }
+      );
+    }
+
+    console.log("Received valid inquiry data with verified CAPTCHA");
 
     const now = new Date();
     const dateStr = now.toLocaleDateString("sl-SI", {
