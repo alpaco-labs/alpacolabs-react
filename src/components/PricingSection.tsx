@@ -89,15 +89,6 @@ const PricingSection = () => {
             <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-semibold text-foreground">
               {t("pricing.title")}
             </h2>
-            
-            {/* Recommended badge - only for One-time */}
-            {!isMonthly && (
-              <div className="mt-4">
-                <span className="inline-block bg-primary/10 text-primary text-xs font-medium px-3 py-1 rounded-full">
-                  Recommended
-                </span>
-              </div>
-            )}
           </div>
 
           {/* Toggle */}
