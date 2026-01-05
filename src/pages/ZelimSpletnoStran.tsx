@@ -24,6 +24,7 @@ interface FormData {
   funkcionalnosti: string[];
   rok: string;
   dodatno: string;
+  honeypot: string; // Hidden field for bot detection
 }
 
 const initialFormData: FormData = {
@@ -37,6 +38,7 @@ const initialFormData: FormData = {
   funkcionalnosti: [],
   rok: "",
   dodatno: "",
+  honeypot: "",
 };
 
 const basePrices: Record<string, number> = {
@@ -167,6 +169,14 @@ const ZelimSpletnoStran = () => {
 
   const handleSubmit = async () => {
     if (!validateStep3()) return;
+    
+    // Check honeypot - if filled, silently "succeed" without actually submitting
+    if (formData.honeypot) {
+      console.log("Honeypot triggered - likely bot");
+      setIsSubmitted(true);
+      return;
+    }
+    
     setIsSubmitting(true);
     try {
       const { error: dbError } = await supabase.from("povprasevanja").insert({
@@ -201,6 +211,7 @@ const ZelimSpletnoStran = () => {
           dodatno: formData.dodatno,
           cenaMin: price.min,
           cenaMax: price.max,
+          honeypot: formData.honeypot,
         },
       });
       if (emailError) {
@@ -316,6 +327,24 @@ const ZelimSpletnoStran = () => {
                   {t("form.step1Title")}
                 </h2>
                 <div className="space-y-4">
+                  {/* Honeypot field - hidden from real users, bots will fill it */}
+                  <input
+                    type="text"
+                    name="website"
+                    value={formData.honeypot}
+                    onChange={(e) => updateField("honeypot", e.target.value)}
+                    style={{ 
+                      position: 'absolute',
+                      left: '-9999px',
+                      opacity: 0,
+                      height: 0,
+                      width: 0,
+                      pointerEvents: 'none'
+                    }}
+                    tabIndex={-1}
+                    autoComplete="off"
+                    aria-hidden="true"
+                  />
                   <div>
                     <Label htmlFor="imePriimek">{t("form.nameLabel")}</Label>
                     <Input
