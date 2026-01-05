@@ -25,68 +25,54 @@ export const InteractiveTooltip = ({
   className,
 }: InteractiveTooltipProps) => {
   const [isHovering, setIsHovering] = useState(false);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
-  const shouldShow = isOpen || isHovering;
-
-  // Handle click outside
+  // Detect touch device
   useEffect(() => {
-    if (!isOpen) return;
+    const checkTouch = () => {
+      setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0);
+    };
+    checkTouch();
+  }, []);
 
-    const handleClickOutside = (event: MouseEvent | TouchEvent) => {
+  // On desktop: show on hover only
+  // On touch: show on tap (isOpen state)
+  const shouldShow = isTouchDevice ? isOpen : isHovering;
+
+  // Handle tap outside for touch devices
+  useEffect(() => {
+    if (!isOpen || !isTouchDevice) return;
+
+    const handleTouchOutside = (event: TouchEvent) => {
       const target = event.target as Node;
       
-      // Don't close if clicking inside tooltip content
-      if (contentRef.current?.contains(target)) {
-        return;
-      }
-      
-      // Don't close if clicking the trigger (toggle handles this)
-      if (triggerRef.current?.contains(target)) {
-        return;
-      }
+      if (contentRef.current?.contains(target)) return;
+      if (triggerRef.current?.contains(target)) return;
       
       onOpenChange(false);
     };
 
-    // Use mousedown/touchstart to catch clicks before they propagate
-    document.addEventListener("mousedown", handleClickOutside);
-    document.addEventListener("touchstart", handleClickOutside);
+    document.addEventListener("touchstart", handleTouchOutside);
+    return () => document.removeEventListener("touchstart", handleTouchOutside);
+  }, [isOpen, isTouchDevice, onOpenChange]);
 
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("touchstart", handleClickOutside);
-    };
-  }, [isOpen, onOpenChange]);
-
-  // Handle ESC key
-  useEffect(() => {
-    if (!isOpen) return;
-
-    const handleEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        onOpenChange(false);
-      }
-    };
-
-    document.addEventListener("keydown", handleEscape);
-    return () => document.removeEventListener("keydown", handleEscape);
-  }, [isOpen, onOpenChange]);
-
-  const handleClick = useCallback((event: React.MouseEvent | React.TouchEvent) => {
+  const handleTouchStart = useCallback((event: React.TouchEvent) => {
+    if (!isTouchDevice) return;
     event.preventDefault();
-    event.stopPropagation();
     onOpenChange(!isOpen);
-  }, [isOpen, onOpenChange]);
+  }, [isTouchDevice, isOpen, onOpenChange]);
 
   const handleMouseEnter = useCallback(() => {
+    if (isTouchDevice) return;
     setIsHovering(true);
-  }, []);
+  }, [isTouchDevice]);
 
   const handleMouseLeave = useCallback(() => {
+    if (isTouchDevice) return;
     setIsHovering(false);
-  }, []);
+  }, [isTouchDevice]);
 
   return (
     <TooltipPrimitive.Provider delayDuration={0}>
@@ -94,7 +80,7 @@ export const InteractiveTooltip = ({
         <TooltipPrimitive.Trigger asChild>
           <button
             ref={triggerRef}
-            onClick={handleClick}
+            onTouchStart={handleTouchStart}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
             className="absolute top-4 right-4 text-muted-foreground hover:text-foreground transition-colors z-10"
@@ -107,12 +93,6 @@ export const InteractiveTooltip = ({
           side={side}
           align={align}
           sideOffset={sideOffset}
-          onPointerDownOutside={(e) => {
-            // Prevent closing when clicking inside
-            if (contentRef.current?.contains(e.target as Node)) {
-              e.preventDefault();
-            }
-          }}
           className={cn(
             "z-50 overflow-hidden rounded-md border bg-popover px-3 py-1.5 text-sm text-popover-foreground shadow-md animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
             className
