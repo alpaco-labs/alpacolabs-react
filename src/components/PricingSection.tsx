@@ -105,7 +105,7 @@ const PricingSection = () => {
                   {t("pricing.onetime")}
                 </button>
               </div>
-              <span className="absolute left-[calc(50%+90px)] top-1/2 -translate-y-1/2 text-xs font-medium text-emerald-600 dark:text-emerald-400">
+              <span className="absolute left-[calc(50%+110px)] top-1/2 -translate-y-1/2 text-xs font-medium text-emerald-600 dark:text-emerald-400">
                 17% off
               </span>
             </div>
