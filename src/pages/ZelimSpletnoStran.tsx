@@ -194,8 +194,10 @@ const ZelimSpletnoStran = () => {
         cena_max: price.max,
       });
       if (dbError) {
-        console.error("Database error:", dbError);
-        throw new Error("Database error");
+        if (import.meta.env.DEV) {
+          console.error("Database error:", dbError);
+        }
+        throw new Error("Failed to submit form");
       }
       const { error: emailError } = await supabase.functions.invoke("send-inquiry-email", {
         body: {
@@ -214,12 +216,14 @@ const ZelimSpletnoStran = () => {
           honeypot: formData.honeypot,
         },
       });
-      if (emailError) {
+      if (emailError && import.meta.env.DEV) {
         console.error("Email error:", emailError);
       }
       setIsSubmitted(true);
     } catch (error) {
-      console.error("Submission error:", error);
+      if (import.meta.env.DEV) {
+        console.error("Submission error:", error);
+      }
       toast({ title: t("form.error"), description: t("form.errorGeneric"), variant: "destructive" });
     } finally {
       setIsSubmitting(false);
