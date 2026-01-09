@@ -16,6 +16,10 @@ const FAQSection = () => {
     { id: "4", questionKey: "faq.q4", answerKey: "faq.a4" },
     { id: "5", questionKey: "faq.q5", answerKey: "faq.a5" },
     { id: "6", questionKey: "faq.q6", answerKey: "faq.a6" },
+    { id: "7", questionKey: "faq.q7", answerKey: "faq.a7" },
+    { id: "8", questionKey: "faq.q8", answerKey: "faq.a8" },
+    { id: "9", questionKey: "faq.q9", answerKey: "faq.a9" },
+    { id: "10", questionKey: "faq.q10", answerKey: "faq.a10" },
   ];
 
   return (
