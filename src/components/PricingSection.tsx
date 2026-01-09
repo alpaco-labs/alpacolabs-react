@@ -141,7 +141,7 @@ const PricingSection = () => {
   }, [activeTooltip]);
 
   return (
-    <section id="storitve" className="py-24 md:py-32 bg-muted/30">
+    <section id="storitve" className="py-24 md:py-32 bg-background">
       <div className="container">
         {/* Section Header */}
         <div className="text-center mb-4">
