@@ -8,16 +8,44 @@ import { useLanguage } from "@/contexts/LanguageContext";
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>("");
   const location = useLocation();
   const { t } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
+      
+      // Update active section based on scroll position
+      const sections = ["portfolio", "storitve", "proces", "faq"];
+      const scrollPosition = window.scrollY + 100; // Offset for header height
+      
+      for (const sectionId of sections) {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          const { offsetTop, offsetHeight } = element;
+          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+            setActiveSection(`#${sectionId}`);
+            return;
+          }
+        }
+      }
+      
+      // If at the very top, no section is active
+      if (window.scrollY < 100) {
+        setActiveSection("");
+      }
     };
+    
     window.addEventListener("scroll", handleScroll);
+    handleScroll(); // Initial check
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const handleNavClick = (href: string) => {
+    setActiveSection(href);
+    setIsMobileMenuOpen(false);
+  };
 
   const navLinks = [
     { href: "#portfolio", labelKey: "nav.portfolio" },
@@ -52,7 +80,12 @@ const Header = () => {
                 <a
                   key={link.href}
                   href={link.href}
-                  className="relative text-muted-foreground hover:text-foreground transition-colors duration-300 text-sm font-medium after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left"
+                  onClick={() => handleNavClick(link.href)}
+                  className={`relative text-sm font-medium transition-colors duration-300 after:content-[''] after:absolute after:w-full after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-left after:transition-transform after:duration-300 ${
+                    activeSection === link.href
+                      ? "text-foreground after:scale-x-100"
+                      : "text-muted-foreground hover:text-foreground after:scale-x-0 hover:after:scale-x-100"
+                  }`}
                 >
                   {t(link.labelKey)}
                 </a>
@@ -93,13 +126,17 @@ const Header = () => {
                 <a
                   key={link.href}
                   href={link.href}
-                  className={`relative text-muted-foreground hover:text-foreground transition-all duration-300 text-base font-medium py-2 after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left ${
+                  className={`relative text-base font-medium py-2 transition-all duration-300 after:content-[''] after:absolute after:w-full after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-left after:transition-transform after:duration-300 ${
+                    activeSection === link.href
+                      ? "text-foreground after:scale-x-100"
+                      : "text-muted-foreground hover:text-foreground after:scale-x-0 hover:after:scale-x-100"
+                  } ${
                     isMobileMenuOpen
                       ? "translate-x-0 opacity-100"
                       : "-translate-x-4 opacity-0"
                   }`}
                   style={{ transitionDelay: `${index * 50}ms` }}
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  onClick={() => handleNavClick(link.href)}
                 >
                   {t(link.labelKey)}
                 </a>
