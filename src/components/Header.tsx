@@ -49,8 +49,8 @@ const Header = () => {
 
   const navLinks = [
     { href: "#portfolio", labelKey: "nav.portfolio" },
-    { href: "#storitve", labelKey: "nav.services" },
     { href: "#proces", labelKey: "nav.process" },
+    { href: "#storitve", labelKey: "nav.services" },
     { href: "#faq", labelKey: "nav.faq" },
   ];
 
