@@ -168,14 +168,11 @@ const PricingSection = () => {
               Letno
             </span>
           </div>
-          <span className="text-xs font-medium text-emerald-500 bg-emerald-500/10 px-2 py-1 rounded-full ml-3 self-center">
-            2 meseca gratis
-          </span>
         </div>
 
         {/* Helper text */}
         <div className="text-center mb-12">
-          <p className="text-sm text-muted-foreground">
+          <p className={`text-sm transition-colors ${isYearly ? "text-emerald-500" : "text-muted-foreground"}`}>
             {isYearly ? "Letna naročnina = 2 meseca gratis." : "Letna naročnina = plačaš 10 mesecev."}
           </p>
         </div>
