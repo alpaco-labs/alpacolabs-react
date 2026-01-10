@@ -176,7 +176,7 @@ const PricingSection = () => {
         {/* Helper text */}
         <div className="text-center mb-12">
           <p className="text-sm text-muted-foreground">
-            Letna naročnina = plačaš 10 mesecev.
+            {isYearly ? "Letna naročnina = 2 meseca gratis." : "Letna naročnina = plačaš 10 mesecev."}
           </p>
         </div>
 
