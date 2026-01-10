@@ -155,7 +155,7 @@ const PricingSection = () => {
         </div>
 
         {/* Payment Switch */}
-        <div className="flex flex-col items-center gap-3 mb-4">
+        <div className="flex justify-center mb-4">
           <div className="flex items-center gap-4">
             <span className={`text-sm font-medium transition-colors ${!isYearly ? "text-foreground" : "text-muted-foreground"}`}>
               Mesečno
@@ -164,15 +164,13 @@ const PricingSection = () => {
               checked={isYearly}
               onCheckedChange={setIsYearly}
             />
-            <div className="flex items-center gap-2">
-              <span className={`text-sm font-medium transition-colors ${isYearly ? "text-foreground" : "text-muted-foreground"}`}>
-                Letno
-              </span>
-              <span className="text-xs font-medium text-emerald-500 bg-emerald-500/10 px-2 py-1 rounded-full">
-                2 meseca gratis
-              </span>
-            </div>
+            <span className={`text-sm font-medium transition-colors ${isYearly ? "text-foreground" : "text-muted-foreground"}`}>
+              Letno
+            </span>
           </div>
+          <span className="text-xs font-medium text-emerald-500 bg-emerald-500/10 px-2 py-1 rounded-full ml-3 self-center">
+            2 meseca gratis
+          </span>
         </div>
 
         {/* Helper text */}

@@ -12,7 +12,7 @@ const translations: Record<Language, Record<string, string>> = {
   sl: {
     // Header
     "nav.portfolio": "Portfolio",
-    "nav.services": "Storitve",
+    "nav.services": "Paketi",
     "nav.process": "Proces",
     "nav.faq": "FAQ",
     "nav.cta": "Želim spletno stran",
