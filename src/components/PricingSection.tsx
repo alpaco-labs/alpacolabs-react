@@ -171,10 +171,12 @@ const PricingSection = () => {
         </div>
 
         {/* Helper text */}
-        <div className="text-center mb-12">
-          <p className={`text-sm transition-colors ${isYearly ? "text-emerald-500" : "text-muted-foreground"}`}>
-            {isYearly ? "Letna naročnina = 2 meseca gratis." : "Letna naročnina = plačaš 10 mesecev."}
-          </p>
+        <div className="text-center mb-12 h-5">
+          {isYearly && (
+            <p className="text-sm text-emerald-500">
+              Letna naročnina = 2 meseca gratis.
+            </p>
+          )}
         </div>
 
         {/* Pricing Cards */}
