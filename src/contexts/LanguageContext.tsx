@@ -23,9 +23,9 @@ const translations: Record<Language, Record<string, string>> = {
     "hero.title2": "prinašajo povpraševanja.",
     "hero.description": "Od ideje do online v nekaj dneh. Jasen dizajn, hitra stran in jasen poziv k dejanju.",
     "hero.cta": "Želim spletno stran",
-    "hero.fast": "Hitro",
-    "hero.mobile": "Mobile-first",
-    "hero.seo": "SEO osnove",
+    "hero.fast": "Jasna struktura",
+    "hero.mobile": "Več povpraševanj",
+    "hero.seo": "Pripravljeno za rast",
 
     // Portfolio
     "portfolio.title": "Izbrani projekti",
