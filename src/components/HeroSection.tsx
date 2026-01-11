@@ -7,7 +7,7 @@ const HeroSection = () => {
   const { t } = useLanguage();
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden pt-16 pb-20">
       {/* Dark mode: dark base layer */}
       <div 
         className="absolute inset-0 hidden dark:block" 
@@ -137,11 +137,14 @@ const HeroSection = () => {
       
       {/* Light mode: Bottom fade to content */}
       <div 
-        className="absolute bottom-0 left-0 right-0 h-24 dark:hidden" 
+        className="absolute bottom-0 left-0 right-0 h-32 dark:hidden" 
         style={{
           background: 'linear-gradient(to top, hsl(var(--background)), transparent)'
         }} 
       />
+      
+      {/* Visual divider transition */}
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border/50 to-transparent" />
     </section>
   );
 };

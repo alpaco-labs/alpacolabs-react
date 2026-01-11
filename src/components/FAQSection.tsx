@@ -23,26 +23,29 @@ const FAQSection = () => {
   ];
 
   return (
-    <section id="faq" className="py-24 md:py-32 bg-muted/30">
+    <section id="faq" className="py-14 md:py-20 bg-background relative">
+      {/* Top visual anchor */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+      
       <div className="container">
-        <div className="text-center mb-16 md:mb-20">
+        <div className="text-center mb-10 md:mb-12">
           <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-semibold text-foreground">
             {t("faq.title")}
           </h2>
         </div>
 
         <div className="max-w-2xl mx-auto">
-          <Accordion type="single" collapsible className="space-y-3">
+          <Accordion type="single" collapsible className="space-y-2">
             {faqs.map((faq) => (
               <AccordionItem
                 key={faq.id}
                 value={faq.id}
-                className="border border-border rounded-xl px-6 bg-card/50 data-[state=open]:bg-card transition-colors duration-300"
+                className="border border-border rounded-xl px-5 bg-card/50 data-[state=open]:bg-card data-[state=open]:shadow-sm transition-all duration-300"
               >
-                <AccordionTrigger className="text-left font-heading font-medium text-foreground hover:no-underline py-5 text-[15px]">
+                <AccordionTrigger className="text-left font-heading font-medium text-foreground hover:no-underline py-4 text-[15px]">
                   {t(faq.questionKey)}
                 </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground pb-5 text-sm leading-relaxed">
+                <AccordionContent className="text-muted-foreground pb-4 text-sm leading-relaxed">
                   {t(faq.answerKey)}
                 </AccordionContent>
               </AccordionItem>

@@ -44,28 +44,37 @@ const PortfolioSection = () => {
   ];
 
   return (
-    <section id="portfolio" className="py-24 md:py-32 bg-background">
+    <section id="portfolio" className="py-16 md:py-24 bg-muted/20">
       <div className="container">
-        <div className="text-center mb-16 md:mb-20">
+        {/* Section anchor/label */}
+        <div className="flex items-center justify-center gap-4 mb-8">
+          <div className="h-px w-12 bg-gradient-to-r from-transparent to-border" />
+          <span className="text-xs font-medium uppercase tracking-widest text-muted-foreground">
+            {t("portfolio.title")}
+          </span>
+          <div className="h-px w-12 bg-gradient-to-l from-transparent to-border" />
+        </div>
+
+        <div className="text-center mb-12 md:mb-14">
           <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-semibold text-foreground">
             {t("portfolio.title")}
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
           {projects.map((project, index) => (
             <div
               key={project.id}
-              className="group bg-card border border-border rounded-xl overflow-hidden hover-lift border-glow animate-slide-up"
+              className="group bg-card border border-border rounded-xl overflow-hidden hover-lift animate-slide-up shadow-sm hover:shadow-md transition-shadow duration-300"
               style={{ animationDelay: `${index * 0.08}s` }}
             >
-              <div className="aspect-video bg-secondary/50 relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-muted/30 to-transparent" />
+              <div className="aspect-video bg-secondary/60 relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent" />
                 <div className="absolute inset-0 flex items-center justify-center">
                   <span className="text-muted-foreground text-sm">{t("portfolio.visualization")}</span>
                 </div>
               </div>
-              <div className="p-6">
+              <div className="p-5">
                 <h3 className="font-heading text-lg font-semibold text-foreground mb-2">
                   {project.name}
                 </h3>
@@ -77,7 +86,7 @@ const PortfolioSection = () => {
                     <Badge
                       key={tagKey}
                       variant="secondary"
-                      className="text-xs font-medium bg-secondary/70 text-secondary-foreground border-0"
+                      className="text-xs font-medium bg-secondary/80 text-secondary-foreground border-0"
                     >
                       {t(tagKey)}
                     </Badge>
@@ -88,7 +97,7 @@ const PortfolioSection = () => {
           ))}
         </div>
 
-        <p className="text-center text-muted-foreground text-sm mt-12">
+        <p className="text-center text-muted-foreground text-sm mt-10">
           {t("portfolio.demo")}
         </p>
       </div>

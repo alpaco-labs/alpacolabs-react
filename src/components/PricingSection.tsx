@@ -141,7 +141,10 @@ const PricingSection = () => {
   }, [activeTooltip]);
 
   return (
-    <section id="storitve" className="py-24 md:py-32 bg-background">
+    <section id="storitve" className="py-16 md:py-24 bg-muted/40 dark:bg-muted/20 relative">
+      {/* Top divider */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+      
       <div className="container">
         {/* Section Header */}
         <div className="text-center mb-4">
@@ -150,13 +153,13 @@ const PricingSection = () => {
           </h2>
         </div>
         
-        <div className="text-center mb-8">
+        <div className="text-center mb-6">
           <p className="text-muted-foreground">Choose your payment option</p>
         </div>
 
         {/* Payment Switch */}
         <div className="flex justify-center mb-4">
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 bg-card/80 border border-border rounded-full px-4 py-2">
             <span className={`text-sm font-medium transition-colors ${!isYearly ? "text-foreground" : "text-muted-foreground"}`}>
               Mesečno
             </span>
@@ -171,7 +174,7 @@ const PricingSection = () => {
         </div>
 
         {/* Helper text */}
-        <div className="text-center mb-12 h-5">
+        <div className="text-center mb-10 h-5">
           {isYearly && (
             <p className="text-sm text-emerald-500">
               Letna naročnina = 2 meseca gratis.
@@ -180,12 +183,12 @@ const PricingSection = () => {
         </div>
 
         {/* Pricing Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6">
           {packages.map((pkg, index) => (
             <div
               key={pkg.id}
-              className={`relative border border-border rounded-xl p-6 hover-lift border-glow animate-slide-up transition-colors duration-150 ease-out flex flex-col ${
-                activeTooltip === pkg.id ? "bg-foreground/[0.03]" : "bg-card"
+              className={`relative border border-border rounded-xl p-6 hover-lift animate-slide-up transition-all duration-200 flex flex-col shadow-sm hover:shadow-lg ${
+                activeTooltip === pkg.id ? "bg-foreground/[0.03] border-primary/30" : "bg-card"
               }`}
               style={{ animationDelay: `${index * 0.08}s` }}
             >
@@ -255,6 +258,9 @@ const PricingSection = () => {
           isYearly={isYearly}
         />
       )}
+      
+      {/* Bottom divider */}
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
     </section>
   );
 };
