@@ -12,7 +12,7 @@ const TargetAudienceSection = () => {
   ];
 
   return (
-    <section className="py-24 md:py-32 bg-background">
+    <section className="py-24 md:py-32 bg-muted/30">
       <div className="container">
         <div className="text-center mb-12 md:mb-16">
           <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-semibold text-foreground">
