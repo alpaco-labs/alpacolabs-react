@@ -86,6 +86,26 @@ const translations: Record<Language, Record<string, string>> = {
     "process.step3.title": "Popravki + objava + optimizacija",
     "process.step3.description": "Implementiram popravke, objavim stran in poskrbim za optimizacijo.",
 
+    // Target Audience
+    "target.title": "Za koga je to primerno",
+    "target.benefit1": "želiš več povpraševanj",
+    "target.benefit2": "ceniš jasen proces",
+    "target.benefit3": "dostopna začetna investicija",
+    "target.benefit4": "gradiš projekt za rast",
+
+    // Collaboration
+    "collab.title": "Kako poteka sodelovanje",
+    "collab.step": "Korak",
+    "collab.step1.title": "Paket + vprašalnik + cena",
+    "collab.step1.description": "Izbereš paket in takoj vidiš okvirno ceno.",
+    "collab.step2.title": "Osnutek v 48–72 urah",
+    "collab.step2.description": "Prvi dizajn za hiter pregled in uskladitev.",
+    "collab.step3.title": "Popravki + objava + rast",
+    "collab.step3.description": "Dodelamo, objavimo in optimiziramo.",
+    "collab.note1": "brez presenečenj",
+    "collab.note2": "jasen proces",
+    "collab.note3": "fokus na rezultat",
+
     // FAQ
     "faq.title": "Pogosta vprašanja",
     "faq.q1": "Koliko časa traja izdelava spletne strani?",
@@ -260,6 +280,26 @@ const translations: Record<Language, Record<string, string>> = {
     "process.step2.description": "I prepare the first design draft, which we review together.",
     "process.step3.title": "Revisions + launch + optimization",
     "process.step3.description": "I implement revisions, launch the site, and take care of optimization.",
+
+    // Target Audience
+    "target.title": "Who is this for",
+    "target.benefit1": "you want more inquiries",
+    "target.benefit2": "you value a clear process",
+    "target.benefit3": "accessible initial investment",
+    "target.benefit4": "you're building for growth",
+
+    // Collaboration
+    "collab.title": "How collaboration works",
+    "collab.step": "Step",
+    "collab.step1.title": "Package + questionnaire + price",
+    "collab.step1.description": "Choose a package and see the approximate price immediately.",
+    "collab.step2.title": "Draft in 48–72 hours",
+    "collab.step2.description": "First design for quick review and alignment.",
+    "collab.step3.title": "Revisions + launch + growth",
+    "collab.step3.description": "We refine, publish, and optimize.",
+    "collab.note1": "no surprises",
+    "collab.note2": "clear process",
+    "collab.note3": "focus on results",
 
     // FAQ
     "faq.title": "Frequently asked questions",
