@@ -58,8 +58,8 @@ const CollaborationSection = () => {
                 className="text-center animate-slide-up relative flex flex-col items-center"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
-                {/* Step number badge */}
-                <div className="absolute -top-2 left-1/2 -translate-x-1/2 text-[10px] font-bold uppercase tracking-widest text-primary/70 bg-secondary/80 dark:bg-secondary/60 px-2 py-0.5 rounded-full z-20">
+                {/* Step number badge - positioned above icon */}
+                <div className="text-[10px] font-bold uppercase tracking-widest text-primary/70 mb-3">
                   {t("collab.step")} {step.id}
                 </div>
                 

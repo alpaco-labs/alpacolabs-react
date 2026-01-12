@@ -14,15 +14,14 @@ const TargetAudienceSection = () => {
   return (
     <section className="py-12 md:py-16 bg-background">
       <div className="container">
-        <div className="text-center mb-8 md:mb-10">
-          <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-semibold text-foreground">
+        <div className="max-w-xl mx-auto">
+          {/* Title left-aligned */}
+          <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-semibold text-foreground mb-6 md:mb-8">
             {t("target.title")}
           </h2>
-        </div>
 
-        {/* Two column on desktop, single on mobile - tighter spacing */}
-        <div className="max-w-2xl mx-auto">
-          <ul className="grid grid-cols-1 md:grid-cols-2 gap-2.5 md:gap-3">
+          {/* Single column list aligned with title */}
+          <ul className="flex flex-col gap-2.5">
             {benefits.map((benefitKey, index) => (
               <li
                 key={index}
