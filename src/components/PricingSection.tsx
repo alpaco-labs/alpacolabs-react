@@ -187,8 +187,8 @@ const PricingSection = () => {
           {packages.map((pkg, index) => (
             <div
               key={pkg.id}
-              className={`relative border border-border rounded-xl p-6 hover-lift animate-slide-up transition-all duration-200 flex flex-col shadow-sm hover:shadow-lg ${
-                activeTooltip === pkg.id ? "bg-foreground/[0.03] border-primary/30" : "bg-card"
+              className={`relative border rounded-xl p-6 hover-lift animate-slide-up transition-all duration-200 flex flex-col shadow-sm hover:shadow-lg border-border dark:border-border/80 dark:border-[1.5px] ${
+                activeTooltip === pkg.id ? "bg-foreground/[0.03] border-primary/30 dark:border-primary/40" : "bg-card"
               }`}
               style={{ animationDelay: `${index * 0.08}s` }}
             >
@@ -239,7 +239,7 @@ const PricingSection = () => {
               {/* CTA */}
               <Button
                 variant="outline"
-                className="w-full"
+                className="w-full dark:border-[1.5px]"
                 onClick={() => setCalculatorOpen(pkg.type)}
               >
                 Izračunaj točno ceno

@@ -117,14 +117,30 @@
     @apply border-border;
   }
 
+  html {
+    /* Smooth theme transitions */
+    color-scheme: light dark;
+  }
+
+  html.dark {
+    color-scheme: dark;
+  }
+
   body {
     @apply bg-background text-foreground antialiased;
     font-family: var(--font-body);
+    /* Smooth color transitions for theme switching */
+    transition: background-color 0.25s ease-out, color 0.25s ease-out;
   }
 
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading);
     @apply font-semibold tracking-tight;
+  }
+
+  /* Theme transition for all elements */
+  *, *::before, *::after {
+    transition: background-color 0.25s ease-out, border-color 0.25s ease-out, color 0.2s ease-out;
   }
 }
 

@@ -46,15 +46,6 @@ const PortfolioSection = () => {
   return (
     <section id="portfolio" className="py-16 md:py-24 bg-muted/20">
       <div className="container">
-        {/* Section anchor/label */}
-        <div className="flex items-center justify-center gap-4 mb-8">
-          <div className="h-px w-12 bg-gradient-to-r from-transparent to-border" />
-          <span className="text-xs font-medium uppercase tracking-widest text-muted-foreground">
-            {t("portfolio.title")}
-          </span>
-          <div className="h-px w-12 bg-gradient-to-l from-transparent to-border" />
-        </div>
-
         <div className="text-center mb-12 md:mb-14">
           <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-semibold text-foreground">
             {t("portfolio.title")}
@@ -96,10 +87,6 @@ const PortfolioSection = () => {
             </div>
           ))}
         </div>
-
-        <p className="text-center text-muted-foreground text-sm mt-10">
-          {t("portfolio.demo")}
-        </p>
       </div>
     </section>
   );
