@@ -61,7 +61,7 @@ const CollaborationSection = () => {
                 <div className="relative flex items-center justify-center mb-5">
                   {/* Left connecting line - show on steps 2 and 3 */}
                   {index > 0 && (
-                    <div className="hidden md:block absolute right-full top-1/2 -translate-y-1/2 w-[calc(50vw/3-48px)] max-w-[120px] h-[2px] bg-gradient-to-l from-border to-transparent mr-2" />
+                    <div className="hidden md:block absolute right-full top-1/2 -translate-y-1/2 w-[calc(50vw/3-48px)] max-w-[120px] h-[2px] bg-primary/40 mr-2" />
                   )}
                   
                   {/* Icon container */}
@@ -71,7 +71,7 @@ const CollaborationSection = () => {
                   
                   {/* Right connecting line - show on steps 1 and 2 */}
                   {index < 2 && (
-                    <div className="hidden md:block absolute left-full top-1/2 -translate-y-1/2 w-[calc(50vw/3-48px)] max-w-[120px] h-[2px] bg-gradient-to-r from-border to-transparent ml-2" />
+                    <div className="hidden md:block absolute left-full top-1/2 -translate-y-1/2 w-[calc(50vw/3-48px)] max-w-[120px] h-[2px] bg-primary/40 ml-2" />
                   )}
                 </div>
                 
