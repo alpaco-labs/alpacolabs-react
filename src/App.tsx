@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "next-themes";
 import { LanguageProvider } from "@/contexts/LanguageContext";
+import ScrollToTop from "./components/ScrollToTop";
 import Index from "./pages/Index";
 import ZelimSpletnoStran from "./pages/ZelimSpletnoStran";
 import NotFound from "./pages/NotFound";
@@ -19,6 +20,7 @@ const App = () => (
           <Toaster />
           <Sonner />
           <BrowserRouter>
+            <ScrollToTop />
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/zelim-spletno-stran" element={<ZelimSpletnoStran />} />
