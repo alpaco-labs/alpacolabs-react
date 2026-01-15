@@ -35,12 +35,20 @@ const Footer = () => {
               <img 
                 src={footerAlpacaLight} 
                 alt="Alpaco Labs mascot" 
-                className="block dark:hidden w-24 h-auto object-contain" 
+                className="block dark:hidden w-24 h-auto object-contain"
+                style={{
+                  maskImage: 'linear-gradient(to bottom, black 85%, transparent 100%)',
+                  WebkitMaskImage: 'linear-gradient(to bottom, black 85%, transparent 100%)'
+                }}
               />
               <img 
                 src={footerAlpacaDark} 
                 alt="Alpaco Labs mascot" 
                 className="hidden dark:block w-24 h-auto object-contain"
+                style={{
+                  maskImage: 'linear-gradient(to bottom, black 85%, transparent 100%)',
+                  WebkitMaskImage: 'linear-gradient(to bottom, black 85%, transparent 100%)'
+                }}
               />
             </div>
           </div>
