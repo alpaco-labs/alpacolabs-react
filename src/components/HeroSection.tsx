@@ -9,28 +9,55 @@ const HeroSection = () => {
 
   return (
     <section className="relative min-h-[90vh] flex items-center overflow-hidden">
-      {/* Full hero background image */}
+      {/* Mobile: position llama to right-bottom, Desktop: right center */}
+      <style>{`
+        .hero-bg-responsive {
+          background-position: 75% 85% !important;
+          background-size: auto 85% !important;
+        }
+        @media (min-width: 768px) {
+          .hero-bg-responsive {
+            background-position: right center !important;
+            background-size: cover !important;
+          }
+        }
+      `}</style>
+      
+      {/* Full hero background image - responsive positioning */}
       <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        className="absolute inset-0 bg-no-repeat hero-bg-responsive"
         style={{
           backgroundImage: `url(${heroLlama})`,
-          backgroundPosition: 'right center',
         }}
       />
       
-      {/* Dark overlay for text readability - stronger on left */}
+      {/* Dark overlay for text readability - desktop */}
       <div 
-        className="absolute inset-0"
+        className="absolute inset-0 hidden dark:md:block"
         style={{
-          background: 'linear-gradient(to right, hsla(220, 20%, 4%, 0.9) 0%, hsla(220, 20%, 4%, 0.7) 40%, hsla(220, 20%, 4%, 0.3) 70%, transparent 100%)'
+          background: 'linear-gradient(to right, hsla(220, 20%, 4%, 0.95) 0%, hsla(220, 20%, 4%, 0.85) 30%, hsla(220, 20%, 4%, 0.5) 60%, hsla(220, 20%, 4%, 0.3) 100%)'
+        }}
+      />
+      {/* Dark overlay - mobile (vertical gradient) */}
+      <div 
+        className="absolute inset-0 hidden dark:block dark:md:hidden"
+        style={{
+          background: 'linear-gradient(to bottom, hsla(220, 20%, 4%, 0.92) 0%, hsla(220, 20%, 4%, 0.75) 50%, hsla(220, 20%, 4%, 0.4) 100%)'
         }}
       />
       
-      {/* Light mode overlay */}
+      {/* Light mode overlay - desktop */}
       <div 
-        className="absolute inset-0 dark:hidden"
+        className="absolute inset-0 dark:hidden hidden md:block"
         style={{
           background: 'linear-gradient(to right, hsla(210, 40%, 98%, 0.95) 0%, hsla(210, 40%, 98%, 0.8) 40%, hsla(210, 40%, 98%, 0.4) 70%, transparent 100%)'
+        }}
+      />
+      {/* Light mode overlay - mobile */}
+      <div 
+        className="absolute inset-0 dark:hidden md:hidden"
+        style={{
+          background: 'linear-gradient(to bottom, hsla(210, 40%, 98%, 0.95) 0%, hsla(210, 40%, 98%, 0.85) 50%, hsla(210, 40%, 98%, 0.5) 100%)'
         }}
       />
       
