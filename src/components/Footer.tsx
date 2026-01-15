@@ -25,6 +25,9 @@ const Footer = () => {
                 ALPACA LABS
               </span>
             </Link>
+            <p className="mt-4 text-muted-foreground text-sm max-w-xs leading-relaxed">
+              Spletne strani, ki prinašajo povpraševanja. Od ideje do online v nekaj dneh.
+            </p>
             {/* Alpaca mascot */}
             <div className="mt-4">
               <img 
@@ -38,9 +41,6 @@ const Footer = () => {
                 className="hidden dark:block w-32 h-auto object-contain" 
               />
             </div>
-            <p className="mt-4 text-muted-foreground text-sm max-w-xs leading-relaxed">
-              Spletne strani, ki prinašajo povpraševanja. Od ideje do online v nekaj dneh.
-            </p>
           </div>
 
           {/* Contact */}
