@@ -13,7 +13,7 @@ const Footer = () => {
   return (
     <footer className="bg-muted/30 border-t border-border/50">
       <div className="container py-16 md:py-20">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
           {/* Brand */}
           <div>
             <Link to="/" className="flex items-center gap-2">
@@ -28,19 +28,6 @@ const Footer = () => {
             <p className="mt-4 text-muted-foreground text-sm max-w-xs leading-relaxed">
               Spletne strani, ki prinašajo povpraševanja. Od ideje do online v nekaj dneh.
             </p>
-            {/* Alpaca mascot */}
-            <div className="mt-4">
-              <img 
-                src={footerAlpacaLight} 
-                alt="Alpaca Labs mascot" 
-                className="block dark:hidden w-32 h-auto object-contain" 
-              />
-              <img 
-                src={footerAlpacaDark} 
-                alt="Alpaca Labs mascot" 
-                className="hidden dark:block w-32 h-auto object-contain" 
-              />
-            </div>
           </div>
 
           {/* Contact */}
@@ -73,6 +60,20 @@ const Footer = () => {
               </a>
             </div>
             <LanguageSwitcher />
+          </div>
+
+          {/* Alpaca mascot - far right */}
+          <div className="flex justify-center md:justify-end items-start">
+            <img 
+              src={footerAlpacaLight} 
+              alt="Alpaca Labs mascot" 
+              className="block dark:hidden w-32 h-auto object-contain" 
+            />
+            <img 
+              src={footerAlpacaDark} 
+              alt="Alpaca Labs mascot" 
+              className="hidden dark:block w-32 h-auto object-contain" 
+            />
           </div>
         </div>
 
