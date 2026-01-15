@@ -81,57 +81,60 @@ const HeroSection = () => {
         }} 
       />
       
-      {/* Hero image - full width background, positioned right */}
-      <div className="absolute inset-0 z-[1]">
-        <img 
-          src={heroLlama} 
-          alt="AL Mascot" 
-          className="absolute right-0 bottom-0 h-full w-auto max-w-[60%] lg:max-w-[50%] object-contain object-right-bottom animate-slide-up"
-        />
-      </div>
-      
       {/* Content */}
       <div className="relative z-10 container">
-        <div className="max-w-2xl px-4 text-left">
-          <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold leading-[1.1] tracking-tight animate-slide-up text-foreground">
-            {t("hero.title1")}<br className="hidden sm:block" /> {t("hero.title2")}
-          </h1>
-          
-          <p 
-            className="mt-6 md:mt-8 text-lg md:text-xl max-w-xl animate-slide-up text-muted-foreground" 
-            style={{ animationDelay: "0.1s" }}
-          >
-            {t("hero.description")}
-          </p>
-
-          <div 
-            className="mt-10 md:mt-12 animate-slide-up" 
-            style={{ animationDelay: "0.2s" }}
-          >
-            <Button variant="hero" size="xl" asChild>
-              <Link to="/zelim-spletno-stran">
-                {t("hero.cta")}
-                <ArrowRight size={18} />
-              </Link>
-            </Button>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center px-4">
+          {/* Image - left side */}
+          <div className="order-2 lg:order-1 flex justify-center lg:justify-start animate-slide-up">
+            <img 
+              src={heroLlama} 
+              alt="AL Mascot" 
+              className="w-full max-w-md lg:max-w-lg xl:max-w-xl h-auto object-contain"
+            />
           </div>
+          
+          {/* Text - right side */}
+          <div className="order-1 lg:order-2 text-center lg:text-right">
+            <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold leading-[1.1] tracking-tight animate-slide-up text-foreground">
+              {t("hero.title1")}<br className="hidden sm:block" /> {t("hero.title2")}
+            </h1>
+            
+            <p 
+              className="mt-6 md:mt-8 text-lg md:text-xl max-w-2xl ml-auto animate-slide-up text-muted-foreground" 
+              style={{ animationDelay: "0.1s" }}
+            >
+              {t("hero.description")}
+            </p>
 
-          {/* Trust indicators */}
-          <div 
-            className="mt-16 md:mt-20 flex flex-wrap items-center gap-8 md:gap-12 animate-slide-up" 
-            style={{ animationDelay: "0.3s" }}
-          >
-            <div className="flex items-center gap-2 text-muted-foreground">
-              <div className="w-1.5 h-1.5 rounded-full bg-primary/60" />
-              <span className="text-sm font-medium">{t("hero.fast")}</span>
+            <div 
+              className="mt-10 md:mt-12 animate-slide-up flex justify-center lg:justify-end" 
+              style={{ animationDelay: "0.2s" }}
+            >
+              <Button variant="hero" size="xl" asChild>
+                <Link to="/zelim-spletno-stran">
+                  {t("hero.cta")}
+                  <ArrowRight size={18} />
+                </Link>
+              </Button>
             </div>
-            <div className="flex items-center gap-2 text-muted-foreground">
-              <div className="w-1.5 h-1.5 rounded-full bg-primary/60" />
-              <span className="text-sm font-medium">{t("hero.mobile")}</span>
-            </div>
-            <div className="flex items-center gap-2 text-muted-foreground">
-              <div className="w-1.5 h-1.5 rounded-full bg-primary/60" />
-              <span className="text-sm font-medium">{t("hero.seo")}</span>
+
+            {/* Trust indicators */}
+            <div 
+              className="mt-16 md:mt-20 flex flex-wrap items-center justify-center lg:justify-end gap-8 md:gap-12 animate-slide-up" 
+              style={{ animationDelay: "0.3s" }}
+            >
+              <div className="flex items-center gap-2 text-muted-foreground">
+                <div className="w-1.5 h-1.5 rounded-full bg-primary/60" />
+                <span className="text-sm font-medium">{t("hero.fast")}</span>
+              </div>
+              <div className="flex items-center gap-2 text-muted-foreground">
+                <div className="w-1.5 h-1.5 rounded-full bg-primary/60" />
+                <span className="text-sm font-medium">{t("hero.mobile")}</span>
+              </div>
+              <div className="flex items-center gap-2 text-muted-foreground">
+                <div className="w-1.5 h-1.5 rounded-full bg-primary/60" />
+                <span className="text-sm font-medium">{t("hero.seo")}</span>
+              </div>
             </div>
           </div>
         </div>
