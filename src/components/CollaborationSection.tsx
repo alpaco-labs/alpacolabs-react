@@ -25,11 +25,6 @@ const CollaborationSection = () => {
     },
   ];
 
-  const closingNotes = [
-    "collab.note1",
-    "collab.note2",
-    "collab.note3",
-  ];
 
   return (
     <section id="proces" className="py-16 md:py-24 bg-secondary/30 dark:bg-secondary/20 relative">
@@ -86,15 +81,6 @@ const CollaborationSection = () => {
           </div>
         </div>
 
-        {/* Closing notes */}
-        <div className="flex flex-wrap justify-center gap-5 md:gap-8 mt-12 text-sm text-muted-foreground">
-          {closingNotes.map((noteKey, index) => (
-            <span key={index} className="flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-primary/60" />
-              {t(noteKey)}
-            </span>
-          ))}
-        </div>
       </div>
       
       {/* Bottom divider */}
