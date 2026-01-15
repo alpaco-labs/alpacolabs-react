@@ -56,8 +56,8 @@ const TargetAudienceSection = () => {
                   alt="ALPACA LABS mascot"
                   className="w-64 md:w-80 lg:w-96 h-auto object-contain"
                   style={{
-                    maskImage: 'linear-gradient(to bottom, black 70%, transparent 100%)',
-                    WebkitMaskImage: 'linear-gradient(to bottom, black 70%, transparent 100%)'
+                    maskImage: 'linear-gradient(to bottom, black 85%, transparent 100%)',
+                    WebkitMaskImage: 'linear-gradient(to bottom, black 85%, transparent 100%)'
                   }}
                 />
               </div>
