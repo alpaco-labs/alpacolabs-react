@@ -4,6 +4,8 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import logoDark from "@/assets/logo-dark.png";
 import logoLight from "@/assets/logo-light.png";
+import footerAlpacaLight from "@/assets/footer-alpaca-light.png";
+import footerAlpacaDark from "@/assets/footer-alpaca-dark.png";
 
 const Footer = () => {
   const { t } = useLanguage();
@@ -23,8 +25,21 @@ const Footer = () => {
                 ALPACA LABS
               </span>
             </Link>
+            {/* Alpaca mascot */}
+            <div className="mt-4">
+              <img 
+                src={footerAlpacaLight} 
+                alt="Alpaca Labs mascot" 
+                className="block dark:hidden w-32 h-auto object-contain" 
+              />
+              <img 
+                src={footerAlpacaDark} 
+                alt="Alpaca Labs mascot" 
+                className="hidden dark:block w-32 h-auto object-contain" 
+              />
+            </div>
             <p className="mt-4 text-muted-foreground text-sm max-w-xs leading-relaxed">
-              {t("footer.description")}
+              Spletne strani, ki prinašajo povpraševanja. Od ideje do online v nekaj dneh.
             </p>
           </div>
 
