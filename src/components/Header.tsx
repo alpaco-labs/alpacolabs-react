@@ -73,11 +73,11 @@ const Header = () => {
             className="flex items-center gap-2 hover:opacity-70 transition-opacity duration-300"
           >
             {/* Dark mode logo (white) */}
-            <img src={logoDark} alt="Alpaca Labs" className="hidden dark:block h-8 md:h-10 w-auto" />
+            <img src={logoDark} alt="Alpaco Labs" className="hidden dark:block h-8 md:h-10 w-auto" />
             {/* Light mode logo (dark) */}
-            <img src={logoLight} alt="Alpaca Labs" className="block dark:hidden h-8 md:h-10 w-auto" />
+            <img src={logoLight} alt="Alpaco Labs" className="block dark:hidden h-8 md:h-10 w-auto" />
             <span className="font-heading text-xl md:text-2xl font-semibold tracking-tight text-foreground">
-              ALPACA LABS
+              ALPACO LABS
             </span>
           </Link>
 

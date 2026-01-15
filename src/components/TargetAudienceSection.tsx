@@ -53,7 +53,7 @@ const TargetAudienceSection = () => {
               <div className="relative">
                 <img
                   src={alpacaImage}
-                  alt="ALPACA LABS mascot"
+                  alt="ALPACO LABS mascot"
                   className="w-64 md:w-80 lg:w-96 h-auto object-contain"
                   style={{
                     maskImage: 'linear-gradient(to bottom, black 85%, transparent 100%)',
