@@ -63,7 +63,7 @@ const Footer = () => {
           </div>
 
           {/* Alpaca mascot - far right */}
-          <div className="flex justify-center md:justify-end items-start">
+          <div className="flex justify-start items-start">
             <img 
               src={footerAlpacaLight} 
               alt="Alpaca Labs mascot" 
