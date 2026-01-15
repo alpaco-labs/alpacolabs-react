@@ -34,13 +34,13 @@ const Footer = () => {
             <div className="flex-shrink-0">
               <img 
                 src={footerAlpacaLight} 
-                alt="Alpaca Labs mascot" 
+                alt="Alpaco Labs mascot" 
                 className="block dark:hidden w-24 h-auto object-contain" 
               />
               <img 
                 src={footerAlpacaDark} 
-                alt="Alpaca Labs mascot" 
-                className="hidden dark:block w-24 h-auto object-contain" 
+                alt="Alpaco Labs mascot" 
+                className="hidden dark:block w-24 h-auto object-contain"
               />
             </div>
           </div>
@@ -80,7 +80,7 @@ const Footer = () => {
 
         <div className="mt-16 pt-8 border-t border-border/50">
           <p className="text-muted-foreground text-sm text-center">
-            © {new Date().getFullYear()} ALPACA LABS. {t("footer.rights")}
+            © {new Date().getFullYear()} ALPACO LABS. {t("footer.rights")}
           </p>
         </div>
       </div>
