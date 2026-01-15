@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import ThemeToggle from "@/components/ThemeToggle";
 import { useLanguage } from "@/contexts/LanguageContext";
+import logoDark from "@/assets/logo-dark.png";
+import logoLight from "@/assets/logo-light.png";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -68,9 +70,15 @@ const Header = () => {
         <div className="flex items-center justify-between h-16 md:h-20">
           <Link
             to="/"
-            className="font-heading text-xl md:text-2xl font-semibold tracking-tight text-foreground hover:opacity-70 transition-opacity duration-300"
+            className="flex items-center gap-2 hover:opacity-70 transition-opacity duration-300"
           >
-            ZAN LABS
+            {/* Dark mode logo (white) */}
+            <img src={logoDark} alt="Alpaca Labs" className="hidden dark:block h-8 md:h-10 w-auto" />
+            {/* Light mode logo (dark) */}
+            <img src={logoLight} alt="Alpaca Labs" className="block dark:hidden h-8 md:h-10 w-auto" />
+            <span className="font-heading text-xl md:text-2xl font-semibold tracking-tight text-foreground">
+              ALPACA LABS
+            </span>
           </Link>
 
           {/* Desktop Navigation - Centered */}

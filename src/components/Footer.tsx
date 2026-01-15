@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import { Mail, MapPin } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
+import logoDark from "@/assets/logo-dark.png";
+import logoLight from "@/assets/logo-light.png";
 
 const Footer = () => {
   const { t } = useLanguage();
@@ -12,8 +14,14 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           {/* Brand */}
           <div>
-            <Link to="/" className="font-heading text-xl font-semibold tracking-tight text-foreground">
-              ZAN LABS
+            <Link to="/" className="flex items-center gap-2">
+              {/* Dark mode logo (white) */}
+              <img src={logoDark} alt="Alpaca Labs" className="hidden dark:block h-8 w-auto" />
+              {/* Light mode logo (dark) */}
+              <img src={logoLight} alt="Alpaca Labs" className="block dark:hidden h-8 w-auto" />
+              <span className="font-heading text-xl font-semibold tracking-tight text-foreground">
+                ALPACA LABS
+              </span>
             </Link>
             <p className="mt-4 text-muted-foreground text-sm max-w-xs leading-relaxed">
               {t("footer.description")}
@@ -55,7 +63,7 @@ const Footer = () => {
 
         <div className="mt-16 pt-8 border-t border-border/50">
           <p className="text-muted-foreground text-sm text-center">
-            © {new Date().getFullYear()} ZAN LABS. {t("footer.rights")}
+            © {new Date().getFullYear()} ALPACA LABS. {t("footer.rights")}
           </p>
         </div>
       </div>
