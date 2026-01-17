@@ -2,68 +2,30 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
-import heroLlama from "@/assets/hero-llama.png";
+import heroDevices from "@/assets/hero-devices.png";
 
 const HeroSection = () => {
   const { t } = useLanguage();
 
   return (
     <section className="relative min-h-[90vh] flex items-center overflow-hidden">
-      {/* Mobile: position llama to right-bottom, Desktop: right center */}
-      <style>{`
-        .hero-bg-responsive {
-          background-position: 75% 85% !important;
-          background-size: auto 85% !important;
-        }
-        @media (min-width: 768px) {
-          .hero-bg-responsive {
-            background-position: right center !important;
-            background-size: cover !important;
-          }
-        }
-      `}</style>
-      
-      {/* Full hero background image - responsive positioning */}
+      {/* Background gradient */}
       <div 
-        className="absolute inset-0 bg-no-repeat hero-bg-responsive"
+        className="absolute inset-0 dark:block hidden"
         style={{
-          backgroundImage: `url(${heroLlama})`,
+          background: 'linear-gradient(135deg, hsla(220, 20%, 4%, 1) 0%, hsla(220, 20%, 8%, 1) 100%)'
         }}
       />
-      
-      {/* Dark overlay for text readability - desktop */}
       <div 
-        className="absolute inset-0 hidden dark:md:block"
+        className="absolute inset-0 dark:hidden"
         style={{
-          background: 'linear-gradient(to right, hsla(220, 20%, 4%, 0.95) 0%, hsla(220, 20%, 4%, 0.85) 30%, hsla(220, 20%, 4%, 0.5) 60%, hsla(220, 20%, 4%, 0.3) 100%)'
-        }}
-      />
-      {/* Dark overlay - mobile (vertical gradient) */}
-      <div 
-        className="absolute inset-0 hidden dark:block dark:md:hidden"
-        style={{
-          background: 'linear-gradient(to bottom, hsla(220, 20%, 4%, 0.92) 0%, hsla(220, 20%, 4%, 0.75) 50%, hsla(220, 20%, 4%, 0.4) 100%)'
-        }}
-      />
-      
-      {/* Light mode overlay - desktop */}
-      <div 
-        className="absolute inset-0 dark:hidden hidden md:block"
-        style={{
-          background: 'linear-gradient(to right, hsla(210, 40%, 98%, 0.95) 0%, hsla(210, 40%, 98%, 0.8) 40%, hsla(210, 40%, 98%, 0.4) 70%, transparent 100%)'
-        }}
-      />
-      {/* Light mode overlay - mobile */}
-      <div 
-        className="absolute inset-0 dark:hidden md:hidden"
-        style={{
-          background: 'linear-gradient(to bottom, hsla(210, 40%, 98%, 0.95) 0%, hsla(210, 40%, 98%, 0.85) 50%, hsla(210, 40%, 98%, 0.5) 100%)'
+          background: 'linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--secondary)) 100%)'
         }}
       />
       
       {/* Content */}
       <div className="relative z-10 container">
-        <div className="max-w-2xl px-4 py-20">
+        <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center px-4 py-20">
           {/* Text - left aligned */}
           <div className="text-left">
             <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold leading-[1.1] tracking-tight animate-slide-up text-foreground">
@@ -91,7 +53,7 @@ const HeroSection = () => {
 
             {/* Trust indicators */}
             <div 
-              className="mt-16 md:mt-20 flex flex-wrap items-center gap-8 md:gap-12 animate-slide-up" 
+              className="mt-12 md:mt-16 flex flex-wrap items-center gap-6 md:gap-10 animate-slide-up" 
               style={{ animationDelay: "0.3s" }}
             >
               <div className="flex items-center gap-2 text-muted-foreground">
@@ -107,6 +69,18 @@ const HeroSection = () => {
                 <span className="text-sm font-medium">{t("hero.seo")}</span>
               </div>
             </div>
+          </div>
+          
+          {/* Hero Image - Right Side */}
+          <div 
+            className="relative animate-slide-up hidden md:flex justify-center items-center" 
+            style={{ animationDelay: "0.2s" }}
+          >
+            <img 
+              src={heroDevices} 
+              alt="Primeri spletnih strani na različnih napravah"
+              className="w-full max-w-xl object-contain drop-shadow-2xl"
+            />
           </div>
         </div>
       </div>
