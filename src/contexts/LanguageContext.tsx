@@ -21,7 +21,7 @@ const translations: Record<Language, Record<string, string>> = {
     // Hero
     "hero.title1": "Zgradimo in vodimo",
     "hero.title2": "vašo spletno stran.",
-    "hero.description": "Prevzamemo razvoj in vodenje spletne strani, da se vi lahko osredotočite na svoj posel. Stroške razvoja krijemo mi.",
+    "hero.description": "Mi vodimo splet. Vi vodite posel.",
     "hero.cta": "Želim spletno stran",
     "hero.fast": "Jasna struktura",
     "hero.mobile": "Več povpraševanj",
@@ -216,7 +216,7 @@ const translations: Record<Language, Record<string, string>> = {
     // Hero
     "hero.title1": "We build and manage",
     "hero.title2": "your website.",
-    "hero.description": "We take over website development and management so you can focus on your business. We cover the development costs.",
+    "hero.description": "We run the web. You run the business.",
     "hero.cta": "I want a website",
     "hero.fast": "Fast",
     "hero.mobile": "Mobile-first",
