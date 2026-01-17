@@ -43,7 +43,7 @@ const HeroSection = () => {
             </div>
 
             {/* Trust indicators */}
-            <div className="mt-12 md:mt-16 flex-wrap gap-6 md:gap-10 animate-slide-up flex-col flex items-center justify-center" style={{
+            <div className="mt-12 md:mt-16 flex-wrap gap-6 md:gap-10 animate-slide-up items-start justify-center flex flex-row" style={{
             animationDelay: "0.3s"
           }}>
               <div className="flex items-center gap-2 text-muted-foreground">
