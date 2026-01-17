@@ -71,7 +71,7 @@ const HeroSection = () => {
             </div>
           </div>
           
-          {/* Hero Image - Right Side */}
+          {/* Hero Image - Right Side (Desktop) */}
           <div 
             className="relative animate-slide-up hidden md:flex justify-center items-center" 
             style={{ animationDelay: "0.2s" }}
@@ -82,6 +82,18 @@ const HeroSection = () => {
               className="w-full max-w-xl object-contain drop-shadow-2xl"
             />
           </div>
+        </div>
+        
+        {/* Hero Image - Mobile (below text) */}
+        <div 
+          className="md:hidden flex justify-center items-center px-4 pb-8 animate-slide-up" 
+          style={{ animationDelay: "0.3s" }}
+        >
+          <img 
+            src={heroDevices} 
+            alt="Primeri spletnih strani na različnih napravah"
+            className="w-full max-w-sm object-contain drop-shadow-2xl"
+          />
         </div>
       </div>
 
