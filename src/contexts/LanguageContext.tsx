@@ -19,8 +19,8 @@ const translations: Record<Language, Record<string, string>> = {
     "nav.theme": "Tema",
 
     // Hero
-    "hero.title1": "Spletne strani, ki",
-    "hero.title2": "prinašajo povpraševanja.",
+    "hero.title1": "Zgradimo in vodimo",
+    "hero.title2": "vašo spletno stran.",
     "hero.description": "Od ideje do online v nekaj dneh. Jasen dizajn, hitra stran in jasen poziv k dejanju.",
     "hero.cta": "Želim spletno stran",
     "hero.fast": "Jasna struktura",
@@ -214,8 +214,8 @@ const translations: Record<Language, Record<string, string>> = {
     "nav.theme": "Theme",
 
     // Hero
-    "hero.title1": "Websites that",
-    "hero.title2": "generate leads.",
+    "hero.title1": "We build and manage",
+    "hero.title2": "your website.",
     "hero.description": "From idea to online in a few days. Clean design, fast loading, and clear call to action.",
     "hero.cta": "I want a website",
     "hero.fast": "Fast",
