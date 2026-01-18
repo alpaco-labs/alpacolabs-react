@@ -25,7 +25,7 @@ const HeroSection = () => {
       
       {/* Content */}
       <div className="relative z-10 container">
-        <div className="grid md:grid-cols-2 gap-6 md:gap-12 items-center px-4 md:pb-[40px] md:py-[20px] py-[10px]">
+        <div className="grid md:grid-cols-2 gap-6 md:gap-12 items-center px-4 md:pb-[40px] md:py-[20px] py-[10px] pt-0 pb-[15px]">
           {/* Text - left aligned */}
           <div className="text-center md:text-left">
             {/* Badge - properly positioned below header */}
