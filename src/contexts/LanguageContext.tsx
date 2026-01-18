@@ -16,6 +16,7 @@ const translations: Record<Language, Record<string, string>> = {
     "nav.process": "Proces",
     "nav.faq": "FAQ",
     "nav.cta": "Želim spletno stran",
+    "nav.cta.inquiry": "Pošlji povpraševanje",
     "nav.theme": "Tema",
 
     // Hero
@@ -23,9 +24,31 @@ const translations: Record<Language, Record<string, string>> = {
     "hero.title2": "vašo spletno stran.",
     "hero.description": "Pridružite se podjetjem, ki splet prepustijo nam in se osredotočijo na posel.",
     "hero.cta": "Želim spletno stran",
+    "hero.cta.inquiry": "Pošlji povpraševanje",
+    "hero.cta.call": "Pokliči zdaj",
+    "hero.available": "Na voljo 24/7",
     "hero.fast": "Jasna struktura",
     "hero.mobile": "Več povpraševanj",
     "hero.seo": "Pripravljeno za rast",
+    
+    // Inquiry form
+    "inquiry.title": "Pošlji povpraševanje",
+    "inquiry.nameLabel": "Ime",
+    "inquiry.namePlaceholder": "Janez Novak",
+    "inquiry.companyLabel": "Ime podjetja (opcijsko)",
+    "inquiry.companyPlaceholder": "Ime podjetja",
+    "inquiry.phoneLabel": "Telefonska številka",
+    "inquiry.phonePlaceholder": "+386 40 123 456",
+    "inquiry.emailLabel": "Email",
+    "inquiry.emailPlaceholder": "janez@email.com",
+    "inquiry.submit": "Pošlji povpraševanje",
+    "inquiry.submitting": "Pošiljam...",
+    "inquiry.successTitle": "Hvala za povpraševanje!",
+    "inquiry.successDescription": "Kontaktirali vas bomo v najkrajšem možnem času.",
+    "inquiry.close": "Zapri",
+    "inquiry.errorName": "Prosim vnesi ime.",
+    "inquiry.errorPhone": "Prosim vnesi telefonsko številko.",
+    "inquiry.errorEmail": "Prosim vnesi veljaven email naslov.",
 
     // Portfolio
     "portfolio.title": "Izbrani projekti",
@@ -211,6 +234,7 @@ const translations: Record<Language, Record<string, string>> = {
     "nav.process": "Process",
     "nav.faq": "FAQ",
     "nav.cta": "I want a website",
+    "nav.cta.inquiry": "Send inquiry",
     "nav.theme": "Theme",
 
     // Hero
@@ -218,9 +242,31 @@ const translations: Record<Language, Record<string, string>> = {
     "hero.title2": "your website.",
     "hero.description": "Join businesses that leave the web to us and focus on their business.",
     "hero.cta": "I want a website",
+    "hero.cta.inquiry": "Send inquiry",
+    "hero.cta.call": "Call now",
+    "hero.available": "Available 24/7",
     "hero.fast": "Fast",
     "hero.mobile": "Mobile-first",
     "hero.seo": "SEO basics",
+    
+    // Inquiry form
+    "inquiry.title": "Send inquiry",
+    "inquiry.nameLabel": "Name",
+    "inquiry.namePlaceholder": "John Doe",
+    "inquiry.companyLabel": "Company name (optional)",
+    "inquiry.companyPlaceholder": "Company name",
+    "inquiry.phoneLabel": "Phone number",
+    "inquiry.phonePlaceholder": "+1 234 567 890",
+    "inquiry.emailLabel": "Email",
+    "inquiry.emailPlaceholder": "john@email.com",
+    "inquiry.submit": "Send inquiry",
+    "inquiry.submitting": "Sending...",
+    "inquiry.successTitle": "Thank you for your inquiry!",
+    "inquiry.successDescription": "We will contact you as soon as possible.",
+    "inquiry.close": "Close",
+    "inquiry.errorName": "Please enter your name.",
+    "inquiry.errorPhone": "Please enter your phone number.",
+    "inquiry.errorEmail": "Please enter a valid email address.",
 
     // Portfolio
     "portfolio.title": "Selected projects",
