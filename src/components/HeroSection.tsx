@@ -88,30 +88,21 @@ const HeroSection = () => {
                 </div>
               </div>
 
-              {/* Trust indicators - improved for mobile */}
-              <div className="mt-8 md:mt-16 grid grid-cols-3 gap-4 md:flex md:flex-wrap md:gap-10 animate-slide-up" style={{
+              {/* Trust indicators - Desktop only (inline) */}
+              <div className="mt-16 hidden md:flex flex-wrap gap-10 animate-slide-up" style={{
                 animationDelay: "0.3s"
               }}>
-                <div className="flex flex-col md:flex-row items-center gap-2 text-muted-foreground">
-                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mb-1 md:mb-0 md:w-auto md:h-auto md:bg-transparent">
-                    <Zap className="w-5 h-5 md:w-4 md:h-4 text-primary md:hidden" />
-                    <div className="hidden md:block w-1.5 h-1.5 rounded-full bg-primary/60" />
-                  </div>
-                  <span className="text-xs md:text-sm font-medium text-center md:text-left whitespace-nowrap">{t("hero.fast")}</span>
+                <div className="flex items-center gap-2 text-muted-foreground">
+                  <div className="w-1.5 h-1.5 rounded-full bg-primary/60" />
+                  <span className="text-sm font-medium">{t("hero.fast")}</span>
                 </div>
-                <div className="flex flex-col md:flex-row items-center gap-2 text-muted-foreground">
-                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mb-1 md:mb-0 md:w-auto md:h-auto md:bg-transparent">
-                    <TrendingUp className="w-5 h-5 md:w-4 md:h-4 text-primary md:hidden" />
-                    <div className="hidden md:block w-1.5 h-1.5 rounded-full bg-primary/60" />
-                  </div>
-                  <span className="text-xs md:text-sm font-medium text-center md:text-left whitespace-nowrap">{t("hero.mobile")}</span>
+                <div className="flex items-center gap-2 text-muted-foreground">
+                  <div className="w-1.5 h-1.5 rounded-full bg-primary/60" />
+                  <span className="text-sm font-medium">{t("hero.mobile")}</span>
                 </div>
-                <div className="flex flex-col md:flex-row items-center gap-2 text-muted-foreground">
-                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mb-1 md:mb-0 md:w-auto md:h-auto md:bg-transparent">
-                    <Sparkles className="w-5 h-5 md:w-4 md:h-4 text-primary md:hidden" />
-                    <div className="hidden md:block w-1.5 h-1.5 rounded-full bg-primary/60" />
-                  </div>
-                  <span className="text-xs md:text-sm font-medium text-center md:text-left whitespace-nowrap">{t("hero.seo")}</span>
+                <div className="flex items-center gap-2 text-muted-foreground">
+                  <div className="w-1.5 h-1.5 rounded-full bg-primary/60" />
+                  <span className="text-sm font-medium">{t("hero.seo")}</span>
                 </div>
               </div>
             </div>
@@ -126,11 +117,35 @@ const HeroSection = () => {
           </div>
           
           {/* Hero Image - Mobile (below text) */}
-          <div className="md:hidden flex justify-center items-center px-4 pb-8 animate-slide-up relative" style={{
+          <div className="md:hidden flex justify-center items-center px-4 pb-6 animate-slide-up relative" style={{
             animationDelay: "0.3s"
           }}>
             <div className="absolute inset-0 bg-gradient-radial from-primary/10 to-transparent rounded-full blur-2xl" />
             <img src={heroDevices} alt="Primeri spletnih strani na različnih napravah" className="w-full max-w-md object-contain drop-shadow-2xl relative z-10" />
+          </div>
+          
+          {/* Trust indicators - Mobile (below hero image) */}
+          <div className="md:hidden px-4 pb-8">
+            <div className="flex justify-center gap-6 py-4 px-4 rounded-xl bg-muted/50 border border-border/50 animate-slide-up" style={{ animationDelay: "0.4s" }}>
+              <div className="flex flex-col items-center gap-2 text-muted-foreground">
+                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                  <Zap className="w-5 h-5 text-primary" />
+                </div>
+                <span className="text-xs font-medium text-center whitespace-nowrap">{t("hero.fast")}</span>
+              </div>
+              <div className="flex flex-col items-center gap-2 text-muted-foreground">
+                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                  <TrendingUp className="w-5 h-5 text-primary" />
+                </div>
+                <span className="text-xs font-medium text-center whitespace-nowrap">{t("hero.mobile")}</span>
+              </div>
+              <div className="flex flex-col items-center gap-2 text-muted-foreground">
+                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                  <Sparkles className="w-5 h-5 text-primary" />
+                </div>
+                <span className="text-xs font-medium text-center whitespace-nowrap">{t("hero.seo")}</span>
+              </div>
+            </div>
           </div>
         </div>
 
