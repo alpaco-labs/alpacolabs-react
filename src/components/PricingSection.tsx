@@ -241,23 +241,14 @@ const PricingSection = () => {
                   )}
                 </div>
 
-                {/* CTAs */}
-                <div className="space-y-2">
-                  <Button
-                    variant="outline"
-                    className="w-full border-[1.5px]"
-                    onClick={() => setCalculatorOpen(pkg.type)}
-                  >
-                    Izračunaj točno ceno
-                  </Button>
-                  <Button
-                    variant="hero"
-                    className="w-full"
-                    onClick={() => setInquiryOpen(pkg.name)}
-                  >
-                    {t("nav.cta.inquiry")}
-                  </Button>
-                </div>
+                {/* CTA */}
+                <Button
+                  variant="hero"
+                  className="w-full"
+                  onClick={() => setInquiryOpen(pkg.name)}
+                >
+                  {t("nav.cta.inquiry")}
+                </Button>
               </div>
             ))}
           </div>
