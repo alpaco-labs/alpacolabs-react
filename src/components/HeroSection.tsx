@@ -8,7 +8,7 @@ const HeroSection = () => {
   const { t } = useLanguage();
   
   return (
-    <section className="relative min-h-[100vh] md:min-h-[90vh] flex items-center overflow-hidden">
+    <section className="relative min-h-[100vh] md:min-h-[90vh] flex items-center overflow-hidden pt-20 md:pt-24">
       {/* Background gradient */}
       <div 
         className="absolute inset-0 dark:block hidden" 
@@ -30,17 +30,17 @@ const HeroSection = () => {
       
       {/* Content */}
       <div className="relative z-10 container">
-        {/* Badge - below header */}
-        <div className="flex justify-center md:justify-start px-4 pt-4 md:pt-6 animate-slide-up">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20">
-            <Sparkles className="w-4 h-4 text-primary" />
-            <span className="text-sm font-medium text-primary">Stroške razvoja krijemo mi.</span>
-          </div>
-        </div>
-        
         <div className="grid md:grid-cols-2 gap-6 md:gap-12 items-center px-4 py-8 md:py-16 md:pb-[40px]">
           {/* Text - left aligned */}
           <div className="text-center md:text-left">
+            {/* Badge - properly positioned below header */}
+            <div className="flex justify-center md:justify-start mb-6 animate-slide-up">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 max-w-full">
+                <Sparkles className="w-4 h-4 text-primary flex-shrink-0" />
+                <span className="text-sm font-medium text-primary whitespace-normal">Stroške razvoja krijemo mi.</span>
+              </div>
+            </div>
+            
             <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold leading-[1.1] tracking-tight animate-slide-up text-foreground">
               {t("hero.title1")}
               <br className="hidden sm:block" /> 
