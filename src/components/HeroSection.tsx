@@ -30,15 +30,17 @@ const HeroSection = () => {
       
       {/* Content */}
       <div className="relative z-10 container">
-        <div className="grid md:grid-cols-2 gap-6 md:gap-12 items-center px-4 py-12 md:py-20 md:pb-[40px]">
+        {/* Badge - below header */}
+        <div className="flex justify-center md:justify-start px-4 pt-4 md:pt-6 animate-slide-up">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20">
+            <Sparkles className="w-4 h-4 text-primary" />
+            <span className="text-sm font-medium text-primary">Stroške razvoja krijemo mi.</span>
+          </div>
+        </div>
+        
+        <div className="grid md:grid-cols-2 gap-6 md:gap-12 items-center px-4 py-8 md:py-16 md:pb-[40px]">
           {/* Text - left aligned */}
           <div className="text-center md:text-left">
-            {/* Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6 animate-slide-up">
-              <Sparkles className="w-4 h-4 text-primary" />
-              <span className="text-sm font-medium text-primary">Brez začetnih stroškov</span>
-            </div>
-            
             <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold leading-[1.1] tracking-tight animate-slide-up text-foreground">
               {t("hero.title1")}
               <br className="hidden sm:block" /> 
