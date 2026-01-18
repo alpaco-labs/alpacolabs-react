@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { InteractiveTooltip } from "@/components/InteractiveTooltip";
 import { PriceCalculator } from "@/components/PriceCalculator";
+import InquiryFormModal from "@/components/InquiryFormModal";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 type PackageType = "landing" | "website" | "store" | "mvp";
 
@@ -128,9 +130,11 @@ const packages: Package[] = [
 ];
 
 const PricingSection = () => {
+  const { t } = useLanguage();
   const [isYearly, setIsYearly] = useState(false);
   const [activeTooltip, setActiveTooltip] = useState<number | null>(null);
   const [calculatorOpen, setCalculatorOpen] = useState<PackageType | null>(null);
+  const [inquiryOpen, setInquiryOpen] = useState<string | null>(null);
 
   const handleTooltipChange = useCallback((id: number, open: boolean) => {
     if (open) {
@@ -141,113 +145,127 @@ const PricingSection = () => {
   }, [activeTooltip]);
 
   return (
-    <section id="storitve" className="py-16 md:py-24 bg-muted/40 dark:bg-muted/20 relative">
-      {/* Top divider */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
-      
-      <div className="container">
-        {/* Section Header */}
-        <div className="text-center mb-4">
-          <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-semibold text-foreground">
-            Paketi
-          </h2>
-        </div>
+    <>
+      <section id="storitve" className="py-16 md:py-24 bg-muted/30 relative">
+        {/* Top divider */}
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
         
-        <div className="text-center mb-6">
-          <p className="text-muted-foreground">Choose your payment option</p>
-        </div>
+        <div className="container">
+          {/* Section Header */}
+          <div className="text-center mb-4">
+            <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-semibold text-foreground">
+              {t("pricing.title")}
+            </h2>
+          </div>
+          
+          <div className="text-center mb-6">
+            <p className="text-muted-foreground">{t("pricing.toggleLabel")}</p>
+          </div>
 
-        {/* Payment Switch */}
-        <div className="flex justify-center mb-4">
-          <div className="flex items-center gap-4 bg-card/80 border border-border rounded-full px-4 py-2">
-            <span className={`text-sm font-medium transition-colors ${!isYearly ? "text-foreground" : "text-muted-foreground"}`}>
-              Mesečno
-            </span>
-            <Switch
-              checked={isYearly}
-              onCheckedChange={setIsYearly}
-            />
-            <span className={`text-sm font-medium transition-colors ${isYearly ? "text-foreground" : "text-muted-foreground"}`}>
-              Letno
-            </span>
+          {/* Payment Switch */}
+          <div className="flex justify-center mb-4">
+            <div className="flex items-center gap-4 bg-card/80 border border-border rounded-full px-4 py-2">
+              <span className={`text-sm font-medium transition-colors ${!isYearly ? "text-foreground" : "text-muted-foreground"}`}>
+                Mesečno
+              </span>
+              <Switch
+                checked={isYearly}
+                onCheckedChange={setIsYearly}
+              />
+              <span className={`text-sm font-medium transition-colors ${isYearly ? "text-foreground" : "text-muted-foreground"}`}>
+                Letno
+              </span>
+            </div>
+          </div>
+
+          {/* Helper text */}
+          <div className="text-center mb-10 h-5">
+            {isYearly && (
+              <p className="text-sm text-emerald-500">
+                Letna naročnina = 2 meseca gratis.
+              </p>
+            )}
+          </div>
+
+          {/* Pricing Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6">
+            {packages.map((pkg, index) => (
+              <div
+                key={pkg.id}
+                className={`relative border rounded-xl p-6 hover-lift animate-slide-up transition-all duration-200 flex flex-col shadow-sm hover:shadow-lg border-border/80 border-[1.5px] ${
+                  activeTooltip === pkg.id ? "bg-foreground/[0.03] border-primary/40" : "bg-card"
+                }`}
+                style={{ animationDelay: `${index * 0.08}s` }}
+              >
+                {/* Tooltip icon */}
+                <InteractiveTooltip
+                  content={pkg.tooltip}
+                  isOpen={activeTooltip === pkg.id}
+                  onOpenChange={(open) => handleTooltipChange(pkg.id, open)}
+                  side="bottom"
+                  align="end"
+                  sideOffset={10}
+                  className="max-w-[280px] text-sm z-50 animate-fade-in"
+                >
+                  <Info size={16} />
+                </InteractiveTooltip>
+
+                {/* Package name */}
+                <h3 className="font-heading text-lg font-semibold text-foreground mb-4 pr-6">
+                  {pkg.name}
+                </h3>
+
+                {/* Features section */}
+                <div className="mb-6">
+                  <p className="text-sm font-medium text-muted-foreground mb-3">Kaj vključuje</p>
+                  <ul className="space-y-2">
+                    {pkg.features.map((feature, idx) => (
+                      <li key={idx} className="flex items-start gap-2 text-sm text-muted-foreground">
+                        <Check size={14} className="text-foreground/70 mt-0.5 flex-shrink-0" />
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Price */}
+                <div className="mb-6 mt-auto">
+                  <p className="text-xl font-heading font-semibold text-foreground">
+                    {isYearly ? pkg.yearlyPrice : pkg.monthlyPrice}
+                  </p>
+                  <p className="text-sm text-muted-foreground">
+                    {isYearly ? "/ leto" : "/ mesec"}
+                  </p>
+                  {isYearly && (
+                    <p className="text-xs text-emerald-500 mt-1">(2 meseca gratis)</p>
+                  )}
+                </div>
+
+                {/* CTAs */}
+                <div className="space-y-2">
+                  <Button
+                    variant="outline"
+                    className="w-full border-[1.5px]"
+                    onClick={() => setCalculatorOpen(pkg.type)}
+                  >
+                    Izračunaj točno ceno
+                  </Button>
+                  <Button
+                    variant="hero"
+                    className="w-full"
+                    onClick={() => setInquiryOpen(pkg.name)}
+                  >
+                    {t("nav.cta.inquiry")}
+                  </Button>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
-
-        {/* Helper text */}
-        <div className="text-center mb-10 h-5">
-          {isYearly && (
-            <p className="text-sm text-emerald-500">
-              Letna naročnina = 2 meseca gratis.
-            </p>
-          )}
-        </div>
-
-        {/* Pricing Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6">
-          {packages.map((pkg, index) => (
-            <div
-              key={pkg.id}
-              className={`relative border rounded-xl p-6 hover-lift animate-slide-up transition-all duration-200 flex flex-col shadow-sm hover:shadow-lg border-border dark:border-border/80 dark:border-[1.5px] ${
-                activeTooltip === pkg.id ? "bg-foreground/[0.03] border-primary/30 dark:border-primary/40" : "bg-card"
-              }`}
-              style={{ animationDelay: `${index * 0.08}s` }}
-            >
-              {/* Tooltip icon */}
-              <InteractiveTooltip
-                content={pkg.tooltip}
-                isOpen={activeTooltip === pkg.id}
-                onOpenChange={(open) => handleTooltipChange(pkg.id, open)}
-                side="bottom"
-                align="end"
-                sideOffset={10}
-                className="max-w-[280px] text-sm z-50 animate-fade-in"
-              >
-                <Info size={16} />
-              </InteractiveTooltip>
-
-              {/* Package name */}
-              <h3 className="font-heading text-lg font-semibold text-foreground mb-4 pr-6">
-                {pkg.name}
-              </h3>
-
-              {/* Features section */}
-              <div className="mb-6">
-                <p className="text-sm font-medium text-muted-foreground mb-3">Kaj vključuje</p>
-                <ul className="space-y-2">
-                  {pkg.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-start gap-2 text-sm text-muted-foreground">
-                      <Check size={14} className="text-foreground/70 mt-0.5 flex-shrink-0" />
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Price */}
-              <div className="mb-6 mt-auto">
-                <p className="text-xl font-heading font-semibold text-foreground">
-                  {isYearly ? pkg.yearlyPrice : pkg.monthlyPrice}
-                </p>
-                <p className="text-sm text-muted-foreground">
-                  {isYearly ? "/ leto" : "/ mesec"}
-                </p>
-                {isYearly && (
-                  <p className="text-xs text-emerald-500 mt-1">(2 meseca gratis)</p>
-                )}
-              </div>
-
-              {/* CTA */}
-              <Button
-                variant="outline"
-                className="w-full dark:border-[1.5px]"
-                onClick={() => setCalculatorOpen(pkg.type)}
-              >
-                Izračunaj točno ceno
-              </Button>
-            </div>
-          ))}
-        </div>
-      </div>
+        
+        {/* Bottom divider */}
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+      </section>
 
       {/* Price Calculator Modal */}
       {calculatorOpen && (
@@ -258,10 +276,14 @@ const PricingSection = () => {
           isYearly={isYearly}
         />
       )}
-      
-      {/* Bottom divider */}
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
-    </section>
+
+      {/* Inquiry Modal */}
+      <InquiryFormModal
+        isOpen={!!inquiryOpen}
+        onClose={() => setInquiryOpen(null)}
+        packageName={inquiryOpen || undefined}
+      />
+    </>
   );
 };
 
