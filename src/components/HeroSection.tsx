@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Phone, Sparkles, Zap, TrendingUp } from "lucide-react";
+import { ArrowRight, Phone, Sparkles } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import heroDevices from "@/assets/hero-devices.png";
 import InquiryFormModal from "@/components/InquiryFormModal";
@@ -65,7 +65,7 @@ const HeroSection = () => {
                 <Button 
                   variant="hero" 
                   size="xl" 
-                  className="w-full sm:w-auto"
+                  className="w-full sm:w-auto rounded-full"
                   onClick={() => setIsInquiryOpen(true)}
                 >
                   {t("hero.cta.inquiry")}
@@ -77,7 +77,7 @@ const HeroSection = () => {
                   <Button 
                     variant="outline" 
                     size="lg" 
-                    className="w-full"
+                    className="w-full rounded-full"
                     asChild
                   >
                     <a href={phoneLink} className="flex items-center justify-center gap-2">
@@ -88,23 +88,6 @@ const HeroSection = () => {
                 </div>
               </div>
 
-              {/* Trust indicators - Desktop only (inline) */}
-              <div className="mt-16 hidden md:flex flex-wrap gap-10 animate-slide-up" style={{
-                animationDelay: "0.3s"
-              }}>
-                <div className="flex items-center gap-2 text-muted-foreground">
-                  <div className="w-1.5 h-1.5 rounded-full bg-primary/60" />
-                  <span className="text-sm font-medium">{t("hero.fast")}</span>
-                </div>
-                <div className="flex items-center gap-2 text-muted-foreground">
-                  <div className="w-1.5 h-1.5 rounded-full bg-primary/60" />
-                  <span className="text-sm font-medium">{t("hero.mobile")}</span>
-                </div>
-                <div className="flex items-center gap-2 text-muted-foreground">
-                  <div className="w-1.5 h-1.5 rounded-full bg-primary/60" />
-                  <span className="text-sm font-medium">{t("hero.seo")}</span>
-                </div>
-              </div>
             </div>
             
             {/* Hero Image - Right Side (Desktop) */}
@@ -122,30 +105,6 @@ const HeroSection = () => {
           }}>
             <div className="absolute inset-0 bg-gradient-radial from-primary/10 to-transparent rounded-full blur-2xl" />
             <img src={heroDevices} alt="Primeri spletnih strani na različnih napravah" className="w-full max-w-md object-contain drop-shadow-2xl relative z-10" />
-          </div>
-          
-          {/* Trust indicators - Mobile (below hero image) */}
-          <div className="md:hidden px-4 pb-8">
-            <div className="flex justify-center gap-6 py-4 px-4 rounded-xl bg-muted/50 border border-border/50 animate-slide-up" style={{ animationDelay: "0.4s" }}>
-              <div className="flex flex-col items-center gap-2 text-muted-foreground">
-                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                  <Zap className="w-5 h-5 text-primary" />
-                </div>
-                <span className="text-xs font-medium text-center whitespace-nowrap">{t("hero.fast")}</span>
-              </div>
-              <div className="flex flex-col items-center gap-2 text-muted-foreground">
-                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                  <TrendingUp className="w-5 h-5 text-primary" />
-                </div>
-                <span className="text-xs font-medium text-center whitespace-nowrap">{t("hero.mobile")}</span>
-              </div>
-              <div className="flex flex-col items-center gap-2 text-muted-foreground">
-                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                  <Sparkles className="w-5 h-5 text-primary" />
-                </div>
-                <span className="text-xs font-medium text-center whitespace-nowrap">{t("hero.seo")}</span>
-              </div>
-            </div>
           </div>
         </div>
 
