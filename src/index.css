@@ -6,64 +6,7 @@
 
 @layer base {
   :root {
-    /* Light Theme */
-    --background: 0 0% 98%;
-    --foreground: 240 10% 10%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 10%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 10%;
-
-    --primary: 240 10% 10%;
-    --primary-foreground: 0 0% 98%;
-
-    --secondary: 240 5% 92%;
-    --secondary-foreground: 240 10% 20%;
-
-    --muted: 240 5% 94%;
-    --muted-foreground: 240 5% 45%;
-
-    --accent: 240 5% 90%;
-    --accent-foreground: 240 10% 10%;
-
-    --destructive: 0 62% 50%;
-    --destructive-foreground: 0 0% 98%;
-
-    --border: 240 5% 85%;
-    --input: 240 5% 85%;
-    --ring: 240 10% 30%;
-
-    --radius: 0.5rem;
-
-    /* Custom tokens for light theme */
-    --surface-elevated: 0 0% 100%;
-    --surface-overlay: 0 0% 100%;
-    --text-primary: 240 10% 10%;
-    --text-secondary: 240 5% 35%;
-    --text-muted: 240 5% 55%;
-
-    /* Hero gradient colors - light version */
-    --gradient-dark: 210 30% 95%;
-    --gradient-mid: 200 40% 90%;
-    --glow-cyan: 195 80% 45%;
-    --glow-blue: 210 80% 50%;
-
-    --font-heading: 'Outfit', sans-serif;
-    --font-body: 'Inter', sans-serif;
-
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-fast: all 0.15s ease;
-
-    --shadow-subtle: 0 2px 8px -2px rgba(0, 0, 0, 0.08);
-    --shadow-card: 0 4px 24px -4px rgba(0, 0, 0, 0.1);
-    --shadow-hover: 0 8px 32px -8px rgba(0, 0, 0, 0.15);
-    --shadow-glow: 0 0 60px -20px rgba(0, 0, 0, 0.05);
-  }
-
-  .dark {
-    /* Premium Dark Theme */
+    /* Premium Dark Theme - Dark Mode Only */
     --background: 240 10% 4%;
     --foreground: 0 0% 95%;
 
@@ -92,6 +35,8 @@
     --input: 240 8% 35%;
     --ring: 0 0% 80%;
 
+    --radius: 0.5rem;
+
     /* Custom tokens for premium dark theme */
     --surface-elevated: 240 8% 8%;
     --surface-overlay: 240 8% 6%;
@@ -104,6 +49,12 @@
     --gradient-mid: 210 30% 8%;
     --glow-cyan: 195 100% 50%;
     --glow-blue: 210 100% 55%;
+
+    --font-heading: 'Outfit', sans-serif;
+    --font-body: 'Inter', sans-serif;
+
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-fast: all 0.15s ease;
 
     --shadow-subtle: 0 2px 8px -2px rgba(0, 0, 0, 0.4);
     --shadow-card: 0 4px 24px -4px rgba(0, 0, 0, 0.5);
@@ -129,17 +80,8 @@
 }
 
 @layer components {
-  /* Hero gradient background - light version */
+  /* Hero gradient background */
   .hero-gradient {
-    background: linear-gradient(
-      180deg,
-      hsl(210, 30%, 98%) 0%,
-      hsl(210, 35%, 96%) 50%,
-      hsl(200, 40%, 94%) 100%
-    );
-  }
-
-  .dark .hero-gradient {
     background: linear-gradient(
       180deg,
       hsl(220, 20%, 4%) 0%,
@@ -148,15 +90,8 @@
     );
   }
   
-  /* Wave glow effect - light version */
+  /* Wave glow effect */
   .wave-glow {
-    background: 
-      radial-gradient(ellipse 120% 50% at 50% 105%, hsla(195, 80%, 55%, 0.2) 0%, hsla(200, 80%, 50%, 0.1) 30%, transparent 70%),
-      radial-gradient(ellipse 80% 35% at 40% 100%, hsla(210, 80%, 60%, 0.15) 0%, transparent 60%),
-      radial-gradient(ellipse 60% 25% at 60% 100%, hsla(185, 80%, 65%, 0.12) 0%, transparent 50%);
-  }
-
-  .dark .wave-glow {
     background: 
       radial-gradient(ellipse 120% 50% at 50% 105%, hsla(195, 100%, 50%, 0.35) 0%, hsla(200, 100%, 45%, 0.2) 30%, transparent 70%),
       radial-gradient(ellipse 80% 35% at 40% 100%, hsla(210, 100%, 55%, 0.25) 0%, transparent 60%),

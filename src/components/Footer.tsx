@@ -3,8 +3,6 @@ import { Mail, MapPin } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import logoDark from "@/assets/logo-dark.png";
-import logoLight from "@/assets/logo-light.png";
-import footerAlpacaLight from "@/assets/footer-alpaca-light.png";
 import footerAlpacaDark from "@/assets/footer-alpaca-dark.png";
 
 const Footer = () => {
@@ -18,10 +16,7 @@ const Footer = () => {
           <div className="flex items-start gap-4">
             <div>
               <Link to="/" className="flex items-center gap-2">
-                {/* Dark mode logo (white) */}
-                <img src={logoDark} alt="Alpaca Labs" className="hidden dark:block h-8 w-auto" />
-                {/* Light mode logo (dark) */}
-                <img src={logoLight} alt="Alpaca Labs" className="block dark:hidden h-8 w-auto" />
+                <img src={logoDark} alt="Alpaca Labs" className="h-8 w-auto" />
                 <span className="font-heading text-xl font-semibold tracking-tight text-foreground">
                   ALPACA LABS
                 </span>
@@ -30,21 +25,12 @@ const Footer = () => {
                 Spletne strani, ki prinašajo povpraševanja. Od ideje do online v nekaj dneh.
               </p>
             </div>
-            {/* Alpaca mascot - next to text */}
+            {/* Alpaca mascot */}
             <div className="flex-shrink-0">
-              <img 
-                src={footerAlpacaLight} 
-                alt="Alpaco Labs mascot" 
-                className="block dark:hidden w-24 h-auto object-contain"
-                style={{
-                  maskImage: 'linear-gradient(to bottom, black 85%, transparent 100%)',
-                  WebkitMaskImage: 'linear-gradient(to bottom, black 85%, transparent 100%)'
-                }}
-              />
               <img 
                 src={footerAlpacaDark} 
                 alt="Alpaco Labs mascot" 
-                className="hidden dark:block w-24 h-auto object-contain"
+                className="w-24 h-auto object-contain"
                 style={{
                   maskImage: 'linear-gradient(to bottom, black 85%, transparent 100%)',
                   WebkitMaskImage: 'linear-gradient(to bottom, black 85%, transparent 100%)'

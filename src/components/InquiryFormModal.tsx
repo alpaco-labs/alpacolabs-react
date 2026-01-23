@@ -2,13 +2,14 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { X, Check } from "lucide-react";
+import { Check } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 interface InquiryFormModalProps {
@@ -26,6 +27,7 @@ export const InquiryFormModal = ({ isOpen, onClose, packageName }: InquiryFormMo
     company: "",
     phone: "",
     email: "",
+    message: "",
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -64,7 +66,7 @@ export const InquiryFormModal = ({ isOpen, onClose, packageName }: InquiryFormMo
 
   const handleClose = () => {
     setIsSubmitted(false);
-    setFormData({ name: "", company: "", phone: "", email: "" });
+    setFormData({ name: "", company: "", phone: "", email: "", message: "" });
     setErrors({});
     onClose();
   };
@@ -97,13 +99,8 @@ export const InquiryFormModal = ({ isOpen, onClose, packageName }: InquiryFormMo
       <DialogContent className="sm:max-w-md border-border bg-card">
         <DialogHeader>
           <DialogTitle className="font-heading text-xl font-semibold text-foreground">
-            {t("inquiry.title")}
+            {packageName ? `Povpraševanje – ${packageName}` : t("inquiry.title")}
           </DialogTitle>
-          {packageName && (
-            <p className="text-sm text-primary font-medium mt-1">
-              {packageName}
-            </p>
-          )}
         </DialogHeader>
         
         <form onSubmit={handleSubmit} className="space-y-4 mt-4">
@@ -162,11 +159,25 @@ export const InquiryFormModal = ({ isOpen, onClose, packageName }: InquiryFormMo
             />
             {errors.email && <p className="text-xs text-destructive">{errors.email}</p>}
           </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="message" className="text-foreground">
+              {t("inquiry.messageLabel")}
+            </Label>
+            <Textarea
+              id="message"
+              value={formData.message}
+              onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+              placeholder={t("inquiry.messagePlaceholder")}
+              rows={4}
+              className="resize-none"
+            />
+          </div>
           
           <Button 
             type="submit" 
             variant="hero" 
-            className="w-full mt-6"
+            className="w-full mt-6 rounded-full"
             disabled={isSubmitting}
           >
             {isSubmitting ? t("inquiry.submitting") : t("inquiry.submit")}
