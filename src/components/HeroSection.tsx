@@ -73,17 +73,22 @@ const HeroSection = () => {
                 >
                   {t("inquiry.submit")}
                 </Button>
-                <Button 
-                  variant="outline" 
-                  size="xl" 
-                  className="w-full rounded-full border-border/50 bg-transparent hover:bg-muted/50"
-                  asChild
-                >
-                  <a href={phoneLink} className="flex items-center justify-center gap-2">
-                    <Phone size={18} />
-                    {t("cta.callButton")}
-                  </a>
-                </Button>
+                <div className="relative">
+                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 bg-background border border-border/50 rounded-full text-xs font-medium text-muted-foreground whitespace-nowrap z-10">
+                    {t("hero.available")}
+                  </span>
+                  <Button 
+                    variant="outline" 
+                    size="xl" 
+                    className="w-full rounded-full border-border/50 bg-transparent hover:bg-muted/50"
+                    asChild
+                  >
+                    <a href={phoneLink} className="flex items-center justify-center gap-2">
+                      <Phone size={18} />
+                      {t("cta.callButton")}
+                    </a>
+                  </Button>
+                </div>
               </div>
 
               {/* Desktop CTAs - side by side */}
@@ -100,23 +105,33 @@ const HeroSection = () => {
                   {t("inquiry.submit")}
                 </Button>
                 {!showNumber ? (
-                  <Button 
-                    variant="outline" 
-                    size="xl" 
-                    className="rounded-full border-border/50 bg-transparent hover:bg-muted/50"
-                    onClick={handleDesktopClick}
-                  >
-                    <Phone size={18} />
-                    {t("cta.callButton")}
-                  </Button>
+                  <div className="relative">
+                    <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 bg-background border border-border/50 rounded-full text-xs font-medium text-muted-foreground whitespace-nowrap z-10">
+                      {t("hero.available")}
+                    </span>
+                    <Button 
+                      variant="outline" 
+                      size="xl" 
+                      className="rounded-full border-border/50 bg-transparent hover:bg-muted/50"
+                      onClick={handleDesktopClick}
+                    >
+                      <Phone size={18} />
+                      {t("cta.callButton")}
+                    </Button>
+                  </div>
                 ) : (
-                  <a 
-                    href={phoneLink}
-                    className="inline-flex items-center gap-2 px-6 py-3 border border-border/50 rounded-full font-semibold text-lg hover:bg-muted/50 transition-colors"
-                  >
-                    <Phone size={18} />
-                    {phoneNumber}
-                  </a>
+                  <div className="relative">
+                    <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 bg-background border border-border/50 rounded-full text-xs font-medium text-muted-foreground whitespace-nowrap z-10">
+                      {t("hero.available")}
+                    </span>
+                    <a 
+                      href={phoneLink}
+                      className="inline-flex items-center gap-2 px-6 py-3 border border-border/50 rounded-full font-semibold text-lg hover:bg-muted/50 transition-colors"
+                    >
+                      <Phone size={18} />
+                      {phoneNumber}
+                    </a>
+                  </div>
                 )}
               </div>
             </div>
