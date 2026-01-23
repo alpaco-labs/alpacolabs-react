@@ -26,7 +26,7 @@ const packages: Package[] = [
       "Razvoj spletne strani vključen",
       "Vodenje in vzdrževanje",
       "Gostovanje in osnovna podpora",
-      "👉 Brezplačen posvet",
+      "Brezplačen posvet",
     ],
   },
   {
@@ -41,7 +41,7 @@ const packages: Package[] = [
       "Razvoj spletne strani vključen",
       "Redne posodobitve in vodenje",
       "Gostovanje in podpora",
-      "👉 Brezplačen posvet",
+      "Brezplačen posvet",
     ],
     popular: true,
   },
@@ -56,7 +56,7 @@ const packages: Package[] = [
       "Dodatne funkcionalnosti po dogovoru",
       "Razvoj spletne strani vključen",
       "Prednostna podpora in vzdrževanje",
-      "👉 Brezplačen posvet",
+      "Brezplačen posvet",
     ],
   },
 ];
@@ -129,14 +129,8 @@ const PricingSection = () => {
                   <ul className="space-y-3">
                     {pkg.features.map((feature, idx) => (
                       <li key={idx} className="flex items-start gap-3 text-sm text-muted-foreground">
-                        {feature.startsWith("👉") ? (
-                          <span className="mt-0.5">{feature}</span>
-                        ) : (
-                          <>
-                            <Check size={16} className="text-primary mt-0.5 flex-shrink-0" />
-                            <span>{feature}</span>
-                          </>
-                        )}
+                        <Check size={16} className="text-primary mt-0.5 flex-shrink-0" />
+                        <span>{feature}</span>
                       </li>
                     ))}
                   </ul>
