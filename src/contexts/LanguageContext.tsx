@@ -131,7 +131,7 @@ const translations: Record<Language, Record<string, string>> = {
     // FAQ
     "faq.title": "Pogosta vprašanja",
     "faq.q1": "Koliko časa traja izdelava spletne strani?",
-    "faq.a1": "Čas izvedbe je odvisen od obsega in izbranega paketa. Landing stran je lahko pripravljena v 1–5 dneh, večja spletna stran v 1–3 tednih, MVP ali kompleksnejši projekti pa v 2–6 tednih.",
+    "faq.a1": "Čas izdelave je odvisen od izbranega paketa: Osnovni paket 1–3 dni, Standardni paket 1–5 dni, Napredni paket pa 1–2 tedna, glede na zahtevnost projekta.",
     "faq.q2": "Kaj vse je vključeno v ceno?",
     "faq.a2": "V ceno so vključeni: dizajn in postavitev strani, prilagoditev za mobilne naprave, osnovni SEO, gostovanje in osnovno vzdrževanje, podpora glede na izbrani paket. Končna cena se določi glede na izbrane možnosti v kalkulatorju.",
     "faq.q3": "Koliko popravkov je vključenih?",
@@ -337,7 +337,7 @@ const translations: Record<Language, Record<string, string>> = {
     // FAQ
     "faq.title": "Frequently asked questions",
     "faq.q1": "How long does it take to build a website?",
-    "faq.a1": "It depends on the scope and selected package. A landing page can be ready in 1–5 days, a larger website in 1–3 weeks, and MVP or complex projects in 2–6 weeks.",
+    "faq.a1": "Production time depends on the selected package: Basic package 1–3 days, Standard package 1–5 days, Advanced package 1–2 weeks, depending on project complexity.",
     "faq.q2": "What is included in the price?",
     "faq.a2": "The price includes: design and layout, mobile responsiveness, basic SEO, hosting and basic maintenance, support based on the selected package. Final price is determined by the options selected in the calculator.",
     "faq.q3": "How many revisions are included?",
