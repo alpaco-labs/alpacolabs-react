@@ -25,43 +25,56 @@ const CTASection = () => {
           </p>
           
           {/* Mobile CTA - calls directly */}
-          <div className="md:hidden flex flex-col items-center gap-2">
-            <Button 
-              variant="hero" 
-              size="xl" 
-              className="rounded-full"
-              asChild
-            >
-              <a href={phoneLink} className="flex items-center justify-center gap-2">
-                <Phone size={18} />
-                {t("cta.callButton")}
-              </a>
-            </Button>
-            <p className="text-sm text-muted-foreground">{t("hero.available")}</p>
-          </div>
-
-          {/* Desktop CTA - shows phone number on click */}
-          <div className="hidden md:flex flex-col items-center gap-2">
-            {!showNumber ? (
+          <div className="md:hidden flex flex-col items-center">
+            <div className="relative">
+              <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 bg-background border border-border/50 rounded-full text-xs font-medium text-muted-foreground whitespace-nowrap z-10">
+                {t("hero.available")}
+              </span>
               <Button 
                 variant="hero" 
                 size="xl" 
                 className="rounded-full"
-                onClick={() => setShowNumber(true)}
+                asChild
               >
-                <Phone size={18} />
-                {t("cta.callButton")}
+                <a href={phoneLink} className="flex items-center justify-center gap-2">
+                  <Phone size={18} />
+                  {t("cta.callButton")}
+                </a>
               </Button>
+            </div>
+          </div>
+
+          {/* Desktop CTA - shows phone number on click */}
+          <div className="hidden md:flex flex-col items-center">
+            {!showNumber ? (
+              <div className="relative">
+                <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 bg-background border border-border/50 rounded-full text-xs font-medium text-muted-foreground whitespace-nowrap z-10">
+                  {t("hero.available")}
+                </span>
+                <Button 
+                  variant="hero" 
+                  size="xl" 
+                  className="rounded-full"
+                  onClick={() => setShowNumber(true)}
+                >
+                  <Phone size={18} />
+                  {t("cta.callButton")}
+                </Button>
+              </div>
             ) : (
-              <a 
-                href={phoneLink}
-                className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-primary-foreground rounded-full font-semibold text-lg hover:bg-primary/90 transition-colors"
-              >
-                <Phone size={20} />
-                {phoneNumber}
-              </a>
+              <div className="relative">
+                <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 bg-background border border-border/50 rounded-full text-xs font-medium text-muted-foreground whitespace-nowrap z-10">
+                  {t("hero.available")}
+                </span>
+                <a 
+                  href={phoneLink}
+                  className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-primary-foreground rounded-full font-semibold text-lg hover:bg-primary/90 transition-colors"
+                >
+                  <Phone size={20} />
+                  {phoneNumber}
+                </a>
+              </div>
             )}
-            <p className="text-sm text-muted-foreground">{t("hero.available")}</p>
           </div>
         </div>
       </div>
