@@ -133,7 +133,7 @@ const translations: Record<Language, Record<string, string>> = {
     "faq.q1": "Koliko časa traja izdelava spletne strani?",
     "faq.a1": "Čas izdelave je odvisen od izbranega paketa: Osnovni paket 1–3 dni, Standardni paket 1–5 dni, Napredni paket pa 1–2 tedna, glede na zahtevnost projekta.",
     "faq.q2": "Kaj vse je vključeno v ceno?",
-    "faq.a2": "V ceno so vključeni: dizajn in postavitev strani, prilagoditev za mobilne naprave, osnovni SEO, gostovanje in osnovno vzdrževanje, podpora glede na izbrani paket. Končna cena se določi glede na izbrane možnosti v kalkulatorju.",
+    "faq.a2": "V ceno so vključeni: dizajn in postavitev strani, prilagoditev za mobilne naprave, osnovni SEO, gostovanje in osnovno vzdrževanje, podpora glede na izbrani paket.",
     "faq.q3": "Koliko popravkov je vključenih?",
     "faq.a3": "Število in pogostost popravkov je odvisna od paketa. Manjši popravki so vključeni, dodatne ali pogostejše spremembe pa se upoštevajo pri izračunu cene.",
     "faq.q4": "Ali moram sam pripraviti besedilo in slike?",
