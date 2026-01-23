@@ -17,7 +17,6 @@ const translations: Record<Language, Record<string, string>> = {
     "nav.faq": "FAQ",
     "nav.cta": "Želim spletno stran",
     "nav.cta.inquiry": "Pošlji povpraševanje",
-    "nav.theme": "Tema",
 
     // Hero
     "hero.title1": "Zgradimo in vodimo",
@@ -33,7 +32,7 @@ const translations: Record<Language, Record<string, string>> = {
     
     // Inquiry form
     "inquiry.title": "Pošlji povpraševanje",
-    "inquiry.nameLabel": "Ime",
+    "inquiry.nameLabel": "Ime in priimek",
     "inquiry.namePlaceholder": "Janez Novak",
     "inquiry.companyLabel": "Ime podjetja (opcijsko)",
     "inquiry.companyPlaceholder": "Ime podjetja",
@@ -41,14 +40,22 @@ const translations: Record<Language, Record<string, string>> = {
     "inquiry.phonePlaceholder": "+386 40 123 456",
     "inquiry.emailLabel": "Email",
     "inquiry.emailPlaceholder": "janez@email.com",
+    "inquiry.messageLabel": "Napiši nekaj o sebi in kaj potrebuješ",
+    "inquiry.messagePlaceholder": "Na kratko opiši svoj projekt, cilje ali vprašanja.",
     "inquiry.submit": "Pošlji povpraševanje",
     "inquiry.submitting": "Pošiljam...",
     "inquiry.successTitle": "Hvala za povpraševanje!",
-    "inquiry.successDescription": "Kontaktirali vas bomo v najkrajšem možnem času.",
+    "inquiry.successDescription": "Slišimo se v najkrajšem možnem času.",
     "inquiry.close": "Zapri",
-    "inquiry.errorName": "Prosim vnesi ime.",
+    "inquiry.errorName": "Prosim vnesi ime in priimek.",
     "inquiry.errorPhone": "Prosim vnesi telefonsko številko.",
     "inquiry.errorEmail": "Prosim vnesi veljaven email naslov.",
+
+    // CTA
+    "cta.title": "Pripravljen/a na naslednji korak?",
+    "cta.description": "Izpolni kratek vprašalnik ali nas pokliči — brez obveznosti.",
+    "cta.button": "Izračunaj oceno cene",
+    "cta.callButton": "Pokličite nas",
 
     // Portfolio
     "portfolio.title": "Izbrani projekti",
@@ -90,14 +97,6 @@ const translations: Record<Language, Record<string, string>> = {
     "pricing.feature.subpages": "Več podstrani",
     "pricing.feature.fullstore": "Celotna trgovina",
     "pricing.feature.custom": "Razvoj po meri",
-    "pricing.tooltip.landing.monthly": "Hitro postavljena in vizualno čista landing stran z jasnim ciljem – usmeriti obiskovalca k oddaji povpraševanja.",
-    "pricing.tooltip.website.monthly": "Profesionalna spletna stran z jasno strukturo, prilagojena tvoji ponudbi in ciljni publiki.",
-    "pricing.tooltip.store.monthly": "Pregledna in zanesljiva spletna trgovina, pripravljena na prodajo in nadaljnjo rast.",
-    "pricing.tooltip.mvp.monthly": "MVP rešitev za testiranje ideje v praksi in zbiranje prvih odzivov uporabnikov.",
-    "pricing.tooltip.landing.onetime": "Hitro postavljena in učinkovita landing stran z jasnim ciljem – pridobivanje povpraševanj.",
-    "pricing.tooltip.website.onetime": "Profesionalna spletna stran po meri z jasno strukturo in premišljenim uporabniškim tokom.",
-    "pricing.tooltip.store.onetime": "Celovita spletna trgovina, pripravljena na prodajo in nadaljnjo rast.",
-    "pricing.tooltip.mvp.onetime": "MVP rešitev po meri za resno validacijo ideje in nadaljnji razvoj produkta.",
 
     // Process
     "process.title": "Kako poteka sodelovanje",
@@ -141,21 +140,10 @@ const translations: Record<Language, Record<string, string>> = {
     "faq.a4": "Lahko, ni pa obvezno. Če imaš vse pripravljeno, je proces hitrejši. Če potrebuješ pomoč, lahko pomagam pri vsebini, strukturi in predlogih.",
     "faq.q5": "Kaj pa gostovanje in domena?",
     "faq.a5": "Gostovanje je vključeno v vse pakete. Domena je lahko tvoja ali jo uredim zate. Pri mesečnih paketih se ob začetku zaračuna enkratni strošek za vzpostavitev domene in gostovanja.",
-    "faq.q6": "Kako poteka plačilo?",
-    "faq.a6": "Izbereš lahko mesečno ali letno plačilo. Pri letnem plačilu dobiš 2 meseca brezplačno (plačaš 10 mesecev). Brez dolgoročnih obveznosti ali skritih stroškov.",
-    "faq.q7": "Kaj pomeni »Izračunaj točno ceno«?",
-    "faq.a7": "Kalkulator ti na podlagi nekaj vprašanj izračuna realno in pregledno ceno znotraj izbranega paketa. Tako že vnaprej veš, kaj dobiš in koliko stane.",
-    "faq.q8": "Kaj če med izpolnjevanjem presežem obseg paketa?",
-    "faq.a8": "Če konfiguracija preseže izbrani paket, te sistem na to opozori in predlaga primernejši paket. Brez presenečenj ali skritih doplačil.",
     "faq.q9": "Ali lahko kasneje nadgradim paket?",
     "faq.a9": "Da. Paketi so zasnovani tako, da omogočajo enostavno nadgradnjo, ko projekt ali potrebe zrastejo.",
     "faq.q10": "Ali je povpraševanje zavezujoče?",
     "faq.a10": "Ne. Izračun in povpraševanje sta informativna. Odločitev sprejmeš šele, ko se dogovorimo o vseh podrobnostih.",
-
-    // CTA
-    "cta.title": "Pripravljen/a na naslednji korak?",
-    "cta.description": "Izpolni kratek vprašalnik in takoj vidiš oceno investicije.",
-    "cta.button": "Izračunaj oceno cene",
 
     // Footer
     "footer.description": "Spletne strani, ki prinašajo povpraševanja. Od ideje do online v nekaj dneh.",
@@ -235,7 +223,6 @@ const translations: Record<Language, Record<string, string>> = {
     "nav.faq": "FAQ",
     "nav.cta": "I want a website",
     "nav.cta.inquiry": "Send inquiry",
-    "nav.theme": "Theme",
 
     // Hero
     "hero.title1": "We build and manage",
@@ -251,7 +238,7 @@ const translations: Record<Language, Record<string, string>> = {
     
     // Inquiry form
     "inquiry.title": "Send inquiry",
-    "inquiry.nameLabel": "Name",
+    "inquiry.nameLabel": "Full name",
     "inquiry.namePlaceholder": "John Doe",
     "inquiry.companyLabel": "Company name (optional)",
     "inquiry.companyPlaceholder": "Company name",
@@ -259,14 +246,22 @@ const translations: Record<Language, Record<string, string>> = {
     "inquiry.phonePlaceholder": "+1 234 567 890",
     "inquiry.emailLabel": "Email",
     "inquiry.emailPlaceholder": "john@email.com",
+    "inquiry.messageLabel": "Tell us about yourself and what you need",
+    "inquiry.messagePlaceholder": "Briefly describe your project, goals, or questions.",
     "inquiry.submit": "Send inquiry",
     "inquiry.submitting": "Sending...",
     "inquiry.successTitle": "Thank you for your inquiry!",
-    "inquiry.successDescription": "We will contact you as soon as possible.",
+    "inquiry.successDescription": "We will get back to you as soon as possible.",
     "inquiry.close": "Close",
-    "inquiry.errorName": "Please enter your name.",
+    "inquiry.errorName": "Please enter your full name.",
     "inquiry.errorPhone": "Please enter your phone number.",
     "inquiry.errorEmail": "Please enter a valid email address.",
+
+    // CTA
+    "cta.title": "Ready for the next step?",
+    "cta.description": "Fill out a short questionnaire or call us — no obligations.",
+    "cta.button": "Calculate price estimate",
+    "cta.callButton": "Call us",
 
     // Portfolio
     "portfolio.title": "Selected projects",
@@ -308,14 +303,6 @@ const translations: Record<Language, Record<string, string>> = {
     "pricing.feature.subpages": "Multiple subpages",
     "pricing.feature.fullstore": "Full store",
     "pricing.feature.custom": "Custom development",
-    "pricing.tooltip.landing.monthly": "Quickly built and visually clean landing page with a clear goal – directing visitors to submit an inquiry.",
-    "pricing.tooltip.website.monthly": "Professional website with clear structure, tailored to your offer and target audience.",
-    "pricing.tooltip.store.monthly": "Clear and reliable e-commerce store, ready for sales and further growth.",
-    "pricing.tooltip.mvp.monthly": "MVP solution for testing your idea in practice and collecting initial user feedback.",
-    "pricing.tooltip.landing.onetime": "Quickly built and effective landing page with a clear goal – generating inquiries.",
-    "pricing.tooltip.website.onetime": "Custom professional website with clear structure and thoughtful user flow.",
-    "pricing.tooltip.store.onetime": "Complete e-commerce store, ready for sales and further growth.",
-    "pricing.tooltip.mvp.onetime": "Custom MVP solution for serious idea validation and further product development.",
 
     // Process
     "process.title": "How collaboration works",
@@ -359,21 +346,10 @@ const translations: Record<Language, Record<string, string>> = {
     "faq.a4": "You can, but it's not required. If you have everything ready, the process is faster. If you need help, I can assist with content, structure, and suggestions.",
     "faq.q5": "What about hosting and domain?",
     "faq.a5": "Hosting is included in all packages. The domain can be yours or I can set it up for you. For monthly packages, a one-time setup fee for domain and hosting is charged at the start.",
-    "faq.q6": "How does payment work?",
-    "faq.a6": "You can choose monthly or yearly payment. With yearly payment, you get 2 months free (pay for 10 months). No long-term commitments or hidden costs.",
-    "faq.q7": "What does 'Calculate exact price' mean?",
-    "faq.a7": "The calculator determines a realistic and transparent price within your selected package based on a few questions. You'll know exactly what you get and how much it costs upfront.",
-    "faq.q8": "What if I exceed the package scope while filling out the form?",
-    "faq.a8": "If your configuration exceeds the selected package, the system will notify you and suggest a more suitable package. No surprises or hidden fees.",
     "faq.q9": "Can I upgrade my package later?",
     "faq.a9": "Yes. Packages are designed for easy upgrades as your project or needs grow.",
     "faq.q10": "Is the inquiry binding?",
     "faq.a10": "No. The calculation and inquiry are informational. You only decide once we agree on all the details.",
-
-    // CTA
-    "cta.title": "Ready for the next step?",
-    "cta.description": "Fill out a short questionnaire and see the investment estimate immediately.",
-    "cta.button": "Calculate price estimate",
 
     // Footer
     "footer.description": "Websites that generate leads. From idea to online in a few days.",
