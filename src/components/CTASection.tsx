@@ -27,7 +27,7 @@ const CTASection = () => {
           {/* Mobile CTA - calls directly */}
           <div className="md:hidden flex flex-col items-center">
             <div className="relative">
-              <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 bg-background border border-border/50 rounded-full text-xs font-medium text-muted-foreground whitespace-nowrap z-10">
+              <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 bg-background border border-primary/30 rounded-full text-xs font-medium text-primary whitespace-nowrap z-10 animate-badge-pulse">
                 {t("hero.available")}
               </span>
               <Button 
@@ -48,7 +48,7 @@ const CTASection = () => {
           <div className="hidden md:flex flex-col items-center">
             {!showNumber ? (
               <div className="relative">
-                <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 bg-background border border-border/50 rounded-full text-xs font-medium text-muted-foreground whitespace-nowrap z-10">
+                <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 bg-background border border-primary/30 rounded-full text-xs font-medium text-primary whitespace-nowrap z-10 animate-badge-pulse">
                   {t("hero.available")}
                 </span>
                 <Button 
@@ -63,7 +63,7 @@ const CTASection = () => {
               </div>
             ) : (
               <div className="relative">
-                <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 bg-background border border-border/50 rounded-full text-xs font-medium text-muted-foreground whitespace-nowrap z-10">
+                <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 bg-background border border-primary/30 rounded-full text-xs font-medium text-primary whitespace-nowrap z-10 animate-badge-pulse">
                   {t("hero.available")}
                 </span>
                 <a 

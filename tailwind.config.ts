@@ -80,12 +80,23 @@ export default {
           from: { opacity: "0", transform: "translateY(20px)" },
           to: { opacity: "1", transform: "translateY(0)" },
         },
+        "badge-pulse": {
+          "0%, 100%": { 
+            opacity: "1",
+            boxShadow: "0 0 0 0 hsl(var(--primary) / 0.4)"
+          },
+          "50%": { 
+            opacity: "0.9",
+            boxShadow: "0 0 0 4px hsl(var(--primary) / 0)"
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "fade-in": "fade-in 0.6s ease-out forwards",
         "slide-up": "slide-up 0.6s ease-out forwards",
+        "badge-pulse": "badge-pulse 2s ease-in-out infinite",
       },
     },
   },
