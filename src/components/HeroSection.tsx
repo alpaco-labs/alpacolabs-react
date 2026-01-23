@@ -60,15 +60,23 @@ const HeroSection = () => {
             <div className="mt-8 md:mt-12 animate-slide-up" style={{
               animationDelay: "0.2s"
             }}>
-              {/* Availability text */}
-              <p className="text-sm text-muted-foreground mb-3">{t("hero.available")}</p>
-              
-              {/* Mobile CTA - calls directly */}
-              <div className="md:hidden">
+              {/* Mobile CTAs - stacked */}
+              <div className="md:hidden flex flex-col gap-3">
                 <Button 
                   variant="hero" 
                   size="xl" 
-                  className="w-full sm:w-auto rounded-full"
+                  className="w-full rounded-full"
+                  onClick={() => {
+                    const modal = document.querySelector('[data-inquiry-trigger]') as HTMLButtonElement;
+                    modal?.click();
+                  }}
+                >
+                  {t("inquiry.submit")}
+                </Button>
+                <Button 
+                  variant="outline" 
+                  size="xl" 
+                  className="w-full rounded-full border-border/50 bg-transparent hover:bg-muted/50"
                   asChild
                 >
                   <a href={phoneLink} className="flex items-center justify-center gap-2">
@@ -78,28 +86,37 @@ const HeroSection = () => {
                 </Button>
               </div>
 
-              {/* Desktop CTA - shows phone number on click */}
-              <div className="hidden md:block">
+              {/* Desktop CTAs - side by side */}
+              <div className="hidden md:flex items-center gap-4">
+                <Button 
+                  variant="hero" 
+                  size="xl" 
+                  className="rounded-full"
+                  onClick={() => {
+                    const modal = document.querySelector('[data-inquiry-trigger]') as HTMLButtonElement;
+                    modal?.click();
+                  }}
+                >
+                  {t("inquiry.submit")}
+                </Button>
                 {!showNumber ? (
                   <Button 
-                    variant="hero" 
+                    variant="outline" 
                     size="xl" 
-                    className="rounded-full"
+                    className="rounded-full border-border/50 bg-transparent hover:bg-muted/50"
                     onClick={handleDesktopClick}
                   >
                     <Phone size={18} />
                     {t("cta.callButton")}
                   </Button>
                 ) : (
-                  <div className="flex items-center gap-3">
-                    <a 
-                      href={phoneLink}
-                      className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-full font-semibold text-lg hover:bg-primary/90 transition-colors"
-                    >
-                      <Phone size={18} />
-                      {phoneNumber}
-                    </a>
-                  </div>
+                  <a 
+                    href={phoneLink}
+                    className="inline-flex items-center gap-2 px-6 py-3 border border-border/50 rounded-full font-semibold text-lg hover:bg-muted/50 transition-colors"
+                  >
+                    <Phone size={18} />
+                    {phoneNumber}
+                  </a>
                 )}
               </div>
             </div>

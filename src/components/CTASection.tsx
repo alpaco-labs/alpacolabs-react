@@ -24,11 +24,8 @@ const CTASection = () => {
             {t("cta.description")}
           </p>
           
-          {/* Availability text */}
-          <p className="text-sm text-muted-foreground mb-3">{t("hero.available")}</p>
-          
           {/* Mobile CTA - calls directly */}
-          <div className="md:hidden">
+          <div className="md:hidden flex flex-col items-center gap-2">
             <Button 
               variant="hero" 
               size="xl" 
@@ -40,10 +37,11 @@ const CTASection = () => {
                 {t("cta.callButton")}
               </a>
             </Button>
+            <p className="text-sm text-muted-foreground">{t("hero.available")}</p>
           </div>
 
           {/* Desktop CTA - shows phone number on click */}
-          <div className="hidden md:block">
+          <div className="hidden md:flex flex-col items-center gap-2">
             {!showNumber ? (
               <Button 
                 variant="hero" 
@@ -63,6 +61,7 @@ const CTASection = () => {
                 {phoneNumber}
               </a>
             )}
+            <p className="text-sm text-muted-foreground">{t("hero.available")}</p>
           </div>
         </div>
       </div>
