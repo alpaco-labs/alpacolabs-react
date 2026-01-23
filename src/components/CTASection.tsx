@@ -2,10 +2,12 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Phone } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import InquiryFormModal from "@/components/InquiryFormModal";
 
 const CTASection = () => {
   const { t } = useLanguage();
   const [showNumber, setShowNumber] = useState(false);
+  const [isInquiryOpen, setIsInquiryOpen] = useState(false);
 
   const phoneNumber = "+386 70 732 085";
   const phoneLink = "tel:+38670732085";
@@ -24,27 +26,24 @@ const CTASection = () => {
             {t("cta.description")}
           </p>
           
-          {/* Mobile CTAs - stacked */}
-          <div className="md:hidden flex flex-col items-center gap-3">
+          {/* Mobile CTAs - stacked with equal width */}
+          <div className="md:hidden flex flex-col items-center gap-5 px-4">
             <Button 
               variant="hero" 
               size="xl" 
-              className="w-full max-w-xs rounded-full"
-              onClick={() => {
-                const modal = document.querySelector('[data-inquiry-trigger]') as HTMLButtonElement;
-                modal?.click();
-              }}
+              className="w-full rounded-full"
+              onClick={() => setIsInquiryOpen(true)}
             >
               {t("inquiry.submit")}
             </Button>
-            <div className="relative">
+            <div className="relative w-full">
               <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 bg-background border border-primary/30 rounded-full text-xs font-medium text-primary whitespace-nowrap z-10 animate-badge-pulse">
                 {t("hero.available")}
               </span>
               <Button 
                 variant="outline" 
                 size="xl" 
-                className="w-full max-w-xs rounded-full border-border/50 bg-transparent hover:bg-muted/50"
+                className="w-full rounded-full border-border/50 bg-transparent hover:bg-muted/50"
                 asChild
               >
                 <a href={phoneLink} className="flex items-center justify-center gap-2">
@@ -61,10 +60,7 @@ const CTASection = () => {
               variant="hero" 
               size="xl" 
               className="rounded-full"
-              onClick={() => {
-                const modal = document.querySelector('[data-inquiry-trigger]') as HTMLButtonElement;
-                modal?.click();
-              }}
+              onClick={() => setIsInquiryOpen(true)}
             >
               {t("inquiry.submit")}
             </Button>
@@ -100,6 +96,11 @@ const CTASection = () => {
           </div>
         </div>
       </div>
+
+      <InquiryFormModal 
+        isOpen={isInquiryOpen} 
+        onClose={() => setIsInquiryOpen(false)} 
+      />
     </section>
   );
 };
