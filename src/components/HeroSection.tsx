@@ -61,7 +61,7 @@ const HeroSection = () => {
               animationDelay: "0.2s"
             }}>
               {/* Mobile CTAs - stacked */}
-              <div className="md:hidden flex flex-col gap-3">
+              <div className="md:hidden flex flex-col gap-5">
                 <Button 
                   variant="hero" 
                   size="xl" 
