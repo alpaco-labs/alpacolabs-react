@@ -24,16 +24,27 @@ const CTASection = () => {
             {t("cta.description")}
           </p>
           
-          {/* Mobile CTA - calls directly */}
-          <div className="md:hidden flex flex-col items-center">
+          {/* Mobile CTAs - stacked */}
+          <div className="md:hidden flex flex-col items-center gap-3">
+            <Button 
+              variant="hero" 
+              size="xl" 
+              className="w-full max-w-xs rounded-full"
+              onClick={() => {
+                const modal = document.querySelector('[data-inquiry-trigger]') as HTMLButtonElement;
+                modal?.click();
+              }}
+            >
+              {t("inquiry.submit")}
+            </Button>
             <div className="relative">
               <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 bg-background border border-primary/30 rounded-full text-xs font-medium text-primary whitespace-nowrap z-10 animate-badge-pulse">
                 {t("hero.available")}
               </span>
               <Button 
-                variant="hero" 
+                variant="outline" 
                 size="xl" 
-                className="rounded-full"
+                className="w-full max-w-xs rounded-full border-border/50 bg-transparent hover:bg-muted/50"
                 asChild
               >
                 <a href={phoneLink} className="flex items-center justify-center gap-2">
@@ -44,17 +55,28 @@ const CTASection = () => {
             </div>
           </div>
 
-          {/* Desktop CTA - shows phone number on click */}
-          <div className="hidden md:flex flex-col items-center">
+          {/* Desktop CTAs - side by side */}
+          <div className="hidden md:flex items-center justify-center gap-4">
+            <Button 
+              variant="hero" 
+              size="xl" 
+              className="rounded-full"
+              onClick={() => {
+                const modal = document.querySelector('[data-inquiry-trigger]') as HTMLButtonElement;
+                modal?.click();
+              }}
+            >
+              {t("inquiry.submit")}
+            </Button>
             {!showNumber ? (
               <div className="relative">
                 <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 bg-background border border-primary/30 rounded-full text-xs font-medium text-primary whitespace-nowrap z-10 animate-badge-pulse">
                   {t("hero.available")}
                 </span>
                 <Button 
-                  variant="hero" 
+                  variant="outline" 
                   size="xl" 
-                  className="rounded-full"
+                  className="rounded-full border-border/50 bg-transparent hover:bg-muted/50"
                   onClick={() => setShowNumber(true)}
                 >
                   <Phone size={18} />
@@ -68,9 +90,9 @@ const CTASection = () => {
                 </span>
                 <a 
                   href={phoneLink}
-                  className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-primary-foreground rounded-full font-semibold text-lg hover:bg-primary/90 transition-colors"
+                  className="inline-flex items-center gap-2 px-6 py-3 border border-border/50 rounded-full font-semibold text-lg hover:bg-muted/50 transition-colors"
                 >
-                  <Phone size={20} />
+                  <Phone size={18} />
                   {phoneNumber}
                 </a>
               </div>
