@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Mail, MapPin } from "lucide-react";
+import { Mail, MapPin, Phone } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import logoDark from "@/assets/logo-dark.png";
@@ -43,13 +43,20 @@ const Footer = () => {
           <div>
             <h4 className="font-heading font-semibold text-foreground mb-5">{t("footer.contact")}</h4>
             <div className="space-y-4">
-              <a className="flex items-center gap-3 text-muted-foreground hover:text-foreground transition-colors duration-300 text-sm" href="mailto:zan.pustotnik7@gmail.com">
+              <a className="flex items-center gap-3 text-muted-foreground hover:text-foreground transition-colors duration-300 text-sm" href="mailto:info@alpacolabs.com">
                 <Mail size={16} className="text-foreground/50" />
-                zan.pustotnik7@gmail.com
+                info@alpacolabs.com
               </a>
+              <div className="flex items-start gap-3 text-muted-foreground text-sm">
+                <Phone size={16} className="text-foreground/50 mt-0.5 flex-shrink-0" />
+                <div className="flex flex-col gap-1">
+                  <a href="tel:+38670732085" className="hover:text-foreground transition-colors">+386 70 732 085 – Andraž</a>
+                  <a href="tel:+38670595044" className="hover:text-foreground transition-colors">+386 70 595 044 – Žan</a>
+                </div>
+              </div>
               <div className="flex items-center gap-3 text-muted-foreground text-sm">
                 <MapPin size={16} className="text-foreground/50" />
-                {t("footer.location")}
+                Ljubljana, Slovenija
               </div>
             </div>
           </div>
