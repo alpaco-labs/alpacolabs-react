@@ -6,7 +6,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import ScrollToTop from "./components/ScrollToTop";
 import Index from "./pages/Index";
-import ZelimSpletnoStran from "./pages/ZelimSpletnoStran";
 import NotFound from "./pages/NotFound";
 import { useEffect } from "react";
 
@@ -31,7 +30,6 @@ const App = () => (
             <ScrollToTop />
             <Routes>
               <Route path="/" element={<Index />} />
-              <Route path="/zelim-spletno-stran" element={<ZelimSpletnoStran />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
