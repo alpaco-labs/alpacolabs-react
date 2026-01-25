@@ -94,7 +94,7 @@ const PricingSection = () => {
                 {/* Popular badge */}
                 {pkg.popular && (
                   <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                    <div className="flex items-center gap-1.5 bg-primary text-primary-foreground px-4 py-1.5 rounded-full text-xs font-semibold">
+                    <div className="flex items-center gap-1.5 bg-primary text-primary-foreground px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap">
                       <Star size={12} className="fill-current" />
                       Najbolj priljubljen
                     </div>
