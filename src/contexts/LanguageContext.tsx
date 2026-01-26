@@ -71,6 +71,9 @@ const translations: Record<Language, Record<string, string>> = {
     "portfolio.tag.website": "Website",
     "portfolio.tag.store": "Trgovina",
     "portfolio.tag.mvp": "MVP",
+    "portfolio.package.basic": "Osnovni paket",
+    "portfolio.package.standard": "Standardni paket",
+    "portfolio.package.advanced": "Napredni paket",
 
     // Pricing / Services
     "pricing.title": "Paketi",
@@ -277,6 +280,9 @@ const translations: Record<Language, Record<string, string>> = {
     "portfolio.tag.website": "Website",
     "portfolio.tag.store": "Store",
     "portfolio.tag.mvp": "MVP",
+    "portfolio.package.basic": "Basic package",
+    "portfolio.package.standard": "Standard package",
+    "portfolio.package.advanced": "Advanced package",
 
     // Pricing / Services
     "pricing.title": "Packages",
