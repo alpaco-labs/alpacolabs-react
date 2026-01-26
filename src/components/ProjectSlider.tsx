@@ -143,7 +143,16 @@ const ProjectSlider = () => {
       };
     }
   };
-  return <section className="pb-16 md:pb-24 pt-8 bg-secondary/30 dark:bg-secondary/20 overflow-hidden relative">
+  return <section id="portfolio" className="py-16 md:py-24 bg-secondary/30 dark:bg-secondary/20 overflow-hidden relative">
+      {/* Section Title */}
+      <div className="container mb-12 md:mb-14">
+        <div className="text-center">
+          <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-semibold text-foreground">
+            {t("portfolio.title")}
+          </h2>
+        </div>
+      </div>
+
       <div className="relative">
         {/* Carousel */}
         <div className="overflow-hidden" ref={emblaRef}>

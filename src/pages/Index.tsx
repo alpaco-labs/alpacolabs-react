@@ -17,7 +17,6 @@ const Index = () => {
       <main>
         <HeroSection />
         <TrustIndicatorsSection />
-        <PortfolioSection />
         <ProjectSlider />
         <CollaborationSection />
         <TargetAudienceSection />
