@@ -14,27 +14,27 @@ import osebniPortfolio2Img from "@/assets/projects/osebni-portfolio-2.png";
 const projects = [{
   id: 1,
   name: "Arch Studio",
-  typeKey: "portfolio.tag.landing",
+  typeKey: "portfolio.package.basic",
   image: archStudioImg
 }, {
   id: 2,
   name: "Osebni Portfolio",
-  typeKey: "portfolio.tag.website",
+  typeKey: "portfolio.package.standard",
   image: osebniPortfolioImg
 }, {
   id: 3,
   name: "Perspektiva",
-  typeKey: "portfolio.tag.website",
+  typeKey: "portfolio.package.advanced",
   image: perspektivaImg
 }, {
   id: 4,
   name: "Alenkine Slaščice",
-  typeKey: "portfolio.tag.website",
+  typeKey: "portfolio.package.standard",
   image: alenkineSlasciceImg
 }, {
   id: 5,
   name: "Osebni Portfolio",
-  typeKey: "portfolio.tag.website",
+  typeKey: "portfolio.package.standard",
   image: osebniPortfolio2Img
 }];
 const ProjectSlider = () => {
