@@ -1,0 +1,240 @@
+import { useCallback, useEffect, useState } from "react";
+import useEmblaCarousel from "embla-carousel-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { useLanguage } from "@/contexts/LanguageContext";
+
+const projects = [
+  {
+    id: 1,
+    name: "Artisan Coffee",
+    typeKey: "portfolio.tag.landing",
+    image: "/placeholder.svg",
+  },
+  {
+    id: 2,
+    name: "Studio Lux",
+    typeKey: "portfolio.tag.website",
+    image: "/placeholder.svg",
+  },
+  {
+    id: 3,
+    name: "FitGear Pro",
+    typeKey: "portfolio.tag.store",
+    image: "/placeholder.svg",
+  },
+  {
+    id: 4,
+    name: "TaskFlow",
+    typeKey: "portfolio.tag.mvp",
+    image: "/placeholder.svg",
+  },
+  {
+    id: 5,
+    name: "Zdravje Plus",
+    typeKey: "portfolio.tag.website",
+    image: "/placeholder.svg",
+  },
+  {
+    id: 6,
+    name: "Urban Eats",
+    typeKey: "portfolio.tag.store",
+    image: "/placeholder.svg",
+  },
+];
+
+const ProjectSlider = () => {
+  const { t } = useLanguage();
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    loop: true,
+    align: "center",
+    skipSnaps: false,
+    dragFree: false,
+  });
+
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+
+  const scrollPrev = useCallback(() => {
+    if (emblaApi && !isTransitioning) {
+      setIsTransitioning(true);
+      emblaApi.scrollPrev();
+      setTimeout(() => setIsTransitioning(false), 500);
+    }
+  }, [emblaApi, isTransitioning]);
+
+  const scrollNext = useCallback(() => {
+    if (emblaApi && !isTransitioning) {
+      setIsTransitioning(true);
+      emblaApi.scrollNext();
+      setTimeout(() => setIsTransitioning(false), 500);
+    }
+  }, [emblaApi, isTransitioning]);
+
+  const onSelect = useCallback(() => {
+    if (!emblaApi) return;
+    setSelectedIndex(emblaApi.selectedScrollSnap());
+  }, [emblaApi]);
+
+  useEffect(() => {
+    if (!emblaApi) return;
+
+    onSelect();
+    setScrollSnaps(emblaApi.scrollSnapList());
+    emblaApi.on("select", onSelect);
+    emblaApi.on("reInit", onSelect);
+
+    return () => {
+      emblaApi.off("select", onSelect);
+      emblaApi.off("reInit", onSelect);
+    };
+  }, [emblaApi, onSelect]);
+
+  const getSlideStyles = (index: number) => {
+    if (!emblaApi) return { scale: 0.88, opacity: 0.5 };
+
+    const slidesInView = emblaApi.slidesInView();
+    const isSelected = index === selectedIndex;
+    
+    // Calculate distance from center
+    const totalSlides = projects.length;
+    let distance = Math.abs(index - selectedIndex);
+    
+    // Handle wrap-around for infinite loop
+    if (distance > totalSlides / 2) {
+      distance = totalSlides - distance;
+    }
+
+    if (isSelected) {
+      return { scale: 1, opacity: 1, blur: 0 };
+    } else if (distance === 1) {
+      return { scale: 0.88, opacity: 0.6, blur: 1 };
+    } else {
+      return { scale: 0.8, opacity: 0.4, blur: 2 };
+    }
+  };
+
+  return (
+    <section className="py-12 md:py-16 bg-background overflow-hidden">
+      <div className="relative">
+        {/* Carousel */}
+        <div className="overflow-hidden" ref={emblaRef}>
+          <div className="flex touch-pan-y">
+            {projects.map((project, index) => {
+              const styles = getSlideStyles(index);
+              const isSelected = index === selectedIndex;
+
+              return (
+                <div
+                  key={project.id}
+                  className="flex-[0_0_75%] md:flex-[0_0_45%] lg:flex-[0_0_35%] min-w-0 pl-4 md:pl-6"
+                >
+                  <div
+                    className="transition-all duration-500 ease-out"
+                    style={{
+                      transform: `scale(${styles.scale})`,
+                      opacity: styles.opacity,
+                      filter: styles.blur ? `blur(${styles.blur}px)` : "none",
+                    }}
+                  >
+                    {/* Project Card */}
+                    <div className="text-center">
+                      {/* Image Container */}
+                      <div
+                        className={cn(
+                          "relative aspect-[4/3] rounded-2xl overflow-hidden mb-5 bg-secondary/40",
+                          "transition-shadow duration-500",
+                          isSelected && "shadow-[0_20px_60px_-15px_rgba(0,0,0,0.5)]"
+                        )}
+                      >
+                        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent" />
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <span className="text-muted-foreground text-sm">
+                            {t("portfolio.visualization")}
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Project Info */}
+                      <h3
+                        className={cn(
+                          "font-heading text-lg md:text-xl font-semibold text-foreground mb-1",
+                          "transition-all duration-500",
+                          !isSelected && "text-muted-foreground"
+                        )}
+                      >
+                        {project.name}
+                      </h3>
+                      <p
+                        className={cn(
+                          "text-sm text-muted-foreground",
+                          "transition-opacity duration-500",
+                          !isSelected && "opacity-60"
+                        )}
+                      >
+                        {t(project.typeKey)}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Navigation Arrows - Desktop */}
+        <button
+          onClick={scrollPrev}
+          disabled={isTransitioning}
+          className={cn(
+            "hidden md:flex absolute left-4 lg:left-8 top-1/2 -translate-y-1/2 z-10",
+            "w-12 h-12 items-center justify-center rounded-full",
+            "bg-card/80 backdrop-blur-sm border border-border",
+            "text-foreground/70 hover:text-foreground hover:bg-card",
+            "transition-all duration-300 hover:scale-105",
+            "disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+          )}
+          aria-label="Previous project"
+        >
+          <ChevronLeft size={24} />
+        </button>
+
+        <button
+          onClick={scrollNext}
+          disabled={isTransitioning}
+          className={cn(
+            "hidden md:flex absolute right-4 lg:right-8 top-1/2 -translate-y-1/2 z-10",
+            "w-12 h-12 items-center justify-center rounded-full",
+            "bg-card/80 backdrop-blur-sm border border-border",
+            "text-foreground/70 hover:text-foreground hover:bg-card",
+            "transition-all duration-300 hover:scale-105",
+            "disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+          )}
+          aria-label="Next project"
+        >
+          <ChevronRight size={24} />
+        </button>
+
+        {/* Dot Indicators */}
+        <div className="flex justify-center gap-2 mt-8">
+          {scrollSnaps.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => emblaApi?.scrollTo(index)}
+              className={cn(
+                "w-2 h-2 rounded-full transition-all duration-300",
+                index === selectedIndex
+                  ? "bg-foreground w-6"
+                  : "bg-muted-foreground/30 hover:bg-muted-foreground/50"
+              )}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default ProjectSlider;
