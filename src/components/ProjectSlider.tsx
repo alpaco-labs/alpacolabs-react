@@ -112,7 +112,7 @@ const ProjectSlider = () => {
       };
     }
   };
-  return <section className="py-12 bg-background overflow-hidden md:py-0">
+  return <section className="py-16 md:py-24 bg-background overflow-hidden">
       <div className="relative">
         {/* Carousel */}
         <div className="overflow-hidden" ref={emblaRef}>
@@ -120,7 +120,7 @@ const ProjectSlider = () => {
             {projects.map((project, index) => {
             const styles = getSlideStyles(index);
             const isSelected = index === selectedIndex;
-            return <div key={project.id} className="flex-[0_0_75%] md:flex-[0_0_45%] lg:flex-[0_0_35%] min-w-0 pl-4 md:pl-6">
+            return <div key={project.id} className="flex-[0_0_85%] md:flex-[0_0_55%] lg:flex-[0_0_45%] min-w-0 pl-4 md:pl-6">
                   <div className="transition-all duration-500 ease-out" style={{
                 transform: `scale(${styles.scale})`,
                 opacity: styles.opacity,
@@ -129,7 +129,7 @@ const ProjectSlider = () => {
                     {/* Project Card */}
                     <div className="text-center">
                       {/* Image Container */}
-                      <div className={cn("relative aspect-[4/3] rounded-2xl overflow-hidden mb-5 bg-secondary/40", "transition-shadow duration-500", isSelected && "shadow-[0_20px_60px_-15px_rgba(0,0,0,0.5)]")}>
+                      <div className={cn("relative aspect-[16/10] rounded-2xl overflow-hidden mb-5 bg-secondary/40", "transition-shadow duration-500", isSelected && "shadow-[0_20px_60px_-15px_rgba(0,0,0,0.5)]")}>
                         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent" />
                         <div className="absolute inset-0 flex items-center justify-center">
                           <span className="text-muted-foreground text-sm">
