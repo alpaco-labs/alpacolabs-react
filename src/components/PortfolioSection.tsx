@@ -35,7 +35,7 @@ const PortfolioSection = () => {
     descriptionKey: "portfolio.project6.description",
     tagKeys: ["portfolio.tag.store", "portfolio.tag.mvp"]
   }];
-  return <section id="portfolio" className="py-16 bg-muted/20 md:py-0">
+  return <section id="portfolio" className="py-16 bg-background md:py-0">
       <div className="container">
         <div className="text-center mb-12 md:mb-14">
           <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-semibold text-foreground">

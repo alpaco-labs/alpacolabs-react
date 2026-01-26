@@ -50,6 +50,8 @@ const ProjectSlider = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+
   const scrollPrev = useCallback(() => {
     if (emblaApi && !isTransitioning) {
       setIsTransitioning(true);
@@ -57,6 +59,7 @@ const ProjectSlider = () => {
       setTimeout(() => setIsTransitioning(false), 500);
     }
   }, [emblaApi, isTransitioning]);
+
   const scrollNext = useCallback(() => {
     if (emblaApi && !isTransitioning) {
       setIsTransitioning(true);
@@ -64,21 +67,46 @@ const ProjectSlider = () => {
       setTimeout(() => setIsTransitioning(false), 500);
     }
   }, [emblaApi, isTransitioning]);
+
   const onSelect = useCallback(() => {
     if (!emblaApi) return;
     setSelectedIndex(emblaApi.selectedScrollSnap());
   }, [emblaApi]);
+
+  // Auto-play functionality
+  useEffect(() => {
+    if (!emblaApi || !isAutoPlaying) return;
+
+    const autoplayInterval = setInterval(() => {
+      if (!isTransitioning) {
+        emblaApi.scrollNext();
+      }
+    }, 5000);
+
+    return () => clearInterval(autoplayInterval);
+  }, [emblaApi, isAutoPlaying, isTransitioning]);
+
+  // Pause auto-play on user interaction
+  const handleUserInteraction = useCallback(() => {
+    setIsAutoPlaying(false);
+    // Resume auto-play after 10 seconds of no interaction
+    const timeout = setTimeout(() => setIsAutoPlaying(true), 10000);
+    return () => clearTimeout(timeout);
+  }, []);
+
   useEffect(() => {
     if (!emblaApi) return;
     onSelect();
     setScrollSnaps(emblaApi.scrollSnapList());
     emblaApi.on("select", onSelect);
     emblaApi.on("reInit", onSelect);
+    emblaApi.on("pointerDown", handleUserInteraction);
     return () => {
       emblaApi.off("select", onSelect);
       emblaApi.off("reInit", onSelect);
+      emblaApi.off("pointerDown", handleUserInteraction);
     };
-  }, [emblaApi, onSelect]);
+  }, [emblaApi, onSelect, handleUserInteraction]);
   const getSlideStyles = (index: number) => {
     if (!emblaApi) return {
       scale: 0.88,
