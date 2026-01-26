@@ -3,36 +3,39 @@ import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useLanguage } from "@/contexts/LanguageContext";
+
+// Project images
+import archStudioImg from "@/assets/projects/arch-studio.png";
+import osebniPortfolioImg from "@/assets/projects/osebni-portfolio.png";
+import perspektivaImg from "@/assets/projects/perspektiva.png";
+import alenkineSlasciceImg from "@/assets/projects/alenkine-slascice.png";
+import osebniPortfolio2Img from "@/assets/projects/osebni-portfolio-2.png";
+
 const projects = [{
   id: 1,
-  name: "Artisan Coffee",
+  name: "Arch Studio",
   typeKey: "portfolio.tag.landing",
-  image: "/placeholder.svg"
+  image: archStudioImg
 }, {
   id: 2,
-  name: "Studio Lux",
+  name: "Osebni Portfolio",
   typeKey: "portfolio.tag.website",
-  image: "/placeholder.svg"
+  image: osebniPortfolioImg
 }, {
   id: 3,
-  name: "FitGear Pro",
-  typeKey: "portfolio.tag.store",
-  image: "/placeholder.svg"
+  name: "Perspektiva",
+  typeKey: "portfolio.tag.website",
+  image: perspektivaImg
 }, {
   id: 4,
-  name: "TaskFlow",
-  typeKey: "portfolio.tag.mvp",
-  image: "/placeholder.svg"
+  name: "Alenkine Slaščice",
+  typeKey: "portfolio.tag.website",
+  image: alenkineSlasciceImg
 }, {
   id: 5,
-  name: "Zdravje Plus",
+  name: "Osebni Portfolio",
   typeKey: "portfolio.tag.website",
-  image: "/placeholder.svg"
-}, {
-  id: 6,
-  name: "Urban Eats",
-  typeKey: "portfolio.tag.store",
-  image: "/placeholder.svg"
+  image: osebniPortfolio2Img
 }];
 const ProjectSlider = () => {
   const {
@@ -130,12 +133,12 @@ const ProjectSlider = () => {
                     <div className="text-center">
                       {/* Image Container */}
                       <div className={cn("relative aspect-[16/10] rounded-2xl overflow-hidden mb-5 bg-secondary/40", "transition-shadow duration-500", isSelected && "shadow-[0_20px_60px_-15px_rgba(0,0,0,0.5)]")}>
+                        <img 
+                          src={project.image} 
+                          alt={project.name}
+                          className="absolute inset-0 w-full h-full object-cover"
+                        />
                         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent" />
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <span className="text-muted-foreground text-sm">
-                            {t("portfolio.visualization")}
-                          </span>
-                        </div>
                       </div>
 
                       {/* Project Info */}
