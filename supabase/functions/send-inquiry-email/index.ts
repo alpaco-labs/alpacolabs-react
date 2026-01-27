@@ -13,6 +13,16 @@ const corsHeaders = {
     "authorization, x-client-info, apikey, content-type",
 };
 
+// HTML escape function to prevent XSS/injection in emails
+function escapeHtml(unsafe: string): string {
+  return unsafe
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
 // Create Supabase admin client for rate limiting
 const supabaseAdmin = createClient(
   SUPABASE_URL ?? "",
@@ -232,6 +242,13 @@ const handler = async (req: Request): Promise<Response> => {
       minute: "2-digit",
     });
 
+    // Escape all user inputs for safe HTML embedding
+    const safeImePriimek = escapeHtml(data.imePriimek);
+    const safePodjetje = escapeHtml(data.podjetje || "/");
+    const safeEmail = escapeHtml(data.email);
+    const safeTelefon = escapeHtml(data.telefon || "/");
+    const safeDodatno = data.dodatno ? escapeHtml(data.dodatno).replace(/\n/g, "<br>") : null;
+
     const funkcionalnostiList = data.funkcionalnosti.length > 0
       ? data.funkcionalnosti.map(f => funkcionalnostiLabels[f] || f).join(", ")
       : "Brez dodatnih funkcionalnosti";
@@ -250,21 +267,21 @@ const handler = async (req: Request): Promise<Response> => {
         <table style="width: 100%; border-collapse: collapse;">
           <tr>
             <td style="padding: 8px 0; color: #666; width: 150px;">Ime in priimek:</td>
-            <td style="padding: 8px 0; color: #1a1a1a; font-weight: 500;">${data.imePriimek}</td>
+            <td style="padding: 8px 0; color: #1a1a1a; font-weight: 500;">${safeImePriimek}</td>
           </tr>
           <tr>
             <td style="padding: 8px 0; color: #666;">Podjetje:</td>
-            <td style="padding: 8px 0; color: #1a1a1a;">${data.podjetje || "/"}</td>
+            <td style="padding: 8px 0; color: #1a1a1a;">${safePodjetje}</td>
           </tr>
           <tr>
             <td style="padding: 8px 0; color: #666;">Email:</td>
             <td style="padding: 8px 0; color: #1a1a1a;">
-              <a href="mailto:${data.email}" style="color: #1a1a1a;">${data.email}</a>
+              <a href="mailto:${safeEmail}" style="color: #1a1a1a;">${safeEmail}</a>
             </td>
           </tr>
           <tr>
             <td style="padding: 8px 0; color: #666;">Telefon:</td>
-            <td style="padding: 8px 0; color: #1a1a1a;">${data.telefon || "/"}</td>
+            <td style="padding: 8px 0; color: #1a1a1a;">${safeTelefon}</td>
           </tr>
         </table>
 
@@ -298,10 +315,10 @@ const handler = async (req: Request): Promise<Response> => {
           </tr>
         </table>
 
-        ${data.dodatno ? `
+        ${safeDodatno ? `
         <h2 style="color: #1a1a1a; margin-top: 24px;">Dodatno</h2>
         <p style="color: #1a1a1a; background: #f5f5f5; padding: 16px; border-radius: 8px;">
-          ${data.dodatno.replace(/\n/g, "<br>")}
+          ${safeDodatno}
         </p>
         ` : ""}
 
@@ -339,14 +356,14 @@ const handler = async (req: Request): Promise<Response> => {
     if (!emailResponse.ok) {
       const errorData = await emailResponse.text();
       console.error("Resend API error:", errorData);
-      throw new Error(`Failed to send email: ${errorData}`);
+      // Throw a generic error without exposing API details
+      throw new Error("EMAIL_SEND_FAILED");
     }
 
     const emailData = await emailResponse.json();
-
     console.log("Email sent successfully:", emailData);
 
-    return new Response(JSON.stringify({ success: true, emailData }), {
+    return new Response(JSON.stringify({ success: true }), {
       status: 200,
       headers: {
         "Content-Type": "application/json",
@@ -355,8 +372,12 @@ const handler = async (req: Request): Promise<Response> => {
     });
   } catch (error: any) {
     console.error("Error in send-inquiry-email function:", error);
+    // Return generic error message to prevent information leakage
     return new Response(
-      JSON.stringify({ error: error.message }),
+      JSON.stringify({ 
+        error: "An error occurred while processing your request. Please try again later.",
+        code: "EMAIL_SEND_FAILED"
+      }),
       {
         status: 500,
         headers: { "Content-Type": "application/json", ...corsHeaders },
