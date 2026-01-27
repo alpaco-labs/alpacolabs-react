@@ -5,7 +5,7 @@ const TrustIndicatorsSection = () => {
   const { t } = useLanguage();
 
   return (
-    <section className="py-8 md:py-16 bg-muted/30 border-b border-border/50">
+    <section className="relative py-8 md:py-16 bg-muted/30">
       <div className="container px-4">
         <div className="flex flex-row justify-around items-center gap-4 md:gap-16 lg:gap-24">
           <div className="flex flex-col items-center gap-2 md:gap-3 text-center">
@@ -28,6 +28,9 @@ const TrustIndicatorsSection = () => {
           </div>
         </div>
       </div>
+      
+      {/* Bottom divider - gradient style */}
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border/50 to-transparent" />
     </section>
   );
 };
