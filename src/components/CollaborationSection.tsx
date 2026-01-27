@@ -52,19 +52,14 @@ const CollaborationSection = () => {
                   {t("collab.step")} {step.id}
                 </div>
                 
-                {/* Icon with connecting lines */}
+                {/* Icon with connecting line */}
                 <div className="relative flex items-center justify-center mb-5">
-                  {/* Left connecting line - show on steps 2 and 3 */}
-                  {index > 0 && (
-                    <div className="hidden md:block absolute right-full top-1/2 -translate-y-1/2 w-[calc(50vw/3-48px)] max-w-[120px] h-[2px] bg-muted-foreground/40 dark:bg-muted-foreground/50 mr-2" />
-                  )}
-                  
                   {/* Icon container */}
                   <div className="w-16 h-16 bg-card border-2 border-primary/20 rounded-2xl flex items-center justify-center shadow-sm relative z-10 md:transition-all md:duration-200 md:ease-out md:hover:scale-[1.03] md:hover:brightness-110 md:hover:shadow-lg md:hover:shadow-primary/10 md:hover:border-primary/40 group">
                     <step.icon size={28} className="text-primary md:transition-transform md:duration-200 md:group-hover:scale-105" />
                   </div>
                   
-                  {/* Right connecting line - show on steps 1 and 2 */}
+                  {/* Right connecting line - only show on steps 1 and 2 */}
                   {index < 2 && (
                     <div className="hidden md:block absolute left-full top-1/2 -translate-y-1/2 w-[calc(50vw/3-48px)] max-w-[120px] h-[2px] bg-muted-foreground/40 dark:bg-muted-foreground/50 ml-2" />
                   )}
