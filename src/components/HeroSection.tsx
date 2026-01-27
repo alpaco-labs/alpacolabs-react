@@ -6,14 +6,10 @@ import heroDevices from "@/assets/hero-devices.png";
 
 const HeroSection = () => {
   const { t } = useLanguage();
-  const [showNumber, setShowNumber] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   
   const phoneNumber = "+386 70 732 085";
   const phoneLink = "tel:+38670732085";
-
-  const handleDesktopClick = () => {
-    setShowNumber(true);
-  };
 
   return (
     <section className="relative min-h-[100vh] md:min-h-[90vh] flex items-center overflow-hidden pt-20 md:pt-24">
@@ -104,35 +100,24 @@ const HeroSection = () => {
                 >
                   {t("inquiry.submit")}
                 </Button>
-                {!showNumber ? (
-                  <div className="relative">
-                    <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 bg-background border border-primary/30 rounded-full text-xs font-medium text-primary whitespace-nowrap z-10 animate-badge-pulse">
-                      {t("hero.available")}
+                <div 
+                  className="relative"
+                  onMouseEnter={() => setIsHovered(true)}
+                  onMouseLeave={() => setIsHovered(false)}
+                >
+                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 bg-background border border-primary/30 rounded-full text-xs font-medium text-primary whitespace-nowrap z-10 animate-badge-pulse">
+                    {t("hero.available")}
+                  </span>
+                  <a 
+                    href={phoneLink}
+                    className="inline-flex items-center gap-2 px-6 py-3 border border-border/50 rounded-full font-semibold text-lg bg-transparent hover:bg-muted/50 transition-all duration-300"
+                  >
+                    <Phone size={18} />
+                    <span className="transition-all duration-300">
+                      {isHovered ? phoneNumber : t("cta.callButton")}
                     </span>
-                    <Button 
-                      variant="outline" 
-                      size="xl" 
-                      className="rounded-full border-border/50 bg-transparent hover:bg-muted/50"
-                      onClick={handleDesktopClick}
-                    >
-                      <Phone size={18} />
-                      {t("cta.callButton")}
-                    </Button>
-                  </div>
-                ) : (
-                  <div className="relative">
-                    <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 bg-background border border-primary/30 rounded-full text-xs font-medium text-primary whitespace-nowrap z-10 animate-badge-pulse">
-                      {t("hero.available")}
-                    </span>
-                    <a 
-                      href={phoneLink}
-                      className="inline-flex items-center gap-2 px-6 py-3 border border-border/50 rounded-full font-semibold text-lg hover:bg-muted/50 transition-colors"
-                    >
-                      <Phone size={18} />
-                      {phoneNumber}
-                    </a>
-                  </div>
-                )}
+                  </a>
+                </div>
               </div>
             </div>
 
