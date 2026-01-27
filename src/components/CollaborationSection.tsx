@@ -1,33 +1,26 @@
 import { ClipboardList, Palette, Rocket } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
-
 const CollaborationSection = () => {
-  const { t } = useLanguage();
-
-  const steps = [
-    {
-      id: 1,
-      icon: ClipboardList,
-      titleKey: "collab.step1.title",
-      descriptionKey: "collab.step1.description",
-    },
-    {
-      id: 2,
-      icon: Palette,
-      titleKey: "collab.step2.title",
-      descriptionKey: "collab.step2.description",
-    },
-    {
-      id: 3,
-      icon: Rocket,
-      titleKey: "collab.step3.title",
-      descriptionKey: "collab.step3.description",
-    },
-  ];
-
-
-  return (
-    <section id="proces" className="py-16 md:py-24 bg-secondary/30 dark:bg-secondary/20 relative">
+  const {
+    t
+  } = useLanguage();
+  const steps = [{
+    id: 1,
+    icon: ClipboardList,
+    titleKey: "collab.step1.title",
+    descriptionKey: "collab.step1.description"
+  }, {
+    id: 2,
+    icon: Palette,
+    titleKey: "collab.step2.title",
+    descriptionKey: "collab.step2.description"
+  }, {
+    id: 3,
+    icon: Rocket,
+    titleKey: "collab.step3.title",
+    descriptionKey: "collab.step3.description"
+  }];
+  return <section id="proces" className="py-16 md:py-24 bg-secondary/30 dark:bg-secondary/20 relative">
       {/* Top divider */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
       
@@ -41,12 +34,9 @@ const CollaborationSection = () => {
         {/* Steps with connecting line */}
         <div className="relative max-w-4xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
-            {steps.map((step, index) => (
-              <div
-                key={step.id}
-                className="text-center animate-slide-up relative flex flex-col items-center"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
+            {steps.map((step, index) => <div key={step.id} className="text-center animate-slide-up relative flex flex-col items-center" style={{
+            animationDelay: `${index * 0.1}s`
+          }}>
                 {/* Step number badge - positioned above icon */}
                 <div className="text-[10px] font-bold uppercase tracking-widest text-primary/70 mb-3">
                   {t("collab.step")} {step.id}
@@ -60,9 +50,7 @@ const CollaborationSection = () => {
                   </div>
                   
                   {/* Right connecting line - only show on steps 1 and 2 */}
-                  {index < 2 && (
-                    <div className="hidden md:block absolute left-full top-1/2 -translate-y-1/2 w-[calc(50vw/3-48px)] max-w-[120px] h-[2px] bg-muted-foreground/40 dark:bg-muted-foreground/50 ml-2" />
-                  )}
+                  {index < 2}
                 </div>
                 
                 <h3 className="font-heading text-lg font-semibold text-foreground mb-3">
@@ -71,8 +59,7 @@ const CollaborationSection = () => {
                 <p className="text-muted-foreground text-sm leading-relaxed max-w-xs">
                   {t(step.descriptionKey)}
                 </p>
-              </div>
-            ))}
+              </div>)}
           </div>
         </div>
 
@@ -80,8 +67,6 @@ const CollaborationSection = () => {
       
       {/* Bottom divider */}
       <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
-    </section>
-  );
+    </section>;
 };
-
 export default CollaborationSection;
