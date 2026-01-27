@@ -58,7 +58,7 @@ const translations: Record<Language, Record<string, string>> = {
     "cta.callButton": "Pokličite nas",
 
     // Portfolio
-    "portfolio.title": "Naši projekti",
+    "portfolio.title": "Primeri Strani",
     "portfolio.visualization": "Vizualizacija",
     "portfolio.demo": "Primeri so demonstracijski (demo projekti).",
     "portfolio.project1.description": "40% več povpraševanj v prvem mesecu",
