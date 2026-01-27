@@ -13,7 +13,7 @@ import osebniPortfolio2Img from "@/assets/projects/osebni-portfolio-2.png";
 
 const projects = [{
   id: 1,
-  name: "Arch Studio",
+  name: "Gradbeništvo",
   typeKey: "portfolio.package.basic",
   image: archStudioImg
 }, {
@@ -23,12 +23,12 @@ const projects = [{
   image: osebniPortfolioImg
 }, {
   id: 3,
-  name: "Perspektiva",
+  name: "Blog",
   typeKey: "portfolio.package.advanced",
   image: perspektivaImg
 }, {
   id: 4,
-  name: "Alenkine Slaščice",
+  name: "Slaščičarna",
   typeKey: "portfolio.package.standard",
   image: alenkineSlasciceImg
 }, {
