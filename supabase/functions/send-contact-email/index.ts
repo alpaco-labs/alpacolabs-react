@@ -9,6 +9,16 @@ const corsHeaders = {
     "authorization, x-client-info, apikey, content-type",
 };
 
+// HTML escape function to prevent XSS/injection in emails
+function escapeHtml(unsafe: string): string {
+  return unsafe
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
 // Server-side validation schema
 const ContactSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters").max(100).trim(),
@@ -59,7 +69,15 @@ const handler = async (req: Request): Promise<Response> => {
       minute: "2-digit",
     });
 
-    // Build plain text email body
+    // Escape all user inputs for safe HTML embedding
+    const safeName = escapeHtml(data.name);
+    const safeCompany = escapeHtml(data.company || "/");
+    const safePhone = escapeHtml(data.phone || "/");
+    const safeEmail = escapeHtml(data.email);
+    const safeMessage = data.message ? escapeHtml(data.message).replace(/\n/g, "<br>") : "/";
+    const safePackageName = data.packageName ? escapeHtml(data.packageName) : null;
+
+    // Build plain text email body (no escaping needed for plain text)
     const emailText = `Novo povpraševanje – Alpaco Labs
 
 Prejeto: ${dateStr}
@@ -82,7 +100,7 @@ ${data.message || "/"}
 ${data.packageName ? `Paket: ${data.packageName}` : ""}
 `.trim();
 
-    // Build HTML email body
+    // Build HTML email body with escaped user inputs
     const emailHtml = `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
         <h1 style="color: #1a1a1a; border-bottom: 2px solid #e5e5e5; padding-bottom: 16px; margin-bottom: 24px;">
@@ -96,31 +114,31 @@ ${data.packageName ? `Paket: ${data.packageName}` : ""}
         <table style="width: 100%; border-collapse: collapse;">
           <tr>
             <td style="padding: 12px 0; color: #666; width: 180px; vertical-align: top; border-bottom: 1px solid #eee;">Ime in priimek:</td>
-            <td style="padding: 12px 0; color: #1a1a1a; font-weight: 500; border-bottom: 1px solid #eee;">${data.name}</td>
+            <td style="padding: 12px 0; color: #1a1a1a; font-weight: 500; border-bottom: 1px solid #eee;">${safeName}</td>
           </tr>
           <tr>
             <td style="padding: 12px 0; color: #666; vertical-align: top; border-bottom: 1px solid #eee;">Ime podjetja:</td>
-            <td style="padding: 12px 0; color: #1a1a1a; border-bottom: 1px solid #eee;">${data.company || "/"}</td>
+            <td style="padding: 12px 0; color: #1a1a1a; border-bottom: 1px solid #eee;">${safeCompany}</td>
           </tr>
           <tr>
             <td style="padding: 12px 0; color: #666; vertical-align: top; border-bottom: 1px solid #eee;">Telefonska številka:</td>
-            <td style="padding: 12px 0; color: #1a1a1a; border-bottom: 1px solid #eee;">${data.phone || "/"}</td>
+            <td style="padding: 12px 0; color: #1a1a1a; border-bottom: 1px solid #eee;">${safePhone}</td>
           </tr>
           <tr>
             <td style="padding: 12px 0; color: #666; vertical-align: top; border-bottom: 1px solid #eee;">Email:</td>
             <td style="padding: 12px 0; color: #1a1a1a; border-bottom: 1px solid #eee;">
-              <a href="mailto:${data.email}" style="color: #1a1a1a;">${data.email}</a>
+              <a href="mailto:${safeEmail}" style="color: #1a1a1a;">${safeEmail}</a>
             </td>
           </tr>
           <tr>
             <td style="padding: 12px 0; color: #666; vertical-align: top;">Sporočilo uporabnika:</td>
-            <td style="padding: 12px 0; color: #1a1a1a;">${data.message ? data.message.replace(/\n/g, "<br>") : "/"}</td>
+            <td style="padding: 12px 0; color: #1a1a1a;">${safeMessage}</td>
           </tr>
         </table>
 
-        ${data.packageName ? `
+        ${safePackageName ? `
         <div style="margin-top: 24px; padding: 16px; background: #f5f5f5; border-radius: 8px;">
-          <strong>Paket:</strong> ${data.packageName}
+          <strong>Paket:</strong> ${safePackageName}
         </div>
         ` : ""}
 
@@ -150,7 +168,8 @@ ${data.packageName ? `Paket: ${data.packageName}` : ""}
     if (!emailResponse.ok) {
       const errorData = await emailResponse.text();
       console.error("Resend API error:", errorData);
-      throw new Error(`Failed to send email: ${errorData}`);
+      // Throw a generic error without exposing API details
+      throw new Error("EMAIL_SEND_FAILED");
     }
 
     const emailData = await emailResponse.json();
@@ -165,8 +184,12 @@ ${data.packageName ? `Paket: ${data.packageName}` : ""}
     });
   } catch (error: any) {
     console.error("Error in send-contact-email function:", error);
+    // Return generic error message to prevent information leakage
     return new Response(
-      JSON.stringify({ error: error.message }),
+      JSON.stringify({ 
+        error: "An error occurred while processing your request. Please try again later.",
+        code: "EMAIL_SEND_FAILED"
+      }),
       {
         status: 500,
         headers: { "Content-Type": "application/json", ...corsHeaders },
