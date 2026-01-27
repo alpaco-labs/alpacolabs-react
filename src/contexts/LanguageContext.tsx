@@ -11,7 +11,7 @@ interface LanguageContextType {
 const translations: Record<Language, Record<string, string>> = {
   sl: {
     // Header
-    "nav.portfolio": "Portfolio",
+    "nav.portfolio": "Projekti",
     "nav.services": "Paketi",
     "nav.process": "Proces",
     "nav.faq": "FAQ",
@@ -220,7 +220,7 @@ const translations: Record<Language, Record<string, string>> = {
   },
   en: {
     // Header
-    "nav.portfolio": "Portfolio",
+    "nav.portfolio": "Projects",
     "nav.services": "Services",
     "nav.process": "Process",
     "nav.faq": "FAQ",
