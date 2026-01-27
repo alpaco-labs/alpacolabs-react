@@ -11,6 +11,8 @@ import {
 } from "@/components/ui/dialog";
 import { Check } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "@/hooks/use-toast";
 
 interface InquiryFormModalProps {
   isOpen: boolean;
@@ -57,11 +59,40 @@ export const InquiryFormModal = ({ isOpen, onClose, packageName }: InquiryFormMo
     
     setIsSubmitting(true);
     
-    // Simulate submission
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    setIsSubmitting(false);
-    setIsSubmitted(true);
+    try {
+      const { data, error } = await supabase.functions.invoke('send-contact-email', {
+        body: {
+          name: formData.name.trim(),
+          company: formData.company.trim() || null,
+          phone: formData.phone.trim() || null,
+          email: formData.email.trim(),
+          message: formData.message.trim() || null,
+          packageName: packageName || null,
+        },
+      });
+
+      if (error) {
+        console.error('Error sending email:', error);
+        toast({
+          title: "Napaka",
+          description: "Prišlo je do napake. Prosimo, poskusite znova.",
+          variant: "destructive",
+        });
+        setIsSubmitting(false);
+        return;
+      }
+
+      setIsSubmitting(false);
+      setIsSubmitted(true);
+    } catch (error) {
+      console.error('Error:', error);
+      toast({
+        title: "Napaka",
+        description: "Prišlo je do napake. Prosimo, poskusite znova.",
+        variant: "destructive",
+      });
+      setIsSubmitting(false);
+    }
   };
 
   const handleClose = () => {
