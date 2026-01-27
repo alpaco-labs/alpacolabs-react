@@ -41,7 +41,7 @@ const translations: Record<Language, Record<string, string>> = {
     "inquiry.emailLabel": "Email",
     "inquiry.emailPlaceholder": "janez@email.com",
     "inquiry.messageLabel": "Napiši nekaj o sebi in kaj potrebuješ",
-    "inquiry.messagePlaceholder": "Na kratko opiši svoj projekt, cilje ali vprašanja.",
+    "inquiry.messagePlaceholder": "Na kratko opiši projekt, želje ali vprašanja.",
     "inquiry.submit": "Pošlji povpraševanje",
     "inquiry.submitting": "Pošiljam...",
     "inquiry.successTitle": "Hvala za povpraševanje!",
