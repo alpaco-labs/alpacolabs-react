@@ -7,6 +7,7 @@ import InquiryFormModal from "@/components/InquiryFormModal";
 const CTASection = () => {
   const { t } = useLanguage();
   const [isInquiryOpen, setIsInquiryOpen] = useState(false);
+  const [showNumber, setShowNumber] = useState(false);
 
   const phoneNumber = "+386 70 732 085";
   const phoneLink = "tel:+38670732085";
@@ -71,12 +72,10 @@ const CTASection = () => {
                 variant="outline" 
                 size="xl" 
                 className="rounded-full border-border/50 bg-transparent hover:bg-muted/50"
-                asChild
+                onClick={() => setShowNumber(true)}
               >
-                <a href={phoneLink} className="flex items-center justify-center gap-2">
-                  <Phone size={18} />
-                  {t("cta.callButton")}
-                </a>
+                <Phone size={18} />
+                {showNumber ? phoneNumber : t("cta.callButton")}
               </Button>
             </div>
           </div>
