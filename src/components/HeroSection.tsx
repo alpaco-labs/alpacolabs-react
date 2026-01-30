@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Phone, Sparkles } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -6,7 +5,6 @@ import heroDevices from "@/assets/hero-devices.png";
 
 const HeroSection = () => {
   const { t } = useLanguage();
-  const [isHovered, setIsHovered] = useState(false);
   
   const phoneNumber = "+386 70 732 085";
   const phoneLink = "tel:+38670732085";
@@ -100,23 +98,21 @@ const HeroSection = () => {
                 >
                   {t("inquiry.submit")}
                 </Button>
-                <div 
-                  className="relative"
-                  onMouseEnter={() => setIsHovered(true)}
-                  onMouseLeave={() => setIsHovered(false)}
-                >
+                <div className="relative">
                   <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 bg-background border border-primary/30 rounded-full text-xs font-medium text-primary whitespace-nowrap z-10 animate-badge-pulse">
                     {t("hero.available")}
                   </span>
-                  <a 
-                    href={phoneLink}
-                    className="inline-flex items-center gap-2 px-6 py-3 border border-border/50 rounded-full font-semibold text-lg bg-transparent hover:bg-muted/50 transition-all duration-300"
+                  <Button 
+                    variant="outline" 
+                    size="xl" 
+                    className="rounded-full border-border/50 bg-transparent hover:bg-muted/50"
+                    asChild
                   >
-                    <Phone size={18} />
-                    <span className="transition-all duration-300">
-                      {isHovered ? phoneNumber : t("cta.callButton")}
-                    </span>
-                  </a>
+                    <a href={phoneLink} className="flex items-center justify-center gap-2">
+                      <Phone size={18} />
+                      {t("cta.callButton")}
+                    </a>
+                  </Button>
                 </div>
               </div>
             </div>
