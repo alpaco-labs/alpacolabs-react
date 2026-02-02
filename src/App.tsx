@@ -25,20 +25,20 @@ const App = () => (
   <QueryClientProvider client={queryClient}>
     <DarkModeEnforcer>
       <LanguageProvider>
-        <InquiryModalProvider>
-          <TooltipProvider>
-            <Toaster />
-            <Sonner />
-            <BrowserRouter>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <InquiryModalProvider>
               <ScrollToTop />
               <Routes>
                 <Route path="/" element={<Index />} />
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                 <Route path="*" element={<NotFound />} />
               </Routes>
-            </BrowserRouter>
-          </TooltipProvider>
-        </InquiryModalProvider>
+            </InquiryModalProvider>
+          </BrowserRouter>
+        </TooltipProvider>
       </LanguageProvider>
     </DarkModeEnforcer>
   </QueryClientProvider>
