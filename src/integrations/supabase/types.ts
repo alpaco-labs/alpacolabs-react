@@ -14,6 +14,42 @@ export type Database = {
   }
   public: {
     Tables: {
+      contact_submissions: {
+        Row: {
+          company: string | null
+          created_at: string
+          email: string
+          email_sent: boolean | null
+          id: string
+          message: string | null
+          name: string
+          package_name: string | null
+          phone: string | null
+        }
+        Insert: {
+          company?: string | null
+          created_at?: string
+          email: string
+          email_sent?: boolean | null
+          id?: string
+          message?: string | null
+          name: string
+          package_name?: string | null
+          phone?: string | null
+        }
+        Update: {
+          company?: string | null
+          created_at?: string
+          email?: string
+          email_sent?: boolean | null
+          id?: string
+          message?: string | null
+          name?: string
+          package_name?: string | null
+          phone?: string | null
+        }
+        Relationships: []
+      }
       inquiry_rate_limits: {
         Row: {
           created_at: string
