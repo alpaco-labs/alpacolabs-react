@@ -2,11 +2,11 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Phone } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
-import InquiryFormModal from "@/components/InquiryFormModal";
+import { useInquiryModal } from "@/contexts/InquiryModalContext";
 
 const CTASection = () => {
   const { t } = useLanguage();
-  const [isInquiryOpen, setIsInquiryOpen] = useState(false);
+  const { openInquiryModal } = useInquiryModal();
   const [showNumber, setShowNumber] = useState(false);
 
   const phoneNumber = "+386 70 732 085";
@@ -32,7 +32,7 @@ const CTASection = () => {
               variant="hero" 
               size="xl" 
               className="w-full rounded-full"
-              onClick={() => setIsInquiryOpen(true)}
+              onClick={() => openInquiryModal()}
             >
               {t("inquiry.submit")}
             </Button>
@@ -60,7 +60,7 @@ const CTASection = () => {
               variant="hero" 
               size="xl" 
               className="rounded-full"
-              onClick={() => setIsInquiryOpen(true)}
+              onClick={() => openInquiryModal()}
             >
               {t("inquiry.submit")}
             </Button>
@@ -81,11 +81,6 @@ const CTASection = () => {
           </div>
         </div>
       </div>
-
-      <InquiryFormModal 
-        isOpen={isInquiryOpen} 
-        onClose={() => setIsInquiryOpen(false)} 
-      />
     </section>
   );
 };

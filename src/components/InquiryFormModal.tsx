@@ -75,7 +75,7 @@ export const InquiryFormModal = ({ isOpen, onClose, packageName }: InquiryFormMo
         console.error('Error sending email:', error);
         toast({
           title: "Napaka",
-          description: "Prišlo je do napake. Prosimo, poskusite znova.",
+          description: "Povpraševanje ni bilo poslano. Poskusi znova ali nas pokliči.",
           variant: "destructive",
         });
         setIsSubmitting(false);
@@ -88,7 +88,7 @@ export const InquiryFormModal = ({ isOpen, onClose, packageName }: InquiryFormMo
       console.error('Error:', error);
       toast({
         title: "Napaka",
-        description: "Prišlo je do napake. Prosimo, poskusite znova.",
+        description: "Povpraševanje ni bilo poslano. Poskusi znova ali nas pokliči.",
         variant: "destructive",
       });
       setIsSubmitting(false);

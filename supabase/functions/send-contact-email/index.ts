@@ -1,12 +1,15 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { z } from "https://deno.land/x/zod@v3.22.4/mod.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.39.3";
 
 const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
+const SUPABASE_URL = Deno.env.get("SUPABASE_URL");
+const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers":
-    "authorization, x-client-info, apikey, content-type",
+    "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
 
 // HTML escape function to prevent XSS/injection in emails
@@ -60,6 +63,37 @@ const handler = async (req: Request): Promise<Response> => {
 
     const data: ContactEmailRequest = parseResult.data;
 
+    // Initialize Supabase client with service role for database operations
+    const supabase = createClient(SUPABASE_URL!, SUPABASE_SERVICE_ROLE_KEY!);
+
+    // Store submission in database FIRST as backup (before attempting email)
+    let submissionId: string | null = null;
+    try {
+      const { data: insertedData, error: dbError } = await supabase
+        .from("contact_submissions")
+        .insert({
+          name: data.name,
+          company: data.company || null,
+          phone: data.phone || null,
+          email: data.email,
+          message: data.message || null,
+          package_name: data.packageName || null,
+          email_sent: false,
+        })
+        .select("id")
+        .single();
+
+      if (dbError) {
+        console.error("Database insert error:", dbError);
+      } else {
+        submissionId = insertedData?.id;
+        console.log("Submission saved to database with ID:", submissionId);
+      }
+    } catch (dbErr) {
+      console.error("Database operation failed:", dbErr);
+      // Continue with email even if DB fails
+    }
+
     const now = new Date();
     const dateStr = now.toLocaleDateString("sl-SI", {
       year: "numeric",
@@ -94,7 +128,7 @@ ${data.phone || "/"}
 Email:
 ${data.email}
 
-Sporočilo uporabnika:
+Napiši nekaj o sebi in kaj potrebuješ:
 ${data.message || "/"}
 
 ${data.packageName ? `Paket: ${data.packageName}` : ""}
@@ -131,7 +165,7 @@ ${data.packageName ? `Paket: ${data.packageName}` : ""}
             </td>
           </tr>
           <tr>
-            <td style="padding: 12px 0; color: #666; vertical-align: top;">Sporočilo uporabnika:</td>
+            <td style="padding: 12px 0; color: #666; vertical-align: top;">Napiši nekaj o sebi in kaj potrebuješ:</td>
             <td style="padding: 12px 0; color: #1a1a1a;">${safeMessage}</td>
           </tr>
         </table>
@@ -147,6 +181,12 @@ ${data.packageName ? `Paket: ${data.packageName}` : ""}
         </p>
       </div>
     `;
+
+    // Check if RESEND_API_KEY is configured
+    if (!RESEND_API_KEY) {
+      console.error("RESEND_API_KEY is not configured");
+      throw new Error("EMAIL_CONFIG_ERROR");
+    }
 
     // Send email using Resend API
     const emailResponse = await fetch("https://api.resend.com/emails", {
@@ -168,12 +208,24 @@ ${data.packageName ? `Paket: ${data.packageName}` : ""}
     if (!emailResponse.ok) {
       const errorData = await emailResponse.text();
       console.error("Resend API error:", errorData);
-      // Throw a generic error without exposing API details
       throw new Error("EMAIL_SEND_FAILED");
     }
 
     const emailData = await emailResponse.json();
     console.log("Email sent successfully:", emailData);
+
+    // Update database record to mark email as sent
+    if (submissionId && supabase) {
+      try {
+        await supabase
+          .from("contact_submissions")
+          .update({ email_sent: true })
+          .eq("id", submissionId);
+        console.log("Database record updated: email_sent = true");
+      } catch (updateErr) {
+        console.error("Failed to update email_sent status:", updateErr);
+      }
+    }
 
     return new Response(JSON.stringify({ success: true }), {
       status: 200,
@@ -187,7 +239,7 @@ ${data.packageName ? `Paket: ${data.packageName}` : ""}
     // Return generic error message to prevent information leakage
     return new Response(
       JSON.stringify({ 
-        error: "An error occurred while processing your request. Please try again later.",
+        error: "Povpraševanje ni bilo poslano. Poskusi znova ali nas pokliči.",
         code: "EMAIL_SEND_FAILED"
       }),
       {
