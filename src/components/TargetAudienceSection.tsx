@@ -21,7 +21,7 @@ const TargetAudienceSection = () => {
                 {benefits.map((benefitKey, index) => (
                   <li 
                     key={index} 
-                    className="flex items-center gap-3 animate-slide-up rounded-lg px-4 py-2.5 bg-card text-center" 
+                    className="flex items-center gap-3 animate-slide-up py-1.5" 
                     style={{ animationDelay: `${index * 0.1}s` }}
                   >
                     <div className="w-5 h-5 rounded-full bg-primary/15 flex items-center justify-center flex-shrink-0">
