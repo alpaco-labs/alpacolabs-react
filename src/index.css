@@ -97,6 +97,11 @@
       radial-gradient(ellipse 80% 35% at 40% 100%, hsla(210, 100%, 55%, 0.25) 0%, transparent 60%),
       radial-gradient(ellipse 60% 25% at 60% 100%, hsla(185, 100%, 60%, 0.2) 0%, transparent 50%);
   }
+
+  /* Capitalize first letter */
+  .capitalize-first::first-letter {
+    text-transform: uppercase;
+  }
 }
 
 @layer utilities {

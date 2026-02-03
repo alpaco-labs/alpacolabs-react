@@ -27,7 +27,7 @@ const TargetAudienceSection = () => {
                     <div className="w-5 h-5 rounded-full bg-primary/15 flex items-center justify-center flex-shrink-0">
                       <Check size={12} className="text-primary" />
                     </div>
-                    <span className="text-foreground/90 text-sm md:text-base leading-snug">
+                    <span className="text-foreground/90 text-sm md:text-base leading-snug capitalize-first">
                       {t(benefitKey)}
                     </span>
                   </li>
