@@ -123,7 +123,7 @@ const HeroSection = () => {
           animationDelay: "0.3s"
         }}>
           <div className="absolute inset-0 bg-gradient-radial from-primary/10 to-transparent rounded-full blur-2xl" />
-          <img src={heroDevices} alt="Primeri spletnih strani na različnih napravah" className="w-full max-w-md object-contain drop-shadow-2xl relative z-10" />
+          <img src="/lovable-uploads/7ac4c0a0-350c-406e-bd69-897ba3786f86.png" alt="Primeri spletnih strani na različnih napravah" className="w-full max-w-md object-contain drop-shadow-2xl relative z-10" />
         </div>
       </div>
 
