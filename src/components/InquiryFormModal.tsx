@@ -11,8 +11,8 @@ import {
 } from "@/components/ui/dialog";
 import { Check } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { supabase } from "@/integrations/supabase/client";
-import { toast } from "@/hooks/use-toast";
+
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/mjgozjvo";
 
 interface InquiryFormModalProps {
   isOpen: boolean;
@@ -30,8 +30,10 @@ export const InquiryFormModal = ({ isOpen, onClose, packageName }: InquiryFormMo
     phone: "",
     email: "",
     message: "",
+    website: "", // honeypot field
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
@@ -54,51 +56,56 @@ export const InquiryFormModal = ({ isOpen, onClose, packageName }: InquiryFormMo
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setSubmitError(null);
+    
+    // Honeypot check - if filled, silently "succeed"
+    if (formData.website) {
+      setIsSubmitted(true);
+      return;
+    }
     
     if (!validateForm()) return;
     
     setIsSubmitting(true);
     
     try {
-      const { data, error } = await supabase.functions.invoke('send-contact-email', {
-        body: {
-          name: formData.name.trim(),
-          company: formData.company.trim() || null,
-          phone: formData.phone.trim() || null,
-          email: formData.email.trim(),
-          message: formData.message.trim() || null,
-          packageName: packageName || null,
+      const response = await fetch(FORMSPREE_ENDPOINT, {
+        method: "POST",
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
         },
+        body: JSON.stringify({
+          full_name: formData.name.trim(),
+          company: formData.company.trim() || "",
+          phone: formData.phone.trim() || "",
+          email: formData.email.trim(),
+          message: formData.message.trim() || "",
+          package: packageName || "Brez paketa",
+          page_url: window.location.href,
+        }),
       });
 
-      if (error) {
-        console.error('Error sending email:', error);
-        toast({
-          title: "Napaka",
-          description: "Povpraševanje ni bilo poslano. Poskusi znova ali nas pokliči.",
-          variant: "destructive",
-        });
+      if (response.ok) {
         setIsSubmitting(false);
-        return;
+        setIsSubmitted(true);
+      } else {
+        console.error('Formspree error:', response.status);
+        setSubmitError("Prišlo je do napake. Poskusi znova ali nas pokliči.");
+        setIsSubmitting(false);
       }
-
-      setIsSubmitting(false);
-      setIsSubmitted(true);
     } catch (error) {
       console.error('Error:', error);
-      toast({
-        title: "Napaka",
-        description: "Povpraševanje ni bilo poslano. Poskusi znova ali nas pokliči.",
-        variant: "destructive",
-      });
+      setSubmitError("Prišlo je do napake. Poskusi znova ali nas pokliči.");
       setIsSubmitting(false);
     }
   };
 
   const handleClose = () => {
     setIsSubmitted(false);
-    setFormData({ name: "", company: "", phone: "", email: "", message: "" });
+    setFormData({ name: "", company: "", phone: "", email: "", message: "", website: "" });
     setErrors({});
+    setSubmitError(null);
     onClose();
   };
 
@@ -107,14 +114,14 @@ export const InquiryFormModal = ({ isOpen, onClose, packageName }: InquiryFormMo
       <Dialog open={isOpen} onOpenChange={handleClose}>
         <DialogContent className="sm:max-w-md border-border bg-card">
           <div className="flex flex-col items-center justify-center py-8 text-center">
-            <div className="w-16 h-16 rounded-full bg-emerald-500/20 flex items-center justify-center mb-6">
-              <Check className="w-8 h-8 text-emerald-500" />
+            <div className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center mb-6">
+              <Check className="w-8 h-8 text-primary" />
             </div>
             <h3 className="font-heading text-xl font-semibold text-foreground mb-2">
-              {t("inquiry.successTitle")}
+              Hvala za povpraševanje!
             </h3>
             <p className="text-muted-foreground mb-6">
-              {t("inquiry.successDescription")}
+              Slišimo se v najkrajšem možnem času.
             </p>
             <Button onClick={handleClose} variant="outline">
               {t("inquiry.close")}
@@ -204,6 +211,21 @@ export const InquiryFormModal = ({ isOpen, onClose, packageName }: InquiryFormMo
               className="resize-none"
             />
           </div>
+
+          {/* Honeypot field - hidden from users */}
+          <input
+            type="text"
+            name="website"
+            value={formData.website}
+            onChange={(e) => setFormData({ ...formData, website: e.target.value })}
+            className="absolute -left-[9999px] opacity-0 pointer-events-none"
+            tabIndex={-1}
+            autoComplete="off"
+          />
+
+          {submitError && (
+            <p className="text-sm text-destructive text-center">{submitError}</p>
+          )}
           
           <Button 
             type="submit" 
