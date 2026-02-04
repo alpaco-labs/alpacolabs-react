@@ -1,12 +1,11 @@
 import { useEffect, useRef } from "react";
 import { useCookieConsent } from "@/contexts/CookieConsentContext";
-import { initGooglePixel, trackPageView, trackLead } from "@/lib/tracking";
+import { initGooglePixel, initMetaPixel, trackPageView, trackLead } from "@/lib/tracking";
 
 // Replace with your actual Google Analytics Measurement ID
 const GOOGLE_MEASUREMENT_ID = "G-XXXXXXXXXX";
 
-// Replace with your actual Meta Pixel ID if using
-// const META_PIXEL_ID = "XXXXXXXXXX";
+const META_PIXEL_ID = "889583790456180";
 
 export const useTracking = () => {
   const { isMarketingAllowed } = useCookieConsent();
@@ -18,8 +17,8 @@ export const useTracking = () => {
       // Initialize Google Pixel
       initGooglePixel(GOOGLE_MEASUREMENT_ID);
       
-      // Uncomment to enable Meta Pixel
-      // initMetaPixel(META_PIXEL_ID);
+      // Initialize Meta (Facebook) Pixel
+      initMetaPixel(META_PIXEL_ID);
       
       // Track initial page view
       trackPageView();
