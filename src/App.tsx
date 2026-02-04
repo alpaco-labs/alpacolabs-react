@@ -10,6 +10,7 @@ import { CookieConsentProvider } from "@/contexts/CookieConsentContext";
 import ScrollToTop from "./components/ScrollToTop";
 import CookieConsentBanner from "./components/CookieConsentBanner";
 import Index from "./pages/Index";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 import NotFound from "./pages/NotFound";
 import { useEffect } from "react";
 
@@ -34,11 +35,12 @@ const App = () => (
             <BrowserRouter>
               <InquiryModalProvider>
                 <ScrollToTop />
-                <Routes>
-                  <Route path="/" element={<Index />} />
-                  {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-                  <Route path="*" element={<NotFound />} />
-                </Routes>
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/politika-zasebnosti" element={<PrivacyPolicy />} />
+                {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                <Route path="*" element={<NotFound />} />
+              </Routes>
                 <CookieConsentBanner />
               </InquiryModalProvider>
             </BrowserRouter>
