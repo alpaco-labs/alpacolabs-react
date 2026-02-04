@@ -6,7 +6,9 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { InquiryModalProvider } from "@/contexts/InquiryModalContext";
+import { CookieConsentProvider } from "@/contexts/CookieConsentContext";
 import ScrollToTop from "./components/ScrollToTop";
+import CookieConsentBanner from "./components/CookieConsentBanner";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import { useEffect } from "react";
@@ -24,22 +26,25 @@ const DarkModeEnforcer = ({ children }: { children: React.ReactNode }) => {
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <DarkModeEnforcer>
-      <LanguageProvider>
-        <TooltipProvider>
-          <Toaster />
-          <Sonner />
-          <BrowserRouter>
-            <InquiryModalProvider>
-              <ScrollToTop />
-              <Routes>
-                <Route path="/" element={<Index />} />
-                {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </InquiryModalProvider>
-          </BrowserRouter>
-        </TooltipProvider>
-      </LanguageProvider>
+      <CookieConsentProvider>
+        <LanguageProvider>
+          <TooltipProvider>
+            <Toaster />
+            <Sonner />
+            <BrowserRouter>
+              <InquiryModalProvider>
+                <ScrollToTop />
+                <Routes>
+                  <Route path="/" element={<Index />} />
+                  {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+                <CookieConsentBanner />
+              </InquiryModalProvider>
+            </BrowserRouter>
+          </TooltipProvider>
+        </LanguageProvider>
+      </CookieConsentProvider>
     </DarkModeEnforcer>
   </QueryClientProvider>
 );

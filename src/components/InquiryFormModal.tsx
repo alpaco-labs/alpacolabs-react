@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/dialog";
 import { Check } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import useTracking from "@/hooks/useTracking";
 
 const FORMSPREE_ENDPOINT = "https://formspree.io/f/mjgozjvo";
 
@@ -22,6 +23,7 @@ interface InquiryFormModalProps {
 
 export const InquiryFormModal = ({ isOpen, onClose, packageName }: InquiryFormModalProps) => {
   const { t } = useLanguage();
+  const { trackLead } = useTracking();
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
@@ -87,6 +89,12 @@ export const InquiryFormModal = ({ isOpen, onClose, packageName }: InquiryFormMo
       });
 
       if (response.ok) {
+        // Track Lead event for successful form submission
+        trackLead({
+          package: packageName || "Brez paketa",
+          source: "inquiry_form",
+        });
+        
         setIsSubmitting(false);
         setIsSubmitted(true);
       } else {
