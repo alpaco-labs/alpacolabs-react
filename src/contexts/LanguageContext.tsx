@@ -152,6 +152,7 @@ const translations: Record<Language, Record<string, string>> = {
     "footer.description": "Spletne strani, ki prinašajo povpraševanja. Od ideje do online v nekaj dneh.",
     "footer.contact": "Kontakt",
     "footer.social": "Družbena omrežja",
+    "footer.privacy": "Politika zasebnosti",
     "footer.rights": "Vse pravice pridržane.",
     "footer.location": "Blagovica, Slovenija",
 
@@ -361,6 +362,7 @@ const translations: Record<Language, Record<string, string>> = {
     "footer.description": "Websites that generate leads. From idea to online in a few days.",
     "footer.contact": "Contact",
     "footer.social": "Social Media",
+    "footer.privacy": "Privacy Policy",
     "footer.rights": "All rights reserved.",
     "footer.location": "Blagovica, Slovenia",
 
