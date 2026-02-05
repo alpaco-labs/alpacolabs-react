@@ -65,14 +65,11 @@ const Footer = () => {
           <div>
             <h4 className="font-heading font-semibold text-foreground mb-5">{t("footer.social")}</h4>
             <div className="flex gap-6 mb-6">
-              <a href="#" className="text-muted-foreground hover:text-foreground transition-colors duration-300 text-sm">
-                LinkedIn
-              </a>
-              <a href="#" className="text-muted-foreground hover:text-foreground transition-colors duration-300 text-sm">
+              <a href="https://www.instagram.com/alpacolabs" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors duration-300 text-sm">
                 Instagram
               </a>
-              <a href="#" className="text-muted-foreground hover:text-foreground transition-colors duration-300 text-sm">
-                Twitter
+              <a href="https://www.facebook.com/profile.php?id=61587378269518" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors duration-300 text-sm">
+                Facebook
               </a>
             </div>
             <LanguageSwitcher />
