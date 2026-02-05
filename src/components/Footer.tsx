@@ -22,7 +22,7 @@ const Footer = () => {
                 </span>
               </Link>
               <p className="mt-4 text-muted-foreground text-sm max-w-xs leading-relaxed">
-                Spletne strani, ki prinašajo povpraševanja. Od ideje do online v nekaj dneh.
+                {t("footer.description")}
               </p>
             </div>
             {/* Alpaca mascot */}
