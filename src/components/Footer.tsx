@@ -76,7 +76,13 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="mt-16 pt-8 border-t border-border/50">
+        <div className="mt-16 pt-8 border-t border-border/50 flex flex-col items-center gap-3">
+          <Link 
+            to="/politika-zasebnosti" 
+            className="text-muted-foreground hover:text-foreground transition-colors duration-300 text-sm"
+          >
+            {t("footer.privacy")}
+          </Link>
           <p className="text-muted-foreground text-sm text-center">
             © {new Date().getFullYear()} ALPACO LABS. {t("footer.rights")}
           </p>
