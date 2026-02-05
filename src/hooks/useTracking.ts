@@ -2,8 +2,7 @@ import { useEffect, useRef } from "react";
 import { useCookieConsent } from "@/contexts/CookieConsentContext";
 import { initGooglePixel, initMetaPixel, trackPageView, trackLead } from "@/lib/tracking";
 
-// Replace with your actual Google Analytics Measurement ID
-const GOOGLE_MEASUREMENT_ID = "G-XXXXXXXXXX";
+const GOOGLE_MEASUREMENT_ID = "G-29J2N7NHX0";
 
 const META_PIXEL_ID = "889583790456180";
 
