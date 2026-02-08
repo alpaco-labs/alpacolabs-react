@@ -4,12 +4,11 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import logoDark from "@/assets/logo-dark.png";
 import footerAlpacaDark from "@/assets/footer-alpaca-dark.png";
-
 const Footer = () => {
-  const { t } = useLanguage();
-
-  return (
-    <footer className="bg-muted/30 border-t border-border/50">
+  const {
+    t
+  } = useLanguage();
+  return <footer className="bg-muted/30 border-t border-border/50">
       <div className="container py-16 md:py-20">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 max-w-5xl mx-auto items-start">
           {/* Brand with Alpaca */}
@@ -18,7 +17,7 @@ const Footer = () => {
               <Link to="/" className="flex items-center gap-2">
                 <img src={logoDark} alt="Alpaca Labs" className="h-8 w-auto" />
                 <span className="font-heading text-xl font-semibold tracking-tight text-foreground">
-                  ALPACA LABS
+                  ALPACO LABS
                 </span>
               </Link>
               <p className="mt-4 text-muted-foreground text-sm max-w-xs leading-relaxed">
@@ -27,15 +26,10 @@ const Footer = () => {
             </div>
             {/* Alpaca mascot */}
             <div className="flex-shrink-0">
-              <img 
-                src={footerAlpacaDark} 
-                alt="Alpaco Labs mascot" 
-                className="w-24 h-auto object-contain"
-                style={{
-                  maskImage: 'linear-gradient(to bottom, black 85%, transparent 100%)',
-                  WebkitMaskImage: 'linear-gradient(to bottom, black 85%, transparent 100%)'
-                }}
-              />
+              <img src={footerAlpacaDark} alt="Alpaco Labs mascot" className="w-24 h-auto object-contain" style={{
+              maskImage: 'linear-gradient(to bottom, black 85%, transparent 100%)',
+              WebkitMaskImage: 'linear-gradient(to bottom, black 85%, transparent 100%)'
+            }} />
             </div>
           </div>
 
@@ -77,10 +71,7 @@ const Footer = () => {
         </div>
 
         <div className="mt-16 pt-8 border-t border-border/50 flex flex-col items-center gap-3">
-          <Link 
-            to="/politika-zasebnosti" 
-            className="text-muted-foreground hover:text-foreground transition-colors duration-300 text-sm"
-          >
+          <Link to="/politika-zasebnosti" className="text-muted-foreground hover:text-foreground transition-colors duration-300 text-sm">
             {t("footer.privacy")}
           </Link>
           <p className="text-muted-foreground text-sm text-center">
@@ -88,8 +79,6 @@ const Footer = () => {
           </p>
         </div>
       </div>
-    </footer>
-  );
+    </footer>;
 };
-
 export default Footer;
