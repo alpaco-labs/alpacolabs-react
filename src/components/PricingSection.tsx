@@ -32,7 +32,7 @@ const packages: Package[] = [
     id: 2,
     name: "Standardni paket",
     subtitle: "Za večino malih podjetij",
-    originalPrice: "35 €",
+    originalPrice: "45 €",
     price: "25 €",
     features: [
       "Večstranska spletna stran",
