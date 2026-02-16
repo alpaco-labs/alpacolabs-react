@@ -18,7 +18,7 @@ const packages: Package[] = [
     id: 1,
     name: "Osnovni paket",
     subtitle: "Za enostavno spletno prisotnost",
-    originalPrice: "15 €",
+    originalPrice: "20 €",
     price: "10 €",
     features: [
       "Enostavna spletna stran ali landing page",
